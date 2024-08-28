@@ -30,6 +30,9 @@
     "dist",
     "src"
   ],
+  "scripts": {
+    "build": "cp src/react-table.css dist/"
+  },
   "dependencies": {
     "css-loader": "^2.1.1",
     "react-table": "^6.10.0",

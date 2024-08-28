@@ -23,7 +23,7 @@
   },
   "scripts": {
     "bootstrap": "yarn && ocular-bootstrap && npm run build",
-    "build": "ocular-clean && ocular-build",
+    "build": "ocular-clean && npx lerna run build && ocular-build",
     "lint": "ocular-lint",
     "publish-prod": "ocular-publish version-only-prod",
     "publish-beta": "ocular-publish version-only-beta",
