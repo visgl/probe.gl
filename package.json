@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/uber-web/probe.gl.git"
+    "url": "https://github.com/visgl/probe.gl.git"
   },
   "workspaces": [
     "examples/*",
@@ -28,7 +28,7 @@
     "publish-prod": "ocular-publish version-only-prod",
     "publish-beta": "ocular-publish version-only-beta",
     "test": "ocular-test",
-    "test-fast": "ocular-lint pre-commit && ocular-test node"
+    "test-fast": "ocular-lint && ocular-test node"
   },
   "devDependencies": {
     "@types/tape-promise": "^4.0.1",
