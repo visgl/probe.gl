@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v4.1.0-alpha.1
+
+- chore: Switch to @vis.gl/dev-tools and CI release
+
 ## v4.0.9
 
 - fix(env): Fix regression in isBrowser() check (#253)

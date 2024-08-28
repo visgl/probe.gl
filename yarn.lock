@@ -1631,29 +1631,69 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@probe.gl/bench@npm:4.0.9, @probe.gl/bench@workspace:modules/bench":
+"@probe.gl/bench@npm:4.0.9":
+  version: 4.0.9
+  resolution: "@probe.gl/bench@npm:4.0.9"
+  dependencies:
+    "@probe.gl/log": "npm:4.0.9"
+  checksum: 10c0/1291df8e56fa5b2a1ef81030d13fd15ae4aa8f152e734449ef46a0965f4aa57fcfac2768c3fa0045b4ba60068ccc265fde037b56dd74619da351c819dfe42609
+  languageName: node
+  linkType: hard
+
+"@probe.gl/bench@workspace:modules/bench":
   version: 0.0.0-use.local
   resolution: "@probe.gl/bench@workspace:modules/bench"
   dependencies:
-    "@probe.gl/log": "npm:4.0.9"
+    "@probe.gl/log": "npm:4.1.0-alpha.1"
   languageName: unknown
   linkType: soft
 
-"@probe.gl/env@npm:4.0.9, @probe.gl/env@workspace:modules/env":
+"@probe.gl/env@npm:4.0.9":
+  version: 4.0.9
+  resolution: "@probe.gl/env@npm:4.0.9"
+  checksum: 10c0/c6fcd1742aea014d15fe36a6cf0724d7faf3eeda27856978d87c1658b26ceaefc86254b011de65de35c1dfc0e3074fdbeaef5fd4362a05541a5e46b880e4024f
+  languageName: node
+  linkType: hard
+
+"@probe.gl/env@npm:4.1.0-alpha.1, @probe.gl/env@workspace:modules/env":
   version: 0.0.0-use.local
   resolution: "@probe.gl/env@workspace:modules/env"
   languageName: unknown
   linkType: soft
 
-"@probe.gl/log@npm:4.0.9, @probe.gl/log@workspace:modules/log":
+"@probe.gl/log@npm:4.0.9":
+  version: 4.0.9
+  resolution: "@probe.gl/log@npm:4.0.9"
+  dependencies:
+    "@probe.gl/env": "npm:4.0.9"
+  checksum: 10c0/23521b46fdda80470d8b38d70c62d77f3b50257a63b3e7660655936593cf5f54ec7f1e2b0a36e8ecb7635c7fd45280bb66bd379a3e58afbde99f23d46f43c112
+  languageName: node
+  linkType: hard
+
+"@probe.gl/log@npm:4.1.0-alpha.1, @probe.gl/log@workspace:modules/log":
   version: 0.0.0-use.local
   resolution: "@probe.gl/log@workspace:modules/log"
   dependencies:
-    "@probe.gl/env": "npm:4.0.9"
+    "@probe.gl/env": "npm:4.1.0-alpha.1"
   languageName: unknown
   linkType: soft
 
-"@probe.gl/react-bench@npm:4.0.9, @probe.gl/react-bench@workspace:modules/react-bench":
+"@probe.gl/react-bench@npm:4.0.9":
+  version: 4.0.9
+  resolution: "@probe.gl/react-bench@npm:4.0.9"
+  dependencies:
+    css-loader: "npm:^2.1.1"
+    react-table: "npm:^6.10.0"
+    style-loader: "npm:^1.1.3"
+  peerDependencies:
+    "@probe.gl/bench": ^4.0.0
+    react: ^16.3.0
+    react-dom: ^16.3.0
+  checksum: 10c0/a7a2569d0c85f272de498281675d0583d7d634a3a567a46ab3e4d1dd39263409cfc2257be733b35ad15698d00654267ded9785912c3be72f9d0ed85db64ff69b
+  languageName: node
+  linkType: hard
+
+"@probe.gl/react-bench@workspace:modules/react-bench":
   version: 0.0.0-use.local
   resolution: "@probe.gl/react-bench@workspace:modules/react-bench"
   dependencies:
@@ -1667,27 +1707,59 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@probe.gl/stats-widget@npm:4.0.9, @probe.gl/stats-widget@workspace:modules/stats-widget":
+"@probe.gl/stats-widget@npm:4.0.9":
+  version: 4.0.9
+  resolution: "@probe.gl/stats-widget@npm:4.0.9"
+  peerDependencies:
+    "@probe.gl/stats": ^4.0.0
+  checksum: 10c0/ed36a1998c5a50454ecfeff1e40c3091cf45a0f519ac9ed35853d64e4c92eb34538c7a7719a691081fab7fce027c93bc68b10946f00e1c540a874138524daefa
+  languageName: node
+  linkType: hard
+
+"@probe.gl/stats-widget@workspace:modules/stats-widget":
   version: 0.0.0-use.local
   resolution: "@probe.gl/stats-widget@workspace:modules/stats-widget"
   dependencies:
-    "@probe.gl/stats": "npm:4.0.9"
+    "@probe.gl/stats": "npm:4.1.0-alpha.1"
   peerDependencies:
     "@probe.gl/stats": ^4.0.0
   languageName: unknown
   linkType: soft
 
-"@probe.gl/stats@npm:4.0.9, @probe.gl/stats@workspace:modules/stats":
+"@probe.gl/stats@npm:4.0.9":
+  version: 4.0.9
+  resolution: "@probe.gl/stats@npm:4.0.9"
+  checksum: 10c0/23c205232a45941b13d1e87efe060d81f3a09339b0294991fc9fdf6dd9d090a9e6c79cccf23ce8f09e5c14aa44ef128836639490df22729a13214b0ff3c7cd80
+  languageName: node
+  linkType: hard
+
+"@probe.gl/stats@npm:4.1.0-alpha.1, @probe.gl/stats@workspace:modules/stats":
   version: 0.0.0-use.local
   resolution: "@probe.gl/stats@workspace:modules/stats"
   languageName: unknown
   linkType: soft
 
-"@probe.gl/test-utils@npm:4.0.9, @probe.gl/test-utils@npm:^4.0.6, @probe.gl/test-utils@workspace:modules/test-utils":
+"@probe.gl/test-utils@npm:4.0.9, @probe.gl/test-utils@npm:^4.0.6":
+  version: 4.0.9
+  resolution: "@probe.gl/test-utils@npm:4.0.9"
+  dependencies:
+    "@probe.gl/log": "npm:4.0.9"
+    "@types/pngjs": "npm:^6.0.1"
+    pixelmatch: "npm:^4.0.2"
+  peerDependencies:
+    puppeteer: ">=19"
+  peerDependenciesMeta:
+    puppeteer:
+      optional: true
+  checksum: 10c0/48417f72babc0a4f32bce974fb4f803f785145912d01d8ad4dad8ad88f07b27d93388f8ffb5214a5aec8998acdb3b31c44732f8a86745de0bca1cd725f867430
+  languageName: node
+  linkType: hard
+
+"@probe.gl/test-utils@workspace:modules/test-utils":
   version: 0.0.0-use.local
   resolution: "@probe.gl/test-utils@workspace:modules/test-utils"
   dependencies:
-    "@probe.gl/log": "npm:4.0.9"
+    "@probe.gl/log": "npm:4.1.0-alpha.1"
     "@types/pngjs": "npm:^6.0.1"
     pixelmatch: "npm:^4.0.2"
   peerDependencies:
