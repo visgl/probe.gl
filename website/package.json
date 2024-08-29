@@ -20,13 +20,17 @@
     "cheerio": "1.0.0-rc.9"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0",
-    "@vis.gl/docusaurus-website": "1.0.0-alpha.15",
+    "@docusaurus/core": "^3.0.0",
+    "@vis.gl/docusaurus-website": "1.0.0-alpha.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "browserslist": [
     ">0.2% and supports async-functions",
     "not dead"
-  ]
+  ],
+  "volta": {
+    "node": "20.15.1",
+    "yarn": "4.4.0"
+  }
 }

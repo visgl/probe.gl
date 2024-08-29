@@ -32,8 +32,8 @@
   },
   "devDependencies": {
     "@types/tape-promise": "^4.0.1",
-    "@vis.gl/dev-tools": "1.0.0-alpha.15",
-    "@vis.gl/ts-plugins": "1.0.0-alpha.15",
+    "@vis.gl/dev-tools": "1.0.0-alpha.19",
+    "@vis.gl/ts-plugins": "1.0.0-alpha.19",
     "jsdoc-to-markdown": "^3.0.0",
     "jsdom": "^16.5.0",
     "pre-commit": "^1.2.2",
@@ -45,7 +45,7 @@
     "test-fast"
   ],
   "volta": {
-    "node": "20.11.1",
-    "yarn": "4.1.1"
+    "node": "20.15.1",
+    "yarn": "4.4.0"
   }
 }

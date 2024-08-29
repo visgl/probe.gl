@@ -2558,9 +2558,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vis.gl/dev-tools@npm:1.0.0-alpha.15":
-  version: 1.0.0-alpha.15
-  resolution: "@vis.gl/dev-tools@npm:1.0.0-alpha.15"
+"@vis.gl/dev-tools@npm:1.0.0-alpha.19":
+  version: 1.0.0-alpha.19
+  resolution: "@vis.gl/dev-tools@npm:1.0.0-alpha.19"
   dependencies:
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.0"
     "@esbuild-plugins/node-modules-polyfill": "npm:^0.2.0"
@@ -2601,19 +2601,19 @@ __metadata:
     ocular-metrics: scripts/metrics.js
     ocular-publish: scripts/publish.js
     ocular-test: scripts/test.js
-  checksum: 10c0/724c953577d06aac88bbb8f742dd2ea41a00b534b574aef6fbbb712bb2c2be6c3523788316b029dbcb2e1c611e6204a9b3f420ff864bd2157e2ed4b299f2d0f4
+  checksum: 10c0/7fc365a758603a5a87cf28e00d8aa7761301519fc09be1f62d344743525940b176ae3e3b997526639b5346ba4ee64f75bb2e7ac9bf7633420fa6b00859bbb271
   languageName: node
   linkType: hard
 
-"@vis.gl/ts-plugins@npm:1.0.0-alpha.15":
-  version: 1.0.0-alpha.15
-  resolution: "@vis.gl/ts-plugins@npm:1.0.0-alpha.15"
+"@vis.gl/ts-plugins@npm:1.0.0-alpha.19":
+  version: 1.0.0-alpha.19
+  resolution: "@vis.gl/ts-plugins@npm:1.0.0-alpha.19"
   dependencies:
     "@luma.gl/constants": "npm:^9.0.0"
     minimatch: "npm:^3.0.0"
     ts-patch: "npm:^3.1.2"
     typescript: "npm:^5.2.2"
-  checksum: 10c0/44504bcf755acce8c2de2d914cedf20085d692a6ca6596cf2e09b63848727f5bd834e56325af1a50fe703f104ce533bf092b67a8ae11b5a9759a00d556bd5e81
+  checksum: 10c0/967b8952c8a449da008db51a0b0cc8d0c50e9ac571d6c1379c4407d276e8bd34b634829ad001c7604412fe09c7d09bc88ae03dc4fe8a48bad4c81c19f61ba55b
   languageName: node
   linkType: hard
 
@@ -11632,8 +11632,8 @@ __metadata:
   resolution: "probe.gl-monorepo@workspace:."
   dependencies:
     "@types/tape-promise": "npm:^4.0.1"
-    "@vis.gl/dev-tools": "npm:1.0.0-alpha.15"
-    "@vis.gl/ts-plugins": "npm:1.0.0-alpha.15"
+    "@vis.gl/dev-tools": "npm:1.0.0-alpha.19"
+    "@vis.gl/ts-plugins": "npm:1.0.0-alpha.19"
     jsdoc-to-markdown: "npm:^3.0.0"
     jsdom: "npm:^16.5.0"
     pre-commit: "npm:^1.2.2"
@@ -14319,11 +14319,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>":
   version: 5.5.4
-  resolution: "typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=5adc0c"
+  resolution: "typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/10dd9881baba22763de859e8050d6cb6e2db854197495c6f1929b08d1eb2b2b00d0b5d9b0bcee8472f1c3f4a7ef6a5d7ebe0cfd703f853aa5ae465b8404bc1ba
+  checksum: 10c0/73409d7b9196a5a1217b3aaad929bf76294d3ce7d6e9766dd880ece296ee91cf7d7db6b16c6c6c630ee5096eccde726c0ef17c7dfa52b01a243e57ae1f09ef07
   languageName: node
   linkType: hard
 
