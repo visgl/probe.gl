@@ -3744,9 +3744,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vis.gl/docusaurus-website@npm:1.0.0-alpha.19":
-  version: 1.0.0-alpha.19
-  resolution: "@vis.gl/docusaurus-website@npm:1.0.0-alpha.19"
+"@vis.gl/docusaurus-website@npm:1.0.0-alpha.20":
+  version: 1.0.0-alpha.20
+  resolution: "@vis.gl/docusaurus-website@npm:1.0.0-alpha.20"
   dependencies:
     "@cmfcmf/docusaurus-search-local": "npm:^1.0.0"
     "@docusaurus/plugin-client-redirects": "npm:^3.0.0"
@@ -3765,7 +3765,7 @@ __metadata:
     react-dom: "*"
   bin:
     ocular-doc-headers: scripts/doc-headers.js
-  checksum: 10c0/c799f41580699270415e98af913d3493c014f1cabb296311ec1a2fded5de90147cb7ce9bc1754f4452b89d718cb16de93faf0c69cff4cfadcb4ebe14f0303863
+  checksum: 10c0/3638e24883c4f468814647a1771b4b44a6d2bdeaec423a893bba05220cf658ef8a9b187cc61fe8a403e426821d2de7a2d56289f0583a2ffd01cb2425c9ebe8fd
   languageName: node
   linkType: hard
 
@@ -10218,7 +10218,7 @@ __metadata:
   resolution: "project-website@workspace:."
   dependencies:
     "@docusaurus/core": "npm:^3.0.0"
-    "@vis.gl/docusaurus-website": "npm:1.0.0-alpha.19"
+    "@vis.gl/docusaurus-website": "npm:1.0.0-alpha.20"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
   languageName: unknown
