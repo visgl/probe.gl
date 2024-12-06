@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v4.1.0-alpha.2
+
+- fix(test-utils) global function return type (#13)
+- Bump dev-tools
+
 ## v4.1.0-alpha.1
 
 - chore: Switch to @vis.gl/dev-tools and CI release
