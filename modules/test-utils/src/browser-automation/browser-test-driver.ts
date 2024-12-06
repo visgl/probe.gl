@@ -11,7 +11,7 @@ import BrowserDriver, {ServerConfiguration} from './browser-driver';
 declare global {
   function browserTestDriver_fail(): void;
   function browserTestDriver_finish(): string;
-  function browserTestDriver_emulateInput(event: unknown): void;
+  function browserTestDriver_emulateInput(event: unknown): Promise<void>;
   function browserTestDriver_captureAndDiffScreen(opts: DiffImagesOpts): Promise<DiffImageResult>;
 }
 
@@ -44,13 +44,6 @@ export type DiffImageResult = {
   success: boolean;
   error: Error | string | null;
 };
-
-declare global {
-  function browserTestDriver_fail(): void;
-  function browserTestDriver_finish(message?: string): void;
-  function browserTestDriver_emulateInput(event: unknown): Promise<void>;
-  function browserTestDriver_captureAndDiffScreen(opts: DiffImagesOpts): Promise<DiffImageResult>;
-}
 
 /** A test driver that starts a browser instance and runs tests inside it */
 export default class BrowserTestDriver extends BrowserDriver {
