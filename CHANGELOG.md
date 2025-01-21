@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v4.1.0
+
+- New build toolchain with pure TypeScript
+
 ## v4.1.0-alpha.2
 
 - fix(test-utils) global function return type (#13)

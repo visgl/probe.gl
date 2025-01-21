@@ -1644,7 +1644,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/bench@workspace:modules/bench"
   dependencies:
-    "@probe.gl/log": "npm:4.1.0-alpha.2"
+    "@probe.gl/log": "npm:4.1.0"
   languageName: unknown
   linkType: soft
 
@@ -1655,7 +1655,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@probe.gl/env@npm:4.1.0-alpha.2, @probe.gl/env@workspace:modules/env":
+"@probe.gl/env@npm:4.1.0, @probe.gl/env@workspace:modules/env":
   version: 0.0.0-use.local
   resolution: "@probe.gl/env@workspace:modules/env"
   languageName: unknown
@@ -1670,11 +1670,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@probe.gl/log@npm:4.1.0-alpha.2, @probe.gl/log@workspace:modules/log":
+"@probe.gl/log@npm:4.1.0, @probe.gl/log@workspace:modules/log":
   version: 0.0.0-use.local
   resolution: "@probe.gl/log@workspace:modules/log"
   dependencies:
-    "@probe.gl/env": "npm:4.1.0-alpha.2"
+    "@probe.gl/env": "npm:4.1.0"
   languageName: unknown
   linkType: soft
 
@@ -1720,7 +1720,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/stats-widget@workspace:modules/stats-widget"
   dependencies:
-    "@probe.gl/stats": "npm:4.1.0-alpha.2"
+    "@probe.gl/stats": "npm:4.1.0"
   peerDependencies:
     "@probe.gl/stats": ^4.0.0
   languageName: unknown
@@ -1733,7 +1733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@probe.gl/stats@npm:4.1.0-alpha.2, @probe.gl/stats@workspace:modules/stats":
+"@probe.gl/stats@npm:4.1.0, @probe.gl/stats@workspace:modules/stats":
   version: 0.0.0-use.local
   resolution: "@probe.gl/stats@workspace:modules/stats"
   languageName: unknown
@@ -1759,7 +1759,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/test-utils@workspace:modules/test-utils"
   dependencies:
-    "@probe.gl/log": "npm:4.1.0-alpha.2"
+    "@probe.gl/log": "npm:4.1.0"
     "@types/pngjs": "npm:^6.0.1"
     pixelmatch: "npm:^4.0.2"
   peerDependencies:
