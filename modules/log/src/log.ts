@@ -339,6 +339,7 @@ in a later version. Use \`${newUsage}\` instead`);
       this._updateConfiguration(DEFAULT_LOG_CONFIGURATION);
     }
 
+    // @ts-expect-error guaranteed to be defined
     return this._storage.config[this.id];
   }
 
