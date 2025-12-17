@@ -61,7 +61,7 @@ export class Log {
   VERSION: string = VERSION;
   _startTs: number = getHiResTimestamp();
   _deltaTs: number = getHiResTimestamp();
-  _storage: LocalStorage<LogConfiguration>;
+  _storage: LocalStorage<Record<string, Required<LogConfiguration>>>;
   userData = {};
 
   // TODO - fix support from throttling groups
@@ -70,9 +70,9 @@ export class Log {
   constructor({id} = {id: ''}) {
     this.id = id;
     this.userData = {};
-    this._storage = new LocalStorage<LogConfiguration>(
+    this._storage = new LocalStorage<Record<string, Required<LogConfiguration>>>(
       `__probe-${this.id}__`,
-      DEFAULT_LOG_CONFIGURATION
+      {[this.id]: {...DEFAULT_LOG_CONFIGURATION}}
     );
 
     this.timeStamp(`${this.id} started`);
@@ -90,11 +90,11 @@ export class Log {
   }
 
   isEnabled(): boolean {
-    return this._storage.config.enabled;
+    return this._getConfiguration().enabled;
   }
 
   getLevel(): number {
-    return this._storage.config.level;
+    return this._getConfiguration().level;
   }
 
   /** @return milliseconds, with fractions */
@@ -125,23 +125,23 @@ export class Log {
   // Configure
 
   enable(enabled: boolean = true): this {
-    this._storage.setConfiguration({enabled});
+    this._updateConfiguration({enabled});
     return this;
   }
 
   setLevel(level: number): this {
-    this._storage.setConfiguration({level});
+    this._updateConfiguration({level});
     return this;
   }
 
   /** return the current status of the setting */
   get(setting: string): any {
-    return this._storage.config[setting];
+    return this._getConfiguration()[setting];
   }
 
   // update the status of the setting
   set(setting: string, value: any): void {
-    this._storage.setConfiguration({[setting]: value});
+    this._updateConfiguration({[setting]: value});
   }
 
   /** Logs the current settings as a table */
@@ -332,6 +332,24 @@ in a later version. Use \`${newUsage}\` instead`);
       return method.bind(console, message, ...opts.args);
     }
     return noop;
+  }
+
+  _getConfiguration(): Required<LogConfiguration> {
+    if (!this._storage.config[this.id]) {
+      this._updateConfiguration(DEFAULT_LOG_CONFIGURATION);
+    }
+
+    // @ts-expect-error guaranteed to be defined
+    return this._storage.config[this.id];
+  }
+
+  _updateConfiguration(configuration: LogConfiguration): void {
+    const currentConfiguration = this._storage.config[this.id] || {
+      ...DEFAULT_LOG_CONFIGURATION
+    };
+    this._storage.setConfiguration({
+      [this.id]: {...currentConfiguration, ...configuration}
+    });
   }
 }
 

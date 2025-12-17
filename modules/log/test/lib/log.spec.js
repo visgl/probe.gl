@@ -119,3 +119,30 @@ test('Log#settings', (t) => {
   t.doesNotThrow(() => log.settings(), 'log.settings() works');
   t.end();
 });
+
+test('Log stores configuration per log id', (t) => {
+  const logA = new Log({id: 'alpha'});
+  const logB = new Log({id: 'beta'});
+
+  logA.setLevel(1);
+  logB.enable(false);
+
+  t.equal(logA.getLevel(), 1, 'logA level updated independently');
+  t.equal(logB.getLevel(), 0, 'logB retains default level');
+  t.equal(logA.isEnabled(), true, 'logA remains enabled');
+  t.equal(logB.isEnabled(), false, 'logB enabled flag updated independently');
+
+  t.deepEquals(
+    logA._storage.config,
+    {alpha: {enabled: true, level: 1}},
+    'logA stores its configuration under its own id'
+  );
+
+  t.deepEquals(
+    logB._storage.config,
+    {beta: {enabled: false, level: 0}},
+    'logB stores its configuration under its own id'
+  );
+
+  t.end();
+});
