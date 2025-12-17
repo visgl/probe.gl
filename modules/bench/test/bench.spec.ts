@@ -34,3 +34,23 @@ test('Bench#run', (t) => {
   t.ok(suite instanceof Bench, 'suite created successfully');
   suite.run().then(() => t.end());
 });
+
+test('Bench#iterations option', (t) => {
+  const suite = new Bench({
+    id: 'iteration-control',
+    iterations: 2,
+    time: 1,
+    log: () => {}
+  });
+
+  let callCount = 0;
+
+  suite.addAsync('respects iteration count', {_throughput: 1}, async () => {
+    callCount++;
+  });
+
+  suite.run().then(() => {
+    t.equals(callCount, 2, 'runs configured number of iterations');
+    t.end();
+  });
+});

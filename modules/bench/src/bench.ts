@@ -28,6 +28,8 @@ export type BenchProps = {
   delay?: number;
   /** Increase if OK to let slow benchmarks take long time, potentially produces more stable results */
   minIterations?: number;
+  /** Number of iterations to run for each benchmark test */
+  iterations?: number;
 };
 
 export type BenchTestFunction = <T>(testArgs?: T) => T | Promise<T>;
@@ -49,6 +51,8 @@ export type BenchTestCaseProps = {
   delay?: number;
   /** Increase if OK to let slow benchmarks take long time, potentially produces more stable results */
   minIterations?: number;
+  /** Number of iterations to run for each benchmark test */
+  iterations?: number;
   multiplier?: number;
   unit?: string;
   _throughput?: number;
@@ -99,6 +103,8 @@ type BenchTestCase = {
   delay: number;
   /** Increase if OK to let slow benchmarks take long time, potentially produces more stable results */
   minIterations: number;
+  /** Number of iterations to run for each benchmark test */
+  iterations: number;
   multiplier: number;
   unit: string;
   _throughput: number;
@@ -112,7 +118,8 @@ const DEFAULT_BENCH_OPTIONS: Required<BenchProps> = {
   log: undefined!,
   time: 80,
   delay: 5,
-  minIterations: 3
+  minIterations: 1,
+  iterations: 1
 };
 
 const DEFAULT_BENCH_TEST_CASE: BenchTestCase = {
@@ -126,6 +133,7 @@ const DEFAULT_BENCH_TEST_CASE: BenchTestCase = {
   once: false,
   time: 0,
   minIterations: 1,
+  iterations: 1,
   multiplier: 1, // multiplier per test case
   unit: '',
   delay: 0,
@@ -147,7 +155,7 @@ export class Bench {
 
   constructor(props: BenchProps = {}) {
     this.props = {...DEFAULT_BENCH_OPTIONS, ...props};
-    const {id, time, delay, minIterations} = this.props;
+    const {id, time, delay, minIterations, iterations} = this.props;
 
     let log = this.props.log;
     if (!log) {
@@ -156,7 +164,7 @@ export class Bench {
     }
 
     this.id = id;
-    this.props = {id, log, time, delay, minIterations};
+    this.props = {id, log, time, delay, minIterations, iterations};
     autobind(this);
     Object.seal(this);
   }
@@ -374,9 +382,9 @@ async function runBenchTestCaseAsync(testCase: BenchTestCase) {
   let totalTime = 0;
   let totalIterations = 0;
 
-  const minIterations: number = testCase.minIterations || 1;
+  const iterationCount: number = testCase.iterations ?? testCase.minIterations ?? 1;
 
-  for (let i = 0; i < minIterations; i++) {
+  for (let i = 0; i < iterationCount; i++) {
     let time;
     let iterations;
     // Runs "testCase._throughput" parallel testCase cases
