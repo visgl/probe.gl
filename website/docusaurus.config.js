@@ -1,7 +1,7 @@
 const {getDocusaurusConfig} = require('@vis.gl/docusaurus-website');
 
 const config = getDocusaurusConfig({
-  projectName: 'probe.js',
+  projectName: 'probe.gl',
   tagline: 'JavaScript Console Logging, Instrumentation, Benchmarking and Test Utilities',
   siteUrl: 'https://visgl.github.io/probe.gl',
   repoUrl: 'https://github.com/visgl/probe.gl',
