@@ -6,20 +6,20 @@ A collection of JavaScript front-end debugging tools provided as a set of separa
 | --- | --- |
 | **`@probe.gl/log`**    | A JavaScript logging library focused on facilitating debugging and performance instrumentation of front-end applications. |
 | **`@probe.gl/env`**    | Basic environment detection (Browser, Node, Electron etc). | 
-| **`@probe.gl/stats`**  | A minimal bag of performance related stats that applications or frameworks can populate. | 
-| **`@probe.gl/stats-widget`** | An HTML widget that helps applications display the contests of `@probe.gl/stats` objects. | 
+| **`@probe.gl/stats`**  | A minimal bag of performance-related stats that applications or frameworks can populate. |
+| **`@probe.gl/stats-widget`** | An HTML widget that helps applications display the contents of `@probe.gl/stats` objects. |
 | **`@probe.gl/bench`**  | A benchmark rig to help measure and track regressions of critical functions. |
 | **`@probe.gl/react-bench`**  | A React component that displays the output of `@probe.gl/bench`. |
 | **`@probe.gl/test-utils`**   | Test "Drivers" for running automated browser testing from Node via `puppeteer`. |
 
 ## Comparison with other Logging Solutions
 
-proble.gl's focus on debugging and performance instrumentation of front-end applications has lead to different design choices and priorities compared with logging libraries that are designed for facilitating logging of production code in back-end services. Those libraries are often focused on integrating with various logging backends (log to file, log to server, etc) and not on integrating with the browser console and the front-end debugging workflow.
+probe.gl's focus on debugging and performance instrumentation of front-end applications has led to different design choices and priorities compared with logging libraries that are designed for facilitating logging of production code in back-end services. Those libraries are often focused on integrating with various logging backends (log to file, log to server, etc.) and not on integrating with the browser console and the front-end debugging workflow.
 
 
 ## Features
 
-* **Off by default** - probe.gl makes efforts to have a minimal performance footprint when not enable, to let you consider leaving your probes switched off in production code.
+* **Off by default** - probe.gl makes efforts to have a minimal performance footprint when not enabled, to let you consider leaving your probes switched off in production code.
 * **Lightweight** - probe.gl is designed to have a small impact on application bundle size and to avoid dependencies on other modules.
 
 
@@ -57,15 +57,15 @@ probe.gl offers a basic persistent configuration system:
 
 ### Debug Features
 
-debug related facilities, such as console log interception, global context in debugger etc.
+Debug-related facilities, such as console log interception and access to a global context in the debugger.
 
 
 ### Benchmarking Support
 
 In addition to in-app profiling, probe also supports a simple benchmarking rig
 
-* **Benchmark Suite** - function to run a suite of functions and collect data
-* **Persist and Compare Benchmarks** -
+* **Benchmark Suite** - Functions to run a suite of benchmarks and collect data.
+* **Persist and Compare Benchmarks** - Persist results and compare runs to track regressions.
 
 
 ## History
