@@ -1,6 +1,7 @@
 import {Bench} from '@probe.gl/bench';
 
-const LENGTH = 1000000;
+const IS_TEST = process.env.NODE_ENV === 'test';
+const LENGTH = IS_TEST ? 1000 : 1000000;
 
 const ARRAY = new Array(LENGTH).fill(0).map((_, i) => i);
 
