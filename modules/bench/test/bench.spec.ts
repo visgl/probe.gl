@@ -4,6 +4,8 @@ import {Bench} from '@probe.gl/bench';
 import iteratorBench from './iterator.bench';
 import parseColorBench from './parse-color.bench';
 
+(globalThis as any).__PROBE_BENCH_IS_TEST__ = true;
+
 test('Bench#import', (t) => {
   t.equals(typeof Bench, 'function', 'Expected row logged');
   t.end();
@@ -75,5 +77,31 @@ test('Bench#iterations runs fixed passes', async (t) => {
   await suite.run();
 
   t.equals(callCount, 1, 'runs exactly one pass even if time threshold is high');
+  t.end();
+});
+
+test('Bench#maxTimeMs caps total case time', async (t) => {
+  const suite = new Bench({
+    id: 'max-time-limit',
+    iterations: 50,
+    time: 10000,
+    maxTimeMs: 25,
+    log: () => {}
+  });
+
+  let callCount = 0;
+  const start = Date.now();
+
+  suite.addAsync('respects maxTimeMs', async () => {
+    callCount++;
+    await new Promise((resolve) => setTimeout(resolve, 10));
+  });
+
+  await suite.run();
+
+  const duration = Date.now() - start;
+
+  t.ok(callCount < 50, 'stops iterating once maxTimeMs is reached');
+  t.ok(duration < 500, 'returns promptly when hitting the max time budget');
   t.end();
 });

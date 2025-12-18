@@ -24,6 +24,8 @@ export type BenchProps = {
   log?: LogFunction;
   /** Minimum number of milliseconds to iterate each bench test */
   time?: number;
+  /** Maximum number of milliseconds to spend on a single test case */
+  maxTimeMs?: number;
   /** milliseconds of idle time, or "cooldown" between tests */
   delay?: number;
   /** Increase if OK to let slow benchmarks take long time, potentially produces more stable results */
@@ -47,6 +49,8 @@ export type BenchTestCaseProps = {
 
   /** Minimum number of milliseconds to iterate each bench test */
   time?: number;
+  /** Maximum number of milliseconds to spend on a single test case */
+  maxTimeMs?: number;
   /** milliseconds of idle time, or "cooldown" between tests */
   delay?: number;
   /** Increase if OK to let slow benchmarks take long time, potentially produces more stable results */
@@ -99,6 +103,8 @@ type BenchTestCase = {
 
   /** Minimum number of milliseconds to iterate each bench test */
   time: number;
+  /** Maximum number of milliseconds to spend on a single test case */
+  maxTimeMs: number;
   /** milliseconds of idle time, or "cooldown" between tests */
   delay: number;
   /** Increase if OK to let slow benchmarks take long time, potentially produces more stable results */
@@ -117,6 +123,7 @@ const DEFAULT_BENCH_OPTIONS: Required<BenchProps> = {
   id: '',
   log: undefined!,
   time: 80,
+  maxTimeMs: 1000,
   delay: 5,
   minIterations: 1,
   iterations: 1
@@ -132,6 +139,7 @@ const DEFAULT_BENCH_TEST_CASE: BenchTestCase = {
   async: false,
   once: false,
   time: 0,
+  maxTimeMs: 1000,
   minIterations: 1,
   iterations: 1,
   multiplier: 1, // multiplier per test case
@@ -155,7 +163,7 @@ export class Bench {
 
   constructor(props: BenchProps = {}) {
     this.props = {...DEFAULT_BENCH_OPTIONS, ...props};
-    const {id, time, delay, minIterations, iterations} = this.props;
+    const {id, time, maxTimeMs, delay, minIterations, iterations} = this.props;
 
     let log = this.props.log;
     if (!log) {
@@ -164,7 +172,7 @@ export class Bench {
     }
 
     this.id = id;
-    this.props = {id, log, time, delay, minIterations, iterations};
+    this.props = {id, log, time, maxTimeMs, delay, minIterations, iterations};
     autobind(this);
     Object.seal(this);
   }
@@ -384,8 +392,14 @@ async function runBenchTestCaseAsync(testCase: BenchTestCase) {
 
   const iterationCount: number = testCase.iterations ?? testCase.minIterations ?? 1;
   const useExplicitIterationCount = testCase.iterations !== undefined;
+  const maxTimeMs = testCase.maxTimeMs || DEFAULT_BENCH_OPTIONS.maxTimeMs;
+  const startTime = getHiResTimestamp();
 
   for (let i = 0; i < iterationCount; i++) {
+    if (i > 0 && getHiResTimestamp() - startTime > maxTimeMs) {
+      break;
+    }
+
     let time;
     let iterations;
     // Runs "testCase._throughput" parallel testCase cases
@@ -399,7 +413,8 @@ async function runBenchTestCaseAsync(testCase: BenchTestCase) {
     } else {
       ({time, iterations} = await runBenchTestCaseForMinimumTimeAsync(
         testCase,
-        testCase.time || 0
+        testCase.time || 0,
+        maxTimeMs
       ));
     }
 
@@ -424,13 +439,14 @@ async function runBenchTestCaseAsync(testCase: BenchTestCase) {
 // Run a test func for an increasing amount of iterations until time threshold exceeded
 async function runBenchTestCaseForMinimumTimeAsync(
   testCase: BenchTestCase,
-  minTime: number
+  minTime: number,
+  maxTimeMs: number
 ): Promise<{time: number; iterations: number}> {
   let iterations = 1;
   let elapsedMillis = 0;
 
   // Run increasing amount of interations until we reach time threshold, default at least 100ms
-  while (elapsedMillis < minTime) {
+  while (elapsedMillis < minTime && elapsedMillis < maxTimeMs) {
     let multiplier = 10;
     if (elapsedMillis > 10) {
       multiplier = ((testCase.time || 0) / elapsedMillis) * 1.25;

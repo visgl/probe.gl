@@ -1,6 +1,6 @@
 import {Bench} from '@probe.gl/bench';
 
-const IS_TEST = process.env.NODE_ENV === 'test';
+const IS_TEST = Boolean((globalThis as any).__PROBE_BENCH_IS_TEST__);
 const LENGTH = IS_TEST ? 1000 : 1000000;
 
 const ARRAY = new Array(LENGTH).fill(0).map((_, i) => i);
