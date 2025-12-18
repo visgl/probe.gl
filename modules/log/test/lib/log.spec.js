@@ -1,4 +1,4 @@
-/* eslint-disable max-statements */
+/* eslint-disable max-statements, no-console */
 import Probe, {Log, ConsoleLog, MemoryLog, ProbeLog} from '@probe.gl/log';
 import test from 'tape-promise/tape';
 

@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) vis.gl contributors
 
+/* eslint-disable no-console */
+
 import {LogFunction} from './logger';
 import {BaseLog, NormalizedLogArguments, noop} from './base-log';
 
