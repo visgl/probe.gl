@@ -1,5 +1,7 @@
 // probe.gl, MIT license
 
+/* eslint-disable no-console */
+
 import puppeteer, {Browser, Page, PuppeteerLaunchOptions, ConsoleMessage} from 'puppeteer';
 import ChildProcess from 'child_process';
 

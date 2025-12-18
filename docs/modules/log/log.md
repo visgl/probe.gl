@@ -8,6 +8,15 @@ A simple console wrapper with a host of features
 * Image logging - In Chrome console, it is possible log images
 * Improved `assert` messages - Reformats errors from `assert` to show actual error string
 
+## Logger implementations
+
+`@probe.gl/log` exports a few logger classes:
+
+- `ProbeLog` is the full-featured logger with log levels, persistence, and formatting controls. It is exported as `Log` and provided as the default instance export. (It was previously named `ConsoleLog`.)
+- `ConsoleLog` is a minimal wrapper around the runtime `console`, intended for situations where you want the `Logger` interface without configuration or persistence.
+- `MemoryLog` records messages in memory, typically for tests, and accepts an optional `onMessage` callback that fires when a new message is stored.
+- `BaseLog` is a shared base class you can extend to build new `Logger` implementations with consistent log-level handling and `once` de-duplication.
+
 
 ## Installing
 
@@ -128,6 +137,8 @@ Log a normal message, but only once, no console flooding
 `once(logLevel|opts, arg, ...args)`
 
 Returns: a function closure that should be called immediately.
+
+Calling `once` multiple times with the same message will only log the first call for both `ProbeLog`/`Log` and the lightweight `ConsoleLog`. The `MemoryLog` implementation also mirrors this behavior by capturing a single entry.
 
 
 ### probe
@@ -250,4 +261,3 @@ Provides an exception safe way to run some code within a group
 ### trace
 
 Prints a stack trace
-

@@ -1,5 +1,5 @@
-/* eslint-disable max-statements */
-import Probe, {Log} from '@probe.gl/log';
+/* eslint-disable max-statements, no-console */
+import Probe, {Log, ConsoleLog, MemoryLog, ProbeLog} from '@probe.gl/log';
 import test from 'tape-promise/tape';
 
 test('Log#import', (t) => {
@@ -9,6 +9,8 @@ test('Log#import', (t) => {
     Probe.VERSION.match(/\d+\.\d+\.\d+/) || Probe.VERSION === 'untranspiled source',
     'Probe.VERSION imported OK'
   );
+  t.ok(Log === ProbeLog, 'Log export is an alias for ProbeLog');
+  t.equals(typeof ConsoleLog, 'function', 'ConsoleLog imported OK');
   t.end();
 });
 
@@ -66,6 +68,63 @@ test('Log#once', (t) => {
   t.ok(log instanceof Log, 'log created successfully');
   t.doesNotThrow(() => log.once('test')(), 'log.once works');
   t.doesNotThrow(() => log.once(0, 'test')(), 'log.once works');
+  t.end();
+});
+
+test('ConsoleLog#once', (t) => {
+  const consoleLog = new ConsoleLog();
+  const originalDebug = console.debug;
+  const originalInfo = console.info;
+  const calls = [];
+
+  console.debug = (...args) => {
+    calls.push(args);
+  };
+  console.info = (...args) => {
+    calls.push(args);
+  };
+
+  consoleLog.once(0, 'test')();
+  consoleLog.once(0, 'test')();
+
+  t.equals(calls.length, 1, 'console.once logs once per message');
+
+  console.debug = originalDebug;
+  console.info = originalInfo;
+  t.end();
+});
+
+test('MemoryLog#once', (t) => {
+  const memoryLog = new MemoryLog();
+
+  memoryLog.once(0, 'test')();
+  memoryLog.once(0, 'test')();
+
+  t.equals(memoryLog.messages.length, 1, 'memory log records once only once');
+  t.deepEqual(
+    memoryLog.messages[0],
+    {type: 'once', level: 0, message: 'test', args: []},
+    'memory log stores once entry'
+  );
+
+  t.end();
+});
+
+test('MemoryLog#onMessage', (t) => {
+  const messages = [];
+  const memoryLog = new MemoryLog({
+    onMessage: (message) => messages.push(message)
+  });
+
+  memoryLog.log(0, 'test')();
+
+  t.equals(messages.length, 1, 'onMessage called when logging');
+  t.deepEqual(
+    messages[0],
+    {type: 'log', level: 0, message: 'test', args: []},
+    'onMessage receives serialized entry'
+  );
+
   t.end();
 });
 
