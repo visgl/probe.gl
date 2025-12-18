@@ -12,9 +12,13 @@ declare global {
     priority?: number;
     markdown?: boolean;
   };
+  // Flag used by tests to disable warmup and heavy iterations
+  // eslint-disable-next-line no-var
+  var __PROBE_BENCH_IS_TEST__?: boolean;
 }
 
 const noop = () => {};
+const IS_TEST = Boolean(globalThis.__PROBE_BENCH_IS_TEST__);
 
 /** Properties for benchmark suite */
 export type BenchProps = {
@@ -325,8 +329,10 @@ async function runTests({
   onBenchmarkComplete?: Function;
 }) {
   // Run default warm up and calibration testCases
-  // @ts-expect-error
-  runCalibrationTests({testCases, onBenchmarkComplete});
+  if (!IS_TEST) {
+    // @ts-expect-error
+    runCalibrationTests({testCases, onBenchmarkComplete});
+  }
 
   // Run the suite testCases
   for (const testCase of Object.values(testCases)) {
@@ -452,6 +458,10 @@ async function runBenchTestCaseForMinimumTimeAsync(
       multiplier = ((testCase.time || 0) / elapsedMillis) * 1.25;
     }
     iterations *= multiplier;
+    // Guard against runaway iteration growth on extremely fast loops
+    if (iterations > 1e9) {
+      break;
+    }
     const timeStart = getHiResTimestamp();
     if (testCase.async) {
       await runBenchTestCaseIterationsAsync(testCase, iterations);
