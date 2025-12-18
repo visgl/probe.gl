@@ -20,3 +20,4 @@ A micro benchmark is simply a function you supply, that will be run for a number
 
 Instantiate the `Bench` class to create a benchmark suite. use `bench.group` to group bench cases and add headers. Use `bench.add` to register individual benchmarks.
 
+By default, each test case now runs a single iteration before reporting results. You can control this by passing an `iterations` option (or `minIterations` for backwards compatibility) to the `Bench` constructor or individual test cases. Supplying `iterations` (the default) runs a fixed number of passes and skips the adaptive run-until-time behavior; explicitly clearing `iterations` restores the adaptive timing based on `minIterations` and `time`. Increasing the iteration count will re-run the benchmark that many times and aggregate the results, at the cost of longer total execution time.
