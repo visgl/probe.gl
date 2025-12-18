@@ -1,4 +1,4 @@
-import {normalizeArguments} from '@probe.gl/log/loggers/console-log';
+import {normalizeArguments} from '@probe.gl/log/loggers/probe-log';
 import test from 'tape-promise/tape';
 
 function makeOpts(logLevel, message, ...args) {

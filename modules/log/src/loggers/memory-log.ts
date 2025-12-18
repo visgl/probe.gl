@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) vis.gl contributors
 
-import {Logger, LogFunction} from './logger';
+import {LogFunction} from './logger';
+import {BaseLog, NormalizedLogArguments} from './base-log';
 
 export type MemoryLogMessage = {
   level: number;
@@ -11,35 +12,53 @@ export type MemoryLogMessage = {
   args: unknown[];
 };
 
-export class MemoryLog implements Logger {
-  userData: Record<string, unknown> = {};
+export class MemoryLog extends BaseLog {
+  override userData: Record<string, unknown> = {};
 
   messages: MemoryLogMessage[] = [];
+  onMessage?: ((message: MemoryLogMessage) => void) | undefined;
 
-  /** Warn, but only once, no console flooding */
-  warn(message: string, ...args: unknown[]): LogFunction {
-    return () => this.messages.push({type: 'warning', level: 0, message, args});
+  constructor(
+    options: {
+      onMessage?: (message: MemoryLogMessage) => void;
+      level?: number;
+    } = {}
+  ) {
+    super({level: options.level ?? 0});
+    this.onMessage = options.onMessage;
   }
 
-  /** Print an error */
-  error(message: string, ...args: unknown[]): LogFunction {
-    return () => this.messages.push({type: 'error', level: 0, message, args});
+  protected override _emit(type: string, normalized: NormalizedLogArguments): LogFunction {
+    const messageText = String(normalized.message);
+    const entry: MemoryLogMessage = {
+      type: this._normalizeType(type),
+      level: normalized.logLevel,
+      message: messageText,
+      args: normalized.args
+    };
+
+    return () => {
+      this.messages.push(entry);
+      if (this.onMessage) {
+        this.onMessage(entry);
+      }
+    };
   }
 
-  // Conditional logging
-
-  /** Log a debug message */
-  log(logLevel, message?, ...args: unknown[]): LogFunction {
-    return () => this.messages.push({type: 'log', level: logLevel, message, args});
-  }
-
-  /** Log a normal message */
-  info(logLevel, message?, ...args: unknown[]): LogFunction {
-    return () => this.messages.push({type: 'info', level: logLevel, message, args});
-  }
-
-  /** Log a normal message, but only once, no console flooding */
-  once(logLevel, message?, ...args: unknown[]): LogFunction {
-    return () => this.messages.push({type: 'once', level: logLevel, message, args});
+  private _normalizeType(type: string): MemoryLogMessage['type'] {
+    switch (type) {
+      case 'warn':
+        return 'warning';
+      case 'error':
+        return 'error';
+      case 'info':
+        return 'info';
+      case 'once':
+        return 'once';
+      case 'table':
+        return 'table';
+      default:
+        return 'log';
+    }
   }
 }

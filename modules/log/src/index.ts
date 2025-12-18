@@ -1,11 +1,13 @@
-import {ConsoleLog} from './loggers/console-log';
+import {ProbeLog} from './loggers/probe-log';
 
 // DEFAULT EXPORT IS A LOG INSTANCE
-export default new ConsoleLog({id: '@probe.gl/log'});
+export default new ProbeLog({id: '@probe.gl/log'});
 
 // LOGGING
 export type {Logger} from './loggers/logger';
-export {ConsoleLog, ConsoleLog as Log} from './loggers/console-log';
+export {ProbeLog, ProbeLog as Log} from './loggers/probe-log';
+export {ConsoleLog} from './loggers/console-log';
+export {BaseLog} from './loggers/base-log';
 export type {MemoryLogMessage} from './loggers/memory-log';
 export {MemoryLog} from './loggers/memory-log';
 
