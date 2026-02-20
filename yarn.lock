@@ -1571,7 +1571,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/bench@workspace:modules/bench"
   dependencies:
-    "@probe.gl/log": "npm:4.1.0"
+    "@probe.gl/log": "npm:4.1.1"
   languageName: unknown
   linkType: soft
 
@@ -1582,7 +1582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@probe.gl/env@npm:4.1.0, @probe.gl/env@workspace:modules/env":
+"@probe.gl/env@npm:4.1.1, @probe.gl/env@workspace:modules/env":
   version: 0.0.0-use.local
   resolution: "@probe.gl/env@workspace:modules/env"
   languageName: unknown
@@ -1597,11 +1597,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@probe.gl/log@npm:4.1.0, @probe.gl/log@workspace:modules/log":
+"@probe.gl/log@npm:4.1.1, @probe.gl/log@workspace:modules/log":
   version: 0.0.0-use.local
   resolution: "@probe.gl/log@workspace:modules/log"
   dependencies:
-    "@probe.gl/env": "npm:4.1.0"
+    "@probe.gl/env": "npm:4.1.1"
   languageName: unknown
   linkType: soft
 
@@ -1647,7 +1647,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/stats-widget@workspace:modules/stats-widget"
   dependencies:
-    "@probe.gl/stats": "npm:4.1.0"
+    "@probe.gl/stats": "npm:4.1.1"
   peerDependencies:
     "@probe.gl/stats": ^4.0.0
   languageName: unknown
@@ -1660,7 +1660,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@probe.gl/stats@npm:4.1.0, @probe.gl/stats@workspace:modules/stats":
+"@probe.gl/stats@npm:4.1.1, @probe.gl/stats@workspace:modules/stats":
   version: 0.0.0-use.local
   resolution: "@probe.gl/stats@workspace:modules/stats"
   languageName: unknown
@@ -1686,7 +1686,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/test-utils@workspace:modules/test-utils"
   dependencies:
-    "@probe.gl/log": "npm:4.1.0"
+    "@probe.gl/log": "npm:4.1.1"
     "@types/pngjs": "npm:^6.0.1"
     pixelmatch: "npm:^4.0.2"
   peerDependencies:
@@ -14673,11 +14673,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.3.0#optional!builtin<compat/typescript>":
   version: 5.9.3
-  resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"
+  resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=74658d"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/ad09fdf7a756814dce65bc60c1657b40d44451346858eea230e10f2e95a289d9183b6e32e5c11e95acc0ccc214b4f36289dcad4bf1886b0adb84d711d336a430
+  checksum: 10c0/6f7e53bf0d9702350deeb6f35e08b69cbc8b958c33e0ec77bdc0ad6a6c8e280f3959dcbfde6f5b0848bece57810696489deaaa53d75de3578ff255d168c1efbd
   languageName: node
   linkType: hard
 

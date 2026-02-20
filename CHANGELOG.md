@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v4.1.1
+
+- feat(log): Add MemoryLog class (#11)
+- fix(log): Avoid sharing local storage config (#14)
+
 ## v4.1.0
 
 - New build toolchain with pure TypeScript
