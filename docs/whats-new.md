@@ -1,9 +1,19 @@
 # What's New
 
-## v4.1 (Unreleased)
+## v4.2 (Not yet released)
 
-- **@probe.gl/log** - Renamed the feature-rich `ConsoleLog` class to `ProbeLog` (still exported as `Log` and as the default instance) and added a lightweight `ConsoleLog` wrapper around the runtime console, with shared behavior factored into a new `BaseLog`.
-- **@probe.gl/log** - Added per-logger `once` caching to both the lightweight `ConsoleLog` and `MemoryLog` implementations, and `MemoryLog` now supports an `onMessage` callback that fires when new messages are recorded.
+**@probe.gl/log**
+- [`Probe` class](./modules/log/probe.md) - New class offering portable high-resolution timing and integer-megabyte heap usage methods.
+- `log.probe()` now also logs current JS heap usage (in integer MB) when `performance.memory.usedJSHeapSize` is available.
+
+## v4.1
+
+Release Date: Feb 20, 2026
+
+**@probe.gl/log** 
+
+- Renamed the feature-rich `ConsoleLog` class to `ProbeLog` (still exported as `Log` and as the default instance) and added a lightweight `ConsoleLog` wrapper around the runtime console, with shared behavior factored into a new `BaseLog`.
+- Added per-logger `once` caching to both the lightweight `ConsoleLog` and `MemoryLog` implementations, and `MemoryLog` now supports an `onMessage` callback that fires when new messages are recorded.
 
 ## v4.0
 

@@ -216,49 +216,66 @@ export default class BrowserTestDriver extends BrowserDriver {
 
   async _captureAndDiff(opts: DiffImagesOpts): Promise<DiffImageResult> {
     if (!opts.goldenImage) {
-      return Promise.reject(new Error('Must supply golden image for image diff'));
+      throw new Error('Must supply golden image for image diff');
     }
 
+    try {
+      const image = await this._takeScreenshotForDiff(opts);
+      if (!image) {
+        throw new Error('screenshot failed');
+      }
+
+      const result = await diffImages(image, opts.goldenImage, opts);
+      if (!result.success && opts.saveOnFail && result.source1) {
+        this._saveScreenshot(this._getFailureScreenshotFilename(opts), result.source1);
+      }
+      return this._getDiffImageResult(result);
+    } catch (error: unknown) {
+      return this._getDiffError(error);
+    }
+  }
+
+  _takeScreenshotForDiff(opts: DiffImagesOpts) {
     const screenshotOptions: ScreenshotOptions = {
       type: 'png',
       omitBackground: true,
       encoding: 'binary'
     };
+
     if (opts.region) {
       screenshotOptions.clip = opts.region;
     } else {
       screenshotOptions.fullPage = true;
     }
 
-    try {
-      const image = await this.page?.screenshot(screenshotOptions);
-      if (!image) {
-        throw new Error('screenshot failed');
-      }
-      const result = await diffImages(image, opts.goldenImage, opts);
-      if (!result.success && opts.saveOnFail && result.source1) {
-        let filename = opts.saveAs || '[name]-failed.png';
-        filename = filename.replace('[name]', opts.goldenImage.replace(/\.\w+$/, ''));
-        this._saveScreenshot(filename, result.source1);
-      }
-      return {
-        headless: this.headless,
-        match: result.match || 0,
-        matchPercentage: result.matchPercentage || 'N/A',
-        success: result.success,
-        // @ts-expect-error
-        diffImage: result.diffImage || null,
-        error: result.error || null
-      };
-    } catch (error: unknown) {
-      return {
-        headless: this.headless,
-        match: 0,
-        matchPercentage: 'N/A',
-        success: false,
-        error: (error as Error).message
-      };
-    }
+    return this.page?.screenshot(screenshotOptions);
+  }
+
+  _getFailureScreenshotFilename(opts: DiffImagesOpts): string {
+    const filenameTemplate = opts.saveAs || '[name]-failed.png';
+    return filenameTemplate.replace('[name]', opts.goldenImage.replace(/\.\w+$/, ''));
+  }
+
+  _getDiffImageResult(result): DiffImageResult {
+    return {
+      headless: this.headless,
+      match: result.match || 0,
+      matchPercentage: result.matchPercentage || 'N/A',
+      success: result.success,
+      // @ts-expect-error
+      diffImage: result.diffImage || null,
+      error: result.error || null
+    };
+  }
+
+  _getDiffError(error: unknown): DiffImageResult {
+    return {
+      headless: this.headless,
+      match: 0,
+      matchPercentage: 'N/A',
+      success: false,
+      error: (error as Error).message
+    };
   }
 
   _saveScreenshot(filename, data) {

@@ -1,12 +1,12 @@
 /* eslint-disable max-statements, no-console */
-import Probe, {Log, ConsoleLog, MemoryLog, ProbeLog} from '@probe.gl/log';
+import probeInstance, {Log, ConsoleLog, MemoryLog, ProbeLog} from '@probe.gl/log';
 import test from 'tape-promise/tape';
 
 test('Log#import', (t) => {
   t.equals(typeof Log, 'function', 'Log imported OK');
-  t.equals(typeof Probe, 'object', 'default (Probe) imported OK');
+  t.equals(typeof probeInstance, 'object', 'default import imported OK');
   t.ok(
-    Probe.VERSION.match(/\d+\.\d+\.\d+/) || Probe.VERSION === 'untranspiled source',
+    probeInstance.VERSION.match(/\d+\.\d+\.\d+/) || probeInstance.VERSION === 'untranspiled source',
     'Probe.VERSION imported OK'
   );
   t.ok(Log === ProbeLog, 'Log export is an alias for ProbeLog');
@@ -15,14 +15,14 @@ test('Log#import', (t) => {
 });
 
 test('Probe#probe', (t) => {
-  t.doesNotThrow(() => Probe.probe('test'), 'Probe.probe works');
-  t.doesNotThrow(() => Probe.probe(0, 'test'), 'Probe.probe works');
+  t.doesNotThrow(() => probeInstance.probe('test'), 'probe.probe works');
+  t.doesNotThrow(() => probeInstance.probe(0, 'test'), 'probe.probe works');
   t.end();
 });
 
 test('Probe#getTotal()', (t) => {
-  const time1 = Probe.getTotal();
-  const time2 = Probe.getTotal();
+  const time1 = probeInstance.getTotal();
+  const time2 = probeInstance.getTotal();
   t.ok(Number.isFinite(time1), 'Probe.getTotal() returned number');
   t.ok(Number.isFinite(time2), 'Probe.getTotal() returned number');
   t.ok(time2 - time1 >= 0, 'Probe.getTotal() is monotonic');

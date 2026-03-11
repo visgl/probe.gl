@@ -6,14 +6,6 @@ import {formatSI} from './format-utils';
 import {mean, cv} from './stat-utils';
 import {logResultsAsMarkdownTable, logResultsAsTree} from './bench-loggers';
 
-declare global {
-  // eslint-disable-next-line no-var
-  var probe: {
-    priority?: number;
-    markdown?: boolean;
-  };
-}
-
 const noop = () => {};
 
 /** Properties for benchmark suite */
