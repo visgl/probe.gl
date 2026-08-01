@@ -2,6 +2,7 @@
   "name": "project-website",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "yarn@4.18.0",
   "description": "Website for probe.gl project",
   "scripts": {
     "docusaurus": "docusaurus",
@@ -25,12 +26,16 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
+  "dependenciesMeta": {
+    "core-js@3.38.1": {
+      "built": false
+    },
+    "core-js-pure@3.35.0": {
+      "built": false
+    }
+  },
   "browserslist": [
     ">0.2% and supports async-functions",
     "not dead"
-  ],
-  "volta": {
-    "node": "20.15.1",
-    "yarn": "4.4.0"
-  }
+  ]
 }

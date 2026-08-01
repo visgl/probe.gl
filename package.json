@@ -4,6 +4,7 @@
   "license": "MIT",
   "type": "module",
   "private": true,
+  "packageManager": "yarn@4.18.0",
   "keywords": [
     "javascript",
     "profiling",
@@ -41,11 +42,30 @@
     "react-dom": "^16.13.1",
     "url-loader": "^1.0.1"
   },
+  "dependenciesMeta": {
+    "esbuild@0.16.17": {
+      "built": true
+    },
+    "esbuild@0.18.20": {
+      "built": true
+    },
+    "esbuild@0.21.5": {
+      "built": true
+    },
+    "nx@20.8.3": {
+      "built": true
+    },
+    "pre-commit@1.2.2": {
+      "built": false
+    },
+    "puppeteer@22.15.0": {
+      "built": true
+    },
+    "spawn-sync@1.0.15": {
+      "built": false
+    }
+  },
   "pre-commit": [
     "test-fast"
-  ],
-  "volta": {
-    "node": "20.15.1",
-    "yarn": "4.4.0"
-  }
+  ]
 }
