@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import test from 'tape-promise/tape';
+import test from 'test/utils/vitest-tape';
 import {mean, std, cv} from '@probe.gl/bench/stat-utils';
 
 // wolfram alpha: mean {1, 2, 3}

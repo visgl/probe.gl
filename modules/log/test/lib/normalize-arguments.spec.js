@@ -1,5 +1,5 @@
 import {normalizeArguments} from '@probe.gl/log/loggers/probe-log';
-import test from 'tape-promise/tape';
+import test from 'test/utils/vitest-tape';
 
 function makeOpts(logLevel, message, ...args) {
   return {logLevel, message, args: arguments};

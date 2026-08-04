@@ -13,6 +13,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "useDefineForClassFields": false,
+    "ignoreDeprecations": "6.0",
+    "types": ["node"],
     // "baseUrl" should be provided if "paths" are provided
     "baseUrl": ".",
 

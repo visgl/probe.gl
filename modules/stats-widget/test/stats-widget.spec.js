@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import test from 'tape-promise/tape';
+import test from 'test/utils/vitest-tape';
 import {Stats} from '@probe.gl/stats';
 import {StatsWidget} from '@probe.gl/stats-widget';
 
