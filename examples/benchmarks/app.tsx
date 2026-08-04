@@ -14,8 +14,6 @@ type LogItem = {
   formattedError?;
 };
 
-const addReferenceBenchmarks = false;
-
 function parseSIPrefix(itersPerSecond: string): number {
   const value = parseFloat(itersPerSecond);
   const prefix = itersPerSecond[itersPerSecond.length - 1];
@@ -35,7 +33,7 @@ export default class App extends PureComponent<AppProps> {
   constructor(props: AppProps) {
     super(props);
 
-    addBenchmarks(this.suite, addReferenceBenchmarks);
+    addBenchmarks(this.suite);
   }
 
   override componentDidMount() {
