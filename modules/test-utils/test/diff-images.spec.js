@@ -1,4 +1,4 @@
-import test from 'tape-promise/tape';
+import test from 'test/utils/vitest-tape';
 import {isBrowser} from '@probe.gl/env';
 
 import {_diffImages as diffImages} from '@probe.gl/test-utils';

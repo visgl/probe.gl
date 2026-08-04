@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@probe.gl/bench": ["./modules/bench/src/index.ts"],
+      "@probe.gl/env": ["./modules/env/src/index.ts"],
+      "@probe.gl/log": ["./modules/log/src/index.ts"],
+      "@probe.gl/stats": ["./modules/stats/src/index.ts"],
+      "@probe.gl/stats-widget": ["./modules/stats-widget/src/index.ts"],
+      "@probe.gl/test-utils": ["./modules/test-utils/src/index.ts"],
+      "test/*": ["./test/*"]
+    }
+  }
+}

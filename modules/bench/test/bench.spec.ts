@@ -1,4 +1,4 @@
-import test from 'tape-promise/tape';
+import test from 'test/utils/vitest-tape';
 import {Bench} from '@probe.gl/bench';
 
 import iteratorBench from './iterator.bench';
