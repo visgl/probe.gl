@@ -1,4 +1,4 @@
-import test from 'tape-promise/tape';
+import test from 'test/utils/vitest-tape';
 import {formatTime, formatMemory} from '@probe.gl/stats-widget/format-utils';
 
 test('StatsWidget#formatTime', (t) => {

@@ -1,6 +1,6 @@
 /* eslint-disable max-statements, no-console */
 import Probe, {Log, ConsoleLog, MemoryLog, ProbeLog} from '@probe.gl/log';
-import test from 'tape-promise/tape';
+import test from 'test/utils/vitest-tape';
 
 test('Log#import', (t) => {
   t.equals(typeof Log, 'function', 'Log imported OK');
