@@ -26,7 +26,7 @@ enableDOMLogging(true);
 
 const suite = new Bench();
 
-addBenchmarks(suite, false);
+addBenchmarks(suite);
 
 suite
   // Calibrate performance

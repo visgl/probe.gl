@@ -6,10 +6,7 @@
 // without publishing or npm linking, with conveniences such hot reloading etc.
 
 const resolve = require('path').resolve;
-const {getOcularConfig} = require('ocular-dev-tools');
-const ALIASES = getOcularConfig({
-  root: resolve(__dirname, '..')
-}).aliases;
+const {getOcularConfig} = require('@vis.gl/dev-tools');
 
 // Support for hot reloading changes to the library:
 const LOCAL_DEVELOPMENT_CONFIG = {
@@ -24,7 +21,7 @@ const LOCAL_DEVELOPMENT_CONFIG = {
 
   resolve: {
     // Imports the library from its src directory in this repo
-    alias: ALIASES
+    alias: {}
   },
 
   module: {
@@ -39,7 +36,12 @@ const LOCAL_DEVELOPMENT_CONFIG = {
   }
 };
 
-function addLocalDevSettings(config, opts) {
+async function addLocalDevSettings(config, opts) {
+  const {aliases} = await getOcularConfig({
+    root: resolve(__dirname, '..')
+  });
+  LOCAL_DEVELOPMENT_CONFIG.resolve.alias = aliases;
+
   config = Object.assign({}, LOCAL_DEVELOPMENT_CONFIG, config);
   config.resolve = config.resolve || {};
   config.resolve.alias = config.resolve.alias || {};
@@ -54,11 +56,11 @@ function addLocalDevSettings(config, opts) {
 
 module.exports =
   (baseConfig, opts = {}) =>
-  (env) => {
+  async (env) => {
     let config = baseConfig;
 
     if (env && env.local) {
-      config = addLocalDevSettings(config, opts);
+      config = await addLocalDevSettings(config, opts);
     }
 
     // uncomment to debug

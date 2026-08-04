@@ -9,14 +9,11 @@
     "jsx": "react",
     "allowJs": true,
     "checkJs": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "useDefineForClassFields": false,
-    "ignoreDeprecations": "6.0",
     "types": ["node"],
-    // "baseUrl" should be provided if "paths" are provided
-    "baseUrl": ".",
 
     // BEGIN TYPE CHECK SETTINGS
     "skipLibCheck": true,
@@ -42,21 +39,21 @@
     // END TYPE CHECK SETTINGS
 
     "paths": {
-      "@probe.gl/bench/*": ["modules/bench/src/*"],
-      "@probe.gl/bench/test/*": ["modules/bench/test/*"],
-      "@probe.gl/env/*": ["modules/env/src/*"],
-      "@probe.gl/env/test/*": ["modules/env/test/*"],
-      "@probe.gl/log/*": ["modules/log/src/*"],
-      "@probe.gl/log/test/*": ["modules/log/test/*"],
-      "@probe.gl/seer/*": ["modules/seer/src/*"],
-      "@probe.gl/seer/test/*": ["modules/seer/test/*"],
-      "@probe.gl/stats/*": ["modules/stats/src/*"],
-      "@probe.gl/stats/test/*": ["modules/stats/test/*"],
-      "@probe.gl/stats-widget/*": ["modules/stats-widget/src/*"],
-      "@probe.gl/stats-widget/test/*": ["modules/stats-widget/test/*"],
-      "@probe.gl/test-utils/*": ["modules/test-utils/src/*"],
-      "@probe.gl/test-utils/test/*": ["modules/test-utils/test/*"],
-      "test": ["test"]
+      "@probe.gl/bench/*": ["./modules/bench/src/*"],
+      "@probe.gl/bench/test/*": ["./modules/bench/test/*"],
+      "@probe.gl/env/*": ["./modules/env/src/*"],
+      "@probe.gl/env/test/*": ["./modules/env/test/*"],
+      "@probe.gl/log/*": ["./modules/log/src/*"],
+      "@probe.gl/log/test/*": ["./modules/log/test/*"],
+      "@probe.gl/seer/*": ["./modules/seer/src/*"],
+      "@probe.gl/seer/test/*": ["./modules/seer/test/*"],
+      "@probe.gl/stats/*": ["./modules/stats/src/*"],
+      "@probe.gl/stats/test/*": ["./modules/stats/test/*"],
+      "@probe.gl/stats-widget/*": ["./modules/stats-widget/src/*"],
+      "@probe.gl/stats-widget/test/*": ["./modules/stats-widget/test/*"],
+      "@probe.gl/test-utils/*": ["./modules/test-utils/src/*"],
+      "@probe.gl/test-utils/test/*": ["./modules/test-utils/test/*"],
+      "test": ["./test"]
     },
     "plugins": [
       {
