@@ -30,7 +30,7 @@ export type BenchProps = {
   minIterations?: number;
 };
 
-export type BenchTestFunction = <T>(testArgs?: T) => T | Promise<T>;
+export type BenchTestFunction = (testArgs?: any) => unknown | Promise<unknown>;
 export type BenchInitFunction = () => unknown;
 
 /** Options for a specific test case */

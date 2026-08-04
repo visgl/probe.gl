@@ -5,7 +5,7 @@ import addBenchmarks from './samples.bench';
 
 const suite = new Bench();
 
-addBenchmarks(suite, false);
+addBenchmarks(suite);
 
 suite
   // Calibrate performance
