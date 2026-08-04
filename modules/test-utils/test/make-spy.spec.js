@@ -1,8 +1,7 @@
-import test from 'test/utils/vitest-tape';
+import {expect, test} from 'vitest';
 
 import {makeSpy} from '@probe.gl/test-utils';
 
-test('import "@probe.gl/test-utils"', (t) => {
-  t.ok(typeof makeSpy, 'makeSpy symbol imported');
-  t.end();
+test('import "@probe.gl/test-utils"', () => {
+  expect(typeof makeSpy, 'makeSpy symbol imported').toBeTruthy();
 });

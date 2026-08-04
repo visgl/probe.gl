@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
-import test from 'test/utils/vitest-tape';
+import {expect, test} from 'vitest';
 import {mean, std, cv} from '@probe.gl/bench/stat-utils';
 
 // wolfram alpha: mean {1, 2, 3}
-test('statistics#mean', (t) => {
+test('statistics#mean', () => {
   const MEAN_TESTS = [
     {
       input: [1],
@@ -20,13 +20,12 @@ test('statistics#mean', (t) => {
   ];
   for (const tc of MEAN_TESTS) {
     const result = mean(tc.input);
-    t.equal(result.toPrecision(11), tc.output.toPrecision(11), 'returns correct mean');
+    expect(result.toPrecision(11), 'returns correct mean').toBe(tc.output.toPrecision(11));
   }
-  t.end();
 });
 
 // wolfram alpha: standard deviation {1, 2, 3}
-test('statistics#std', (t) => {
+test('statistics#std', () => {
   const STD_TESTS = [
     {
       input: [1],
@@ -43,17 +42,14 @@ test('statistics#std', (t) => {
   ];
   for (const tc of STD_TESTS) {
     const result = std(tc.input);
-    t.equal(
-      result.toPrecision(11),
-      tc.output.toPrecision(11),
-      'returns correct standard deviation'
+    expect(result.toPrecision(11), 'returns correct standard deviation').toBe(
+      tc.output.toPrecision(11)
     );
   }
-  t.end();
 });
 
 // wolfram alpha: coefficient of variation {1, 2, 3}
-test('statistics#cv', (t) => {
+test('statistics#cv', () => {
   const STD_ERR_TESTS = [
     {
       input: [1],
@@ -66,11 +62,8 @@ test('statistics#cv', (t) => {
   ];
   for (const tc of STD_ERR_TESTS) {
     const result = cv(tc.input);
-    t.equal(
-      result.toPrecision(11),
-      tc.output.toPrecision(11),
-      'returns correct standard deviation'
+    expect(result.toPrecision(11), 'returns correct standard deviation').toBe(
+      tc.output.toPrecision(11)
     );
   }
-  t.end();
 });

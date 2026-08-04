@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import test from 'test/utils/vitest-tape';
+import {expect, test} from 'vitest';
 import {Stats} from '@probe.gl/stats';
 import {StatsWidget} from '@probe.gl/stats-widget';
 
@@ -29,84 +29,79 @@ function getStatsObject() {
   return stats;
 }
 
-test('StatsWidget#import', (t) => {
-  t.equals(typeof StatsWidget, 'function', 'Stats import OK');
-  t.end();
+test('StatsWidget#import', () => {
+  expect(typeof StatsWidget, 'Stats import OK').toBe('function');
 });
 
-test('StatsWidget#Constructor with no stats or options', (t) => {
+test('StatsWidget#Constructor with no stats or options', () => {
   const statsWidget = new StatsWidget(null);
-  t.ok(statsWidget._container, 'Should create a dom container.');
-  t.ok(statsWidget._header, 'Should create a dom header.');
-  t.ok(
+  expect(statsWidget._container, 'Should create a dom container.').toBeTruthy();
+  expect(statsWidget._header, 'Should create a dom header.').toBeTruthy();
+  expect(
     statsWidget._innerContainer.parentElement === statsWidget._container,
     'Should append inner container to container'
-  );
-  t.ok(
+  ).toBeTruthy();
+  expect(
     statsWidget._innerContainer.childNodes[0] === statsWidget._header,
     'Should append header to inner container as the first child'
-  );
-  t.ok(
+  ).toBeTruthy();
+  expect(
     statsWidget._innerContainer.childNodes[1] === statsWidget._statsContainer,
     'Should append stats container to inner container as the second child'
-  );
+  ).toBeTruthy();
   statsWidget.remove();
-  t.end();
 });
 
-test('StatsWidget#Constructor with container', (t) => {
+test('StatsWidget#Constructor with container', () => {
   const container = _global.document.createElement('div');
   container.id = 'test-stats-widget-container';
   const statsWidget = new StatsWidget(null, {container});
-  t.equal(statsWidget._container, container, 'container has been set');
+  expect(statsWidget._container, 'container has been set').toBe(container);
   statsWidget.remove();
-  t.end();
 });
 
-test('StatsWidget#setStats', (t) => {
+test('StatsWidget#setStats', () => {
   const container = _global.document.createElement('div');
   container.id = 'test-stats-widget-container';
   const statsWidget = new StatsWidget(null, {container});
   const stats = getStatsObject();
 
-  t.equals(Object.keys(statsWidget._items).length, 0, 'Should have no items when no stats.');
+  expect(Object.keys(statsWidget._items).length, 'Should have no items when no stats.').toBe(0);
 
   statsWidget.setStats(stats);
 
-  t.equals(Object.keys(statsWidget._items).length, 3, 'Should have 3 items.');
-  t.equals(statsWidget._container.childNodes.length, 1, 'Should have 2 child nodes.');
-  t.equals(statsWidget._innerContainer.childNodes.length, 2, 'Should have 2 child nodes.');
-  t.equals(statsWidget._statsContainer.childNodes.length, 3, 'Should have 3 child nodes.');
-  t.equals(statsWidget._counter, 1, 'Should call update() and increase _counter.');
+  expect(Object.keys(statsWidget._items).length, 'Should have 3 items.').toBe(3);
+  expect(statsWidget._container.childNodes.length, 'Should have 2 child nodes.').toBe(1);
+  expect(statsWidget._innerContainer.childNodes.length, 'Should have 2 child nodes.').toBe(2);
+  expect(statsWidget._statsContainer.childNodes.length, 'Should have 3 child nodes.').toBe(3);
+  expect(statsWidget._counter, 'Should call update() and increase _counter.').toBe(1);
 
   statsWidget.remove();
-  t.end();
 });
 
-test('StatsWidget#collapse', (t) => {
+test('StatsWidget#collapse', () => {
   const container = _global.document.createElement('div');
   container.id = 'test-stats-widget-container';
   const statsWidget = new StatsWidget(getStatsObject(), {container});
 
-  t.ok(!statsWidget.collapsed, 'Starts uncollapsed');
-  t.equals(statsWidget._statsContainer.style.display, 'block', 'Starts in block display');
+  expect(statsWidget.collapsed, 'Starts uncollapsed').toBeFalsy();
+  expect(statsWidget._statsContainer.style.display, 'Starts in block display').toBe('block');
 
   statsWidget.setCollapsed(true);
 
-  t.ok(statsWidget.collapsed, 'Collapses');
-  t.equals(statsWidget._statsContainer.style.display, 'none', 'Collapses to none display');
+  expect(statsWidget.collapsed, 'Collapses').toBeTruthy();
+  expect(statsWidget._statsContainer.style.display, 'Collapses to none display').toBe('none');
 
   statsWidget.setCollapsed(false);
 
-  t.ok(!statsWidget.collapsed, 'Uncollapses');
-  t.equals(statsWidget._statsContainer.style.display, 'block', 'Uncollapses to block display');
+  expect(statsWidget.collapsed, 'Uncollapses').toBeFalsy();
+  expect(statsWidget._statsContainer.style.display, 'Uncollapses to block display').toBe('block');
 
   statsWidget.remove();
-  t.end();
 });
 
 /* eslint-disable */
-test('StatsWidget#Update stats', (t) => {
+test('StatsWidget#Update stats', () => {
   const container = _global.document.createElement('div');
   container.id = 'test-stats-widget-container';
   const statsWidget = new StatsWidget(null, {container});
@@ -118,30 +113,30 @@ test('StatsWidget#Update stats', (t) => {
   statsWidget.update();
 
   // @ts-expect-error
-  t.equals(Object.keys(statsWidget._items).length, 3, 'Should have 3 items.');
+  expect(Object.keys(statsWidget._items).length, 'Should have 3 items.').toBe(3);
   // @ts-expect-error
-  t.equals(statsWidget._container.childNodes.length, 1, 'Should have 1 child nodes.');
-  t.equals(statsWidget._innerContainer.childNodes.length, 2, 'Should have 2 child nodes.');
-  t.equals(statsWidget._statsContainer.childNodes.length, 3, 'Should have 3 child nodes.');
+  expect(statsWidget._container.childNodes.length, 'Should have 1 child nodes.').toBe(1);
+  expect(statsWidget._innerContainer.childNodes.length, 'Should have 2 child nodes.').toBe(2);
+  expect(statsWidget._statsContainer.childNodes.length, 'Should have 3 child nodes.').toBe(3);
 
   // @ts-expect-error
-  t.equals(statsWidget._items.Count.innerHTML, 'Count: 1', 'Should correctly update count stats.');
+  expect(statsWidget._items.Count.innerHTML, 'Should correctly update count stats.').toBe(
+    'Count: 1'
+  );
 
   stats.get('GPU Memory').addCount(1500);
   statsWidget.update();
 
-  t.equals(
+  expect(
     // @ts-expect-error
     statsWidget._items['GPU Memory'].innerHTML,
-    'GPU Memory: 1.46kB',
     'Should correctly update memory stats.'
-  );
+  ).toBe('GPU Memory: 1.46kB');
 
   statsWidget.remove();
-  t.end();
 });
 
-test('StatsWidget#formatters', (t) => {
+test('StatsWidget#formatters', () => {
   // @ts-expect-error
   const container = _global.document.createElement('div');
   container.id = 'test-stats-widget-container';
@@ -161,27 +156,25 @@ test('StatsWidget#formatters', (t) => {
   statsWidget.update();
 
   // @ts-expect-error
-  t.equals(statsWidget._items.Count.innerHTML, 'Count: 1.0k', 'Should use customized formatter.');
-  t.equals(
+  expect(statsWidget._items.Count.innerHTML, 'Should use customized formatter.').toBe(
+    'Count: 1.0k'
+  );
+  expect(
     // @ts-expect-error
     statsWidget._items['GPU Memory'].innerHTML,
-    'GPU Memory: 1500',
     'Should use customized formatter.'
-  );
+  ).toBe('GPU Memory: 1500');
 
   statsWidget.setStats(new Stats({id: 'test-stats-2'}));
   // @ts-expect-error
-  t.equals(
-    statsWidget._header.innerText,
-    '\u2b07 test-stats-2',
-    "Should use the new stats' header."
+  expect(statsWidget._header.innerText, "Should use the new stats' header.").toBe(
+    '\u2b07 test-stats-2'
   );
 
   statsWidget.remove();
-  t.end();
 });
 
-test('StatsWidget#resetOnUpdate', (t) => {
+test('StatsWidget#resetOnUpdate', () => {
   // @ts-expect-error
   const container = _global.document.createElement('div');
   container.id = 'test-stats-widget-container';
@@ -197,20 +190,18 @@ test('StatsWidget#resetOnUpdate', (t) => {
   stats.get('GPU Memory').addCount(1500);
   statsWidget.update();
 
-  t.equals(stats.get('Count').count, 0, 'Should reset count.');
-  t.equals(stats.get('GPU Memory').count, 1500, 'Should not reset memory.');
+  expect(stats.get('Count').count, 'Should reset count.').toBe(0);
+  expect(stats.get('GPU Memory').count, 'Should not reset memory.').toBe(1500);
 
   statsWidget.remove();
-  t.end();
 });
 
-test('StatsWidget#remove', (t) => {
+test('StatsWidget#remove', () => {
   const container = _global.document.createElement('div');
   container.id = 'test-stats-widget-container';
   const statsWidget = new StatsWidget(null, {container});
-  t.ok(statsWidget._container === container);
-  t.equals(statsWidget._container.childNodes.length, 1, 'Should have 1 child node.');
+  expect(statsWidget._container === container).toBeTruthy();
+  expect(statsWidget._container.childNodes.length, 'Should have 1 child node.').toBe(1);
   statsWidget.remove();
-  t.equals(statsWidget._container.childNodes.length, 0, 'Should have 0 child nodes.');
-  t.end();
+  expect(statsWidget._container.childNodes.length, 'Should have 0 child nodes.').toBe(0);
 });
