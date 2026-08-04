@@ -4,7 +4,6 @@ import {nodePolyfills} from 'vite-plugin-node-polyfills';
 const includePatterns = ['modules/**/*.spec.{ts,js}'];
 const excludePatterns = [
   '**/*.disabled.*',
-  'modules/seer/test/**',
   'test/bench/**',
   'test/size/**'
 ];
