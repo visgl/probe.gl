@@ -125,7 +125,7 @@ test('Log#probe includes memory usage when available', () => {
   try {
     const canSet = withPerformanceMemory(2 * 1024 * 1024 + 123, () => {
       const log = new Log({id: 'probe-memory-test'});
-      log.probe(1, 'message')();
+      log.probe(0, 'message')();
     });
     if (canSet) {
       const normalized = emitSpy.mock.calls[emitSpy.mock.calls.length - 1][1];
@@ -142,7 +142,7 @@ test('Log#probe does not include memory usage when unavailable', () => {
   try {
     const canSet = withPerformanceMemory(undefined, () => {
       const log = new Log({id: 'probe-memory-test-no-memory'});
-      log.probe(1, 'message')();
+      log.probe(0, 'message')();
     });
     if (canSet) {
       const normalized = emitSpy.mock.calls[emitSpy.mock.calls.length - 1][1];
