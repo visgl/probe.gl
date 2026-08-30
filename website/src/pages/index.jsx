@@ -45,13 +45,33 @@ hr {
 }
 `;
 
+const HeroBackground = styled.div`
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+`;
+
+function HeroExample() {
+  const baseUrl = useBaseUrl('/');
+  return (
+    <HeroBackground
+      aria-hidden="true"
+      style={{
+        backgroundImage: `linear-gradient(90deg, rgba(247, 250, 252, 0.98) 0%, rgba(247, 250, 252, 0.9) 34%, rgba(247, 250, 252, 0.42) 70%, rgba(9, 16, 38, 0.18) 100%), url(${baseUrl}images/probe-hero.webp)`
+      }}
+    />
+  );
+}
+
 export default function IndexPage() {
   const baseUrl = useBaseUrl('/');
 
   return (
     <Layout title="Home" description="probe.gl">
       <>
-        <Home getStartedLink="./docs/get-started" />
+        <Home HeroExample={HeroExample} getStartedLink="./docs/get-started" />
         <TextContainer>
           <h2>
           JavaScript Console Logging, Instrumentation, Benchmarking and Test Utilities.

@@ -1,6 +1,0 @@
-dist/
-node_modules/
-modules/stats/src/lib/stats.ts
-modules/seer/src/api.ts
-coverage/
-.nyc_output/

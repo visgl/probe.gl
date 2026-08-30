@@ -1,4 +1,4 @@
-import test from 'tape-promise/tape';
+import {expect, test, vi} from 'vitest';
 import {Bench} from '@probe.gl/bench';
 
 import iteratorBench from './iterator.bench';
@@ -6,38 +6,36 @@ import parseColorBench from './parse-color.bench';
 
 (globalThis as any).__PROBE_BENCH_IS_TEST__ = true;
 
-test('Bench#import', (t) => {
-  t.equals(typeof Bench, 'function', 'Expected row logged');
-  t.end();
+test('Bench#import', () => {
+  expect(typeof Bench, 'Expected row logged').toBe('function');
 });
 
-test('Bench#constructor', (t) => {
+test('Bench#constructor', () => {
   const suite = new Bench({id: 'test'});
-  t.ok(suite instanceof Bench, 'suite created successfully');
-  t.end();
+  expect(suite instanceof Bench, 'suite created successfully').toBeTruthy();
 });
 
-test('Bench#run', (t) => {
+test('Bench#run', async () => {
   const suite = new Bench({
     id: 'test',
-    log: ({message}) => t.comment(message)
+    log: vi.fn()
   });
 
   suite.add('initFunc in options', {initialize: () => 1, unit: 'initializations'}, (value) => {
     // @ts-expect-error
     if (!value === 1) {
-      t.fail();
+      throw new Error('initialize should return 1');
     }
   });
 
   iteratorBench(suite);
   parseColorBench(suite);
 
-  t.ok(suite instanceof Bench, 'suite created successfully');
-  suite.run().then(() => t.end());
+  expect(suite instanceof Bench, 'suite created successfully').toBeTruthy();
+  await suite.run();
 });
 
-test('Bench#iterations option', (t) => {
+test('Bench#iterations option', async () => {
   const suite = new Bench({
     id: 'iteration-control',
     iterations: 2,
@@ -51,13 +49,12 @@ test('Bench#iterations option', (t) => {
     callCount++;
   });
 
-  suite.run().then(() => {
-    t.equals(callCount, 2, 'runs configured number of iterations');
-    t.end();
-  });
+  await suite.run();
+
+  expect(callCount, 'runs configured number of iterations').toBe(2);
 });
 
-test('Bench#iterations runs fixed passes', async (t) => {
+test('Bench#iterations runs fixed passes', async () => {
   const suite = new Bench({
     id: 'fixed-iteration-count',
     iterations: 1,
@@ -76,11 +73,10 @@ test('Bench#iterations runs fixed passes', async (t) => {
 
   await suite.run();
 
-  t.equals(callCount, 1, 'runs exactly one pass even if time threshold is high');
-  t.end();
+  expect(callCount, 'runs exactly one pass even if time threshold is high').toBe(1);
 });
 
-test('Bench#maxTimeMs caps total case time', async (t) => {
+test('Bench#maxTimeMs caps total case time', async () => {
   const suite = new Bench({
     id: 'max-time-limit',
     iterations: 50,
@@ -101,7 +97,6 @@ test('Bench#maxTimeMs caps total case time', async (t) => {
 
   const duration = Date.now() - start;
 
-  t.ok(callCount < 50, 'stops iterating once maxTimeMs is reached');
-  t.ok(duration < 500, 'returns promptly when hitting the max time budget');
-  t.end();
+  expect(callCount, 'stops iterating once maxTimeMs is reached').toBeLessThan(50);
+  expect(duration, 'returns promptly when hitting the max time budget').toBeLessThan(500);
 });

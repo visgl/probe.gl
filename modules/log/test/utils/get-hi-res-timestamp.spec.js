@@ -1,13 +1,15 @@
-import test from 'tape-promise/tape';
+import {expect, test} from 'vitest';
 import {getHiResTimestamp} from '@probe.gl/log';
 
-test('getHiResTimestamp', (t) => {
+test('getHiResTimestamp', () => {
   const t1hr = getHiResTimestamp();
   const t1d = Date.now();
-  t.equals(typeof getHiResTimestamp, 'function', 'getHiResTimestamp imported OK');
-  t.equals(typeof getHiResTimestamp(), 'number', 'getHiResTimestamp returning time');
+  expect(typeof getHiResTimestamp, 'getHiResTimestamp imported OK').toBe('function');
+  expect(typeof getHiResTimestamp(), 'getHiResTimestamp returning time').toBe('number');
   const t2hr = getHiResTimestamp();
   const t2d = Date.now();
-  t.ok(Math.abs(t2hr - t1hr - (t2d - t1d)) < 2, 'getHiResTimestamp is reporting time');
-  t.end();
+  expect(
+    Math.abs(t2hr - t1hr - (t2d - t1d)) < 2,
+    'getHiResTimestamp is reporting time'
+  ).toBeTruthy();
 });

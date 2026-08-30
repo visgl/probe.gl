@@ -1,6 +1,8 @@
 // probe.gl, MIT license
 
-import puppeteer, {Browser, Page, PuppeteerLaunchOptions, ConsoleMessage} from 'puppeteer';
+/* eslint-disable no-console */
+
+import puppeteer, {Browser, Page, ConsoleMessage} from 'puppeteer';
 import ChildProcess from 'child_process';
 
 import {COLOR, Log} from '@probe.gl/log';
@@ -26,6 +28,8 @@ export type ServerConfiguration = {
 };
 
 const AUTO_PORT_START = 5000;
+
+type PuppeteerLaunchOptions = Parameters<typeof puppeteer.launch>[0];
 
 function noop() {} // eslint-disable-line @typescript-eslint/no-empty-function
 

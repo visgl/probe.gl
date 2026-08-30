@@ -1,5 +1,5 @@
-import {normalizeArguments} from '@probe.gl/log/log';
-import test from 'tape-promise/tape';
+import {normalizeArguments} from '@probe.gl/log/loggers/probe-log';
+import {expect, test} from 'vitest';
 
 function makeOpts(logLevel, message, ...args) {
   return {logLevel, message, args: arguments};
@@ -28,15 +28,13 @@ const NORMALIZE_ARGUMENTS_TEST_CASES = [
   // }
 ];
 
-test('normalizeArguments', (t) => {
+test('normalizeArguments', () => {
   for (const tc of NORMALIZE_ARGUMENTS_TEST_CASES) {
     const opts = normalizeArguments({...tc.args});
 
-    t.deepEqual(
+    expect(
       opts,
-      tc.opts,
       `log(${JSON.stringify(tc.args)}) => ${JSON.stringify(opts)} args parsed correctly`
-    );
+    ).toEqual(tc.opts);
   }
-  t.end();
 });

@@ -18,7 +18,6 @@ declare global {
 }
 
 const noop = () => {};
-const IS_TEST = Boolean(globalThis.__PROBE_BENCH_IS_TEST__);
 
 /** Properties for benchmark suite */
 export type BenchProps = {
@@ -38,7 +37,7 @@ export type BenchProps = {
   iterations?: number;
 };
 
-export type BenchTestFunction = <T>(testArgs?: T) => T | Promise<T>;
+export type BenchTestFunction = (testArgs?: any) => unknown | Promise<unknown>;
 export type BenchInitFunction = () => unknown;
 
 /** Options for a specific test case */
@@ -329,7 +328,7 @@ async function runTests({
   onBenchmarkComplete?: Function;
 }) {
   // Run default warm up and calibration testCases
-  if (!IS_TEST) {
+  if (!globalThis.__PROBE_BENCH_IS_TEST__) {
     // @ts-expect-error
     runCalibrationTests({testCases, onBenchmarkComplete});
   }

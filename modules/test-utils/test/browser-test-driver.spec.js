@@ -1,4 +1,4 @@
-import test from 'tape-promise/tape';
+import {expect, test} from 'vitest';
 
 import {BrowserTestDriver} from '@probe.gl/test-utils';
 
@@ -29,15 +29,12 @@ function createTestCanvas() {
   return canvas;
 }
 
-test('BrowserTestDriver#import', (t) => {
-  t.ok(BrowserTestDriver, 'BrowserTestDriver symbol imported');
-  t.end();
+test('BrowserTestDriver#import', () => {
+  expect(BrowserTestDriver, 'BrowserTestDriver symbol imported').toBeTruthy();
 });
 
-test('BrowserTestDriver#ImageDiff', async (t) => {
+test('BrowserTestDriver#ImageDiff', async () => {
   if (typeof document === 'undefined' || !window.browserTestDriver_captureAndDiffScreen) {
-    t.comment('ImageDiff only works in automated browser tests');
-    t.end();
     return;
   }
 
@@ -53,11 +50,13 @@ test('BrowserTestDriver#ImageDiff', async (t) => {
   try {
     let result = await window.browserTestDriver_captureAndDiffScreen(diffSettings);
     if (result.success) {
-      t.pass(`Screenshot matches golden image: ${result.matchPercentage}`);
+      expect(result.success, `Screenshot matches golden image: ${result.matchPercentage}`).toBe(
+        true
+      );
     } else if (result.error) {
-      t.fail(`Image diff throws error: ${result.error}`);
+      throw new Error(`Image diff throws error: ${result.error}`);
     } else {
-      t.fail(`Screenshot should match golden image: ${result.matchPercentage}`);
+      throw new Error(`Screenshot should match golden image: ${result.matchPercentage}`);
     }
 
     const ctx = canvas.getContext('2d');
@@ -65,16 +64,18 @@ test('BrowserTestDriver#ImageDiff', async (t) => {
     ctx.fillRect(10, 10, 12, 12);
     result = await window.browserTestDriver_captureAndDiffScreen(diffSettings);
     if (result.success) {
-      t.fail(`Screenshot should not match golden image: ${result.matchPercentage}`);
+      throw new Error(`Screenshot should not match golden image: ${result.matchPercentage}`);
     } else if (result.error) {
-      t.fail(`Image diff throws error: ${result.error}`);
+      throw new Error(`Image diff throws error: ${result.error}`);
     } else {
-      t.pass(`Screenshot does not match golden image: ${result.matchPercentage}`);
+      expect(
+        result.success,
+        `Screenshot does not match golden image: ${result.matchPercentage}`
+      ).toBe(false);
     }
   } catch (ex) {
-    t.fail(`Unexpected error: ${ex}`);
+    throw new Error(`Unexpected error: ${ex}`);
   }
 
   document.body.removeChild(canvas);
-  t.end();
 });
