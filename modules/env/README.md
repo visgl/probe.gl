@@ -2,6 +2,6 @@
 
 JavaScript environment detection for browser and Node
 
-[probe.gl](https://uber-web.github.io/probe.gl/#/documentation/overview/docs) is a collection of logging, instrumentation, bench-marking and test tools for JavaScript applications.
+[probe.gl](https://visgl.github.io/probe.gl/docs/) is a collection of JavaScript debugging, logging, instrumentation, benchmarking, and testing utilities.
 
-For documentation please visit the [website](https://uber-web.github.io/probe.gl/#/documentation/overview).
+For documentation, visit the [probe.gl website](https://visgl.github.io/probe.gl/docs/).

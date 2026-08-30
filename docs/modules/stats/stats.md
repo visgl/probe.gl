@@ -1,6 +1,6 @@
 # Stats
 
-A collection of statistic for tracking time or magnitude metrics.
+A collection of statistics for tracking time or magnitude metrics.
 
 ## Usage
 
@@ -24,7 +24,7 @@ executionTime.timeEnd();
 `new Stats({id, stats})`
 
 * `id` (`String`) - the id of the `Stats` object.
-* `stats` (`Stat[] || Object[]`) - the list of stats. Each element in the stats could be either`Stat` object or `{name, type}` (type is optional, default is `count`);
+* `stats` (`Stat[] || Object[]`, optional) - the initial list of stats. Each element can be a `Stat` object or `{name, type}` (type is optional and defaults to `count`).
 
 
 ### get

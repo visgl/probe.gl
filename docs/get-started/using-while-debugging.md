@@ -1,16 +1,23 @@
-# Using Probe while Debugging
+# Debugging with probe.gl
 
-Probe makes a global variable `window.Probe` available in the browser console. This variable holds an object with methods that you can call directly in the allows you to interact with `Probe` to enable and disable flags (or Probe itself), you can change the log priority etc.
+`ProbeLog` does not install a global variable automatically. When interactive
+debugging is useful, expose the logger from your application during startup:
 
+```js
+import log from '@probe.gl/log';
+
+window.appLog = log;
 ```
-> window.Probe
-...
-> window.Probe.enable()
-> window.Probe.setLogPriority()
+
+You can then inspect and change the logger from the browser developer console:
+
+```js
+appLog.getLevel();
+appLog.setLevel(2);
+appLog.enable(false);
+appLog.settings();
 ```
 
-## Probe Commands
-
-### Enabling and Disabling
-
-### Changing Log Priority
+`ProbeLog` stores its `enabled` and `level` settings in browser storage, so
+these changes persist across page reloads. Remove the exposed reference from
+your application code when it is no longer needed.

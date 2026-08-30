@@ -67,7 +67,7 @@ class App extends Component {
     + `totalTime`: Display total time.
     + `fps`: Display Hz as a frame rate.
     + `memory`: Display count as a memory measurement.
-    `resetOnUpdate` (`Object`) - whether the a stat should be reset each time the widget is re-rendered. Keyed by the stat's `name`.
+  - `resetOnUpdate` (`Object`) - whether a stat should be reset each time the widget is re-rendered. Keyed by the stat's `name`.
 
 ### setStats
 
@@ -75,7 +75,7 @@ Set Stats object rendered by the widget.
 
 Parameters:
 
-* `stats` () - [`Stats`](https://github.com/uber-web/probe.gl/blob/master/docs/api-reference/log/stats.md) Object.
+* `stats` (`Stats`) - [`Stats`](/docs/modules/stats) object.
 
 
 ### setFormatter

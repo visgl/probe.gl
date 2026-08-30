@@ -13,7 +13,9 @@
     "label": "Getting Started",
     "items": [
       "get-started/README",
-      "get-started/adding-probes"
+      "get-started/adding-probes",
+      "get-started/benchmarking",
+      "get-started/using-while-debugging"
     ]
   },
   {

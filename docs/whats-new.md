@@ -14,6 +14,7 @@ Release Date: Feb 20, 2026
 
 - Renamed the feature-rich `ConsoleLog` class to `ProbeLog` (still exported as `Log` and as the default instance) and added a lightweight `ConsoleLog` wrapper around the runtime console, with shared behavior factored into a new `BaseLog`.
 - Added per-logger `once` caching to both the lightweight `ConsoleLog` and `MemoryLog` implementations, and `MemoryLog` now supports an `onMessage` callback that fires when new messages are recorded.
+- **@probe.gl/bench** - Added fixed iteration counts with the `iterations` option and a per-case `maxTimeMs` budget for bounded benchmark runs.
 
 ## v4.0
 
@@ -26,10 +27,10 @@ Release Date: Feb 10, 2023
 - A set of `package.json` `exports` are provided to avoid issues that arise when mixing ES modules and traditional JS modules.
 
 **TypeScript**
-- Improved TypesSript typing enables us to more easily accept PRs.
+- Improved TypeScript typing makes it easier to maintain and extend the API.
 
 **`@probe.gl/bench`**
-- The `Bench class API has been updated for TypeScript with improved type safety. 
+- The `Bench` class API has been updated for TypeScript with improved type safety.
 - Some overloads are no longer supported, refer to the upgrade guide for advice on how to update your code.
 
 **`probe.gl`** (Removed module)
@@ -59,7 +60,7 @@ Release Date: Dec 12, 2021
 ### `probe.gl`
 
 - The original `probe.gl` module is now fully deprecated in favor of scoped submodules and will be removed in probe.gl v4.0.
-- For backwards compatiblity, `the probe.gl` module imports and re-exports symbols from `@probe.gl/env`, `@probe.gl/log`, `@probe.gl/stats`.
+- For backwards compatibility, the `probe.gl` module imports and re-exports symbols from `@probe.gl/env`, `@probe.gl/log`, and `@probe.gl/stats`.
 - See our [Upgrade Guide](./upgrade-guide.md) for more details.
 
 ## v3.4
