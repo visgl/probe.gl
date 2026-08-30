@@ -307,7 +307,8 @@ function runCalibrationTests({testCases}: {testCases: Record<string, BenchTestCa
 }
 
 function logEntry(logFunction: LogFunction, testCase: BenchTestCase | null, entry: LogEntry): void {
-  const priority = globalThis.probe.priority || 10;
+  const priority =
+    (globalThis as typeof globalThis & {probe?: {priority?: number}}).probe?.priority || 10;
   if ((testCase?.priority || 0) <= priority) {
     logFunction({...entry});
   }
