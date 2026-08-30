@@ -28,7 +28,11 @@ test('Bench#run', async () => {
     }
   });
 
-  iteratorBench(suite);
+  // The iterator cases are performance benchmarks, not browser behavior tests.
+  // Running them under browser coverage can stall the Chromium worker.
+  if ((globalThis as any).__JSDOM__) {
+    iteratorBench(suite);
+  }
   parseColorBench(suite);
 
   expect(suite instanceof Bench, 'suite created successfully').toBeTruthy();
