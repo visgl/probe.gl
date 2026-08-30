@@ -4,6 +4,7 @@
 
 - **@probe.gl/log** - Renamed the feature-rich `ConsoleLog` class to `ProbeLog` (still exported as `Log` and as the default instance) and added a lightweight `ConsoleLog` wrapper around the runtime console, with shared behavior factored into a new `BaseLog`.
 - **@probe.gl/log** - Added per-logger `once` caching to both the lightweight `ConsoleLog` and `MemoryLog` implementations, and `MemoryLog` now supports an `onMessage` callback that fires when new messages are recorded.
+- **@probe.gl/bench** - Added fixed iteration counts with the `iterations` option and a per-case `maxTimeMs` budget for bounded benchmark runs.
 
 ## v4.0
 
