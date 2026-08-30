@@ -216,26 +216,9 @@ export default class BrowserTestDriver extends BrowserDriver {
 
   async _captureAndDiff(opts: DiffImagesOpts): Promise<DiffImageResult> {
     if (!opts.goldenImage) {
-      throw new Error('Must supply golden image for image diff');
+      return Promise.reject(new Error('Must supply golden image for image diff'));
     }
 
-    try {
-      const image = await this._takeScreenshotForDiff(opts);
-      if (!image) {
-        throw new Error('screenshot failed');
-      }
-
-      const result = await diffImages(image, opts.goldenImage, opts);
-      if (!result.success && opts.saveOnFail && result.source1) {
-        this._saveScreenshot(this._getFailureScreenshotFilename(opts), result.source1);
-      }
-      return this._getDiffImageResult(result);
-    } catch (error: unknown) {
-      return this._getDiffError(error);
-    }
-  }
-
-  _takeScreenshotForDiff(opts: DiffImagesOpts) {
     const screenshotOptions: ScreenshotOptions = {
       type: 'png',
       omitBackground: true,
