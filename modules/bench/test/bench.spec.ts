@@ -6,16 +6,22 @@ import parseColorBench from './parse-color.bench';
 
 (globalThis as any).__PROBE_BENCH_IS_TEST__ = true;
 
-test('Bench#import', () => {
+// Benchmark scheduler tests execute real timing loops and are not suitable for
+// the browser coverage worker, where timer throttling can leave them hanging.
+// Keep them in the Node project, which is the environment that exercises the
+// scheduler deterministically.
+const nodeTest = test.runIf(Boolean((globalThis as any).__JSDOM__));
+
+nodeTest('Bench#import', () => {
   expect(typeof Bench, 'Expected row logged').toBe('function');
 });
 
-test('Bench#constructor', () => {
+nodeTest('Bench#constructor', () => {
   const suite = new Bench({id: 'test'});
   expect(suite instanceof Bench, 'suite created successfully').toBeTruthy();
 });
 
-test('Bench#run', async () => {
+nodeTest('Bench#run', async () => {
   const suite = new Bench({
     id: 'test',
     log: vi.fn()
@@ -28,19 +34,14 @@ test('Bench#run', async () => {
     }
   });
 
-  // Iterator benchmarks are performance cases rather than browser behavior tests.
-  // They can stall the browser worker, so keep the scheduler test cross-platform
-  // while limiting this workload to the Node test environment.
-  if ((globalThis as any).__JSDOM__) {
-    iteratorBench(suite);
-  }
+  iteratorBench(suite);
   parseColorBench(suite);
 
   expect(suite instanceof Bench, 'suite created successfully').toBeTruthy();
   await suite.run();
 });
 
-test('Bench#iterations option', async () => {
+nodeTest('Bench#iterations option', async () => {
   const suite = new Bench({
     id: 'iteration-control',
     iterations: 2,
@@ -59,7 +60,7 @@ test('Bench#iterations option', async () => {
   expect(callCount, 'runs configured number of iterations').toBe(2);
 });
 
-test('Bench#iterations runs fixed passes', async () => {
+nodeTest('Bench#iterations runs fixed passes', async () => {
   const suite = new Bench({
     id: 'fixed-iteration-count',
     iterations: 1,
@@ -81,7 +82,7 @@ test('Bench#iterations runs fixed passes', async () => {
   expect(callCount, 'runs exactly one pass even if time threshold is high').toBe(1);
 });
 
-test('Bench#maxTimeMs caps total case time', async () => {
+nodeTest('Bench#maxTimeMs caps total case time', async () => {
   const suite = new Bench({
     id: 'max-time-limit',
     iterations: 50,
