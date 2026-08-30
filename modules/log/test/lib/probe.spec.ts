@@ -152,9 +152,7 @@ test('Log#probe does not include memory usage when unavailable', () => {
     });
     if (canSet) {
       const normalized = emitSpy.mock.calls[emitSpy.mock.calls.length - 1][1];
-      expect(normalized.message, 'does not include MB prefix').not.toMatch(
-        /\b\d+MB message/
-      );
+      expect(normalized.message, 'does not include MB prefix').not.toMatch(/\b\d+MB message/);
     }
   } finally {
     emitSpy.mockRestore();

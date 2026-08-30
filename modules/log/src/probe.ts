@@ -1,7 +1,7 @@
 import {isBrowser, process, window} from '@probe.gl/env';
 
 declare global {
-  // eslint-disable-next-line no-var
+  // biome-ignore lint/correctness/noUnusedVariables lint/suspicious/noRedeclare: expose the singleton on globalThis
   var probe: Probe;
 }
 
