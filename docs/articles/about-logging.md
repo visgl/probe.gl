@@ -14,7 +14,7 @@ There are a lot of conventions and built-in capabilities. The following sections
 
 A distinctive aspect of the probe API is the requirement for two function calls, with an extra pair of parentheses at the end of `log.probe(...)()`. The second call lets the Chrome browser console preserve a clickable link to the probe call in your application source code.
 
-The second call is an unusual JavaScript idiom, and if you omit it nothing will be logged. The returned function also lets probe.gl defer message formatting until the log is known to be enabled.
+The second call is an unusual JavaScript idiom, and if you omit it nothing will be logged. Message functions are evaluated when the logging method is called, before level filtering, so they should avoid expensive work and side effects.
 
 
 ### Log Priority

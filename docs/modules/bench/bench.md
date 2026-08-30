@@ -49,11 +49,9 @@ Options
 
 * `priority`=`0` (Number, optional) - allows controlling which bench cases execute. Can also be specified through the `options` object.
 * `initialize`=: `() => any` initialization function called once before `testFunc` iterations start.
-* `time`=`80` (Number) - minimum duration in milliseconds used when adaptive iteration timing is enabled.
-* `maxTimeMs`=`1000` (Number) - maximum duration in milliseconds for a single test case.
+* `time`=`80` (Number) - minimum duration in milliseconds used for each adaptive benchmark run.
 * `delay`=`5` (Number) - idle time in milliseconds between test cases.
-* `minIterations`=`1` (Number) - minimum number of iterations in adaptive mode.
-* `iterations`=`1` (Number) - number of fixed iterations to run for each test case.
+* `minIterations`=`3` (Number) - number of adaptive benchmark runs used to calculate the result. A test-case option can override the suite default.
 * `multiplier`=`1` : `Number` Multiplier applied to the number of actual iterations. Use this if each test case already performs a number of iterations. Affects reporting only.
 * `unit`=`''` (String) - custom unit label for benchmark results.
 * `_throughput` (Number) - with `addAsync`, runs the specified number of iterations in parallel. Automatic iteration selection is not available in this mode.

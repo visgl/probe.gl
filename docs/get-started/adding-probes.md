@@ -49,10 +49,11 @@ Levels are inclusive: a logger at level `2` emits messages at levels `0`, `1`,
 and `2`. Warnings and errors use level `0` and are emitted whenever the logger
 is enabled.
 
-## Defer expensive messages
+## Message functions
 
-Pass a function when building the message is expensive. The function is only
-called if the message will be emitted:
+Pass a function to build a dynamic message. The function is evaluated when the
+logging method is called, even if the message is later filtered by the logger,
+so keep it free of expensive work and side effects:
 
 ```js
 log.log(2, () => `Loaded ${items.length} items`)();
