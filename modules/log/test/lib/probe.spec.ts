@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import {getHiResTimestamp, Log, probe} from '@probe.gl/log';
-import {expect, test} from 'vitest';
+import {getHiResTimestamp, Log, probe, ProbeLog} from '@probe.gl/log';
+import {expect, test, vi} from 'vitest';
 
 type PerformanceDescriptor = ReturnType<typeof Object.getOwnPropertyDescriptor>;
 
@@ -120,11 +120,7 @@ test('Probe#getMemoryUsageMB (memory unavailable)', () => {
 });
 
 test('Log#probe includes memory usage when available', () => {
-  const originalLog = console.log;
-  const calls: unknown[][] = [];
-  console.log = (...args) => {
-    calls.push(args);
-  };
+  const emitSpy = vi.spyOn(ProbeLog.prototype as any, '_emit');
 
   try {
     const canSet = withPerformanceMemory(2 * 1024 * 1024 + 123, () => {
@@ -132,20 +128,16 @@ test('Log#probe includes memory usage when available', () => {
       log.probe(1, 'message')();
     });
     if (canSet) {
-      expect(calls, 'logs exactly once').toHaveLength(1);
-      expect(calls[0][0], 'adds integer MB prefix').toMatch(/2MB message/);
+      const normalized = emitSpy.mock.calls[emitSpy.mock.calls.length - 1][1];
+      expect(normalized.message, 'adds integer MB prefix').toMatch(/2MB message/);
     }
   } finally {
-    console.log = originalLog;
+    emitSpy.mockRestore();
   }
 });
 
 test('Log#probe does not include memory usage when unavailable', () => {
-  const originalLog = console.log;
-  const calls: unknown[][] = [];
-  console.log = (...args) => {
-    calls.push(args);
-  };
+  const emitSpy = vi.spyOn(ProbeLog.prototype as any, '_emit');
 
   try {
     const canSet = withPerformanceMemory(undefined, () => {
@@ -153,10 +145,10 @@ test('Log#probe does not include memory usage when unavailable', () => {
       log.probe(1, 'message')();
     });
     if (canSet) {
-      expect(calls, 'logs exactly once').toHaveLength(1);
-      expect(calls[0][0], 'does not include MB prefix').not.toMatch(/\b\d+MB message/);
+      const normalized = emitSpy.mock.calls[emitSpy.mock.calls.length - 1][1];
+      expect(normalized.message, 'does not include MB prefix').not.toMatch(/\b\d+MB message/);
     }
   } finally {
-    console.log = originalLog;
+    emitSpy.mockRestore();
   }
 });
