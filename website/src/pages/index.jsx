@@ -59,7 +59,7 @@ function HeroExample() {
     <HeroBackground
       aria-hidden="true"
       style={{
-        backgroundImage: `linear-gradient(90deg, rgba(9, 16, 38, 0.98) 0%, rgba(9, 16, 38, 0.88) 34%, rgba(9, 16, 38, 0.34) 72%, rgba(9, 16, 38, 0.12) 100%), url(${baseUrl}images/probe-hero.webp)`
+        backgroundImage: `linear-gradient(90deg, rgba(247, 250, 252, 0.98) 0%, rgba(247, 250, 252, 0.9) 34%, rgba(247, 250, 252, 0.42) 70%, rgba(9, 16, 38, 0.18) 100%), url(${baseUrl}images/probe-hero.webp)`
       }}
     />
   );
@@ -71,7 +71,7 @@ export default function IndexPage() {
   return (
     <Layout title="Home" description="probe.gl">
       <>
-        <Home HeroExample={HeroExample} theme="dark" getStartedLink="./docs/get-started" />
+        <Home HeroExample={HeroExample} getStartedLink="./docs/get-started" />
         <TextContainer>
           <h2>
           JavaScript Console Logging, Instrumentation, Benchmarking and Test Utilities.
