@@ -20,3 +20,9 @@ A micro benchmark is simply a function you supply, that will be run for a number
 
 Instantiate the `Bench` class to create a benchmark suite. Use `bench.group` to add headers and group cases, and `bench.add` to register individual benchmarks.
 
+Each test case runs until it reaches the suite's `time` target (80 milliseconds
+by default), and the suite repeats each case `minIterations` times (3 by
+default) to make the result more stable. These options can be set on the
+`Bench` constructor or overridden for an individual test case. Increasing
+`minIterations` improves the stability of the aggregate result at the cost of
+longer total execution time.

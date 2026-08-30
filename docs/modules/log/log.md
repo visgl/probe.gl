@@ -39,7 +39,9 @@ import {Log, COLOR} from '@probe.gl/log';
 log.log({message: 'Hello world', color: COLOR.GREEN});
 ```
 
-Log using a message generating function, rather than string (avoid creating message when not needed)
+Log using a message-generating function. The function is evaluated when the
+logging method is called, before level filtering, so avoid expensive work and
+side effects in it.
 ```js
 log.log(2, () => `${expensiveFunction()}`)();
 ```
