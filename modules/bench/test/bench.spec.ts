@@ -1,36 +1,34 @@
-import test from 'tape-promise/tape';
+import {expect, test, vi} from 'vitest';
 import {Bench} from '@probe.gl/bench';
 
 import iteratorBench from './iterator.bench';
 import parseColorBench from './parse-color.bench';
 
-test('Bench#import', (t) => {
-  t.equals(typeof Bench, 'function', 'Expected row logged');
-  t.end();
+test('Bench#import', () => {
+  expect(typeof Bench, 'Expected row logged').toBe('function');
 });
 
-test('Bench#constructor', (t) => {
+test('Bench#constructor', () => {
   const suite = new Bench({id: 'test'});
-  t.ok(suite instanceof Bench, 'suite created successfully');
-  t.end();
+  expect(suite instanceof Bench, 'suite created successfully').toBeTruthy();
 });
 
-test('Bench#run', (t) => {
+test('Bench#run', async () => {
   const suite = new Bench({
     id: 'test',
-    log: ({message}) => t.comment(message)
+    log: vi.fn()
   });
 
   suite.add('initFunc in options', {initialize: () => 1, unit: 'initializations'}, (value) => {
     // @ts-expect-error
     if (!value === 1) {
-      t.fail();
+      throw new Error('initialize should return 1');
     }
   });
 
   iteratorBench(suite);
   parseColorBench(suite);
 
-  t.ok(suite instanceof Bench, 'suite created successfully');
-  suite.run().then(() => t.end());
+  expect(suite instanceof Bench, 'suite created successfully').toBeTruthy();
+  await suite.run();
 });

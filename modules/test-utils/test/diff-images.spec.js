@@ -1,12 +1,10 @@
-import test from 'tape-promise/tape';
+import {expect, test} from 'vitest';
 import {isBrowser} from '@probe.gl/env';
 
 import {_diffImages as diffImages} from '@probe.gl/test-utils';
 
-test('diffImage', async (t) => {
+test('diffImage', async () => {
   if (isBrowser()) {
-    t.comment('diffImage is node only');
-    t.end();
     return;
   }
   const dataDir = './modules/test-utils/test/data';
@@ -62,9 +60,6 @@ test('diffImage', async (t) => {
 
   for (const testCase of TEST_CASES) {
     const result = await diffImages(testCase.source1, testCase.source2, testCase.options);
-    t.comment(`${testCase.title}: ${result.match}`);
-    t.is(result.success, testCase.success, 'returns correct result');
+    expect(result.success, `${testCase.title}: returns correct result`).toBe(testCase.success);
   }
-
-  t.end();
 });

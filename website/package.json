@@ -2,7 +2,6 @@
   "name": "project-website",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "yarn@4.18.0",
   "description": "Website for probe.gl project",
   "scripts": {
     "docusaurus": "docusaurus",
@@ -14,25 +13,15 @@
     "write-heading-ids": "ocular-doc-headers ../docs",
     "deploy": "docusaurus deploy"
   },
-  "resolution_notes": {
-    "cheerio": "@cmfcmf/docusaurus-search-local breaks with v1.0.0 production release"
-  },
-  "resolutions": {
-    "cheerio": "1.0.0-rc.9"
-  },
   "dependencies": {
-    "@docusaurus/core": "^3.0.0",
-    "@vis.gl/docusaurus-website": "1.0.0-alpha.20",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@docusaurus/core": "^3.10.2",
+    "@mdx-js/react": "^3.1.1",
+    "@vis.gl/docusaurus-website": "2.0.0-alpha.6",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
-  "dependenciesMeta": {
-    "core-js@3.38.1": {
-      "built": false
-    },
-    "core-js-pure@3.35.0": {
-      "built": false
-    }
+  "devDependencies": {
+    "@types/react": "^19.2.18"
   },
   "browserslist": [
     ">0.2% and supports async-functions",
