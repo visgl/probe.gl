@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {getHiResTimestamp, Log, probe} from '@probe.gl/log';
-import test from 'tape-promise/tape';
+import {expect, test} from 'vitest';
 
 type PerformanceDescriptor = ReturnType<typeof Object.getOwnPropertyDescriptor>;
 
@@ -77,104 +77,86 @@ function restorePerformanceMemory(
   delete performance.memory;
 }
 
-test('getHiResTimestamp', (t) => {
+test('getHiResTimestamp', () => {
   const t1hr = getHiResTimestamp();
   const t1d = Date.now();
-  t.equals(typeof getHiResTimestamp, 'function', 'getHiResTimestamp imported OK');
-  t.equals(typeof getHiResTimestamp(), 'number', 'getHiResTimestamp returning time');
+  expect(typeof getHiResTimestamp, 'getHiResTimestamp imported OK').toBe('function');
+  expect(typeof getHiResTimestamp(), 'getHiResTimestamp returning time').toBe('number');
   const t2hr = getHiResTimestamp();
   const t2d = Date.now();
-  t.ok(Math.abs(t2hr - t1hr - (t2d - t1d)) < 2, 'getHiResTimestamp is reporting time');
-  t.end();
+  expect(Math.abs(t2hr - t1hr - (t2d - t1d)), 'getHiResTimestamp is reporting time').toBeLessThan(2);
 });
 
-test('Probe#getHighResolutionTimer', (t) => {
+test('Probe#getHighResolutionTimer', () => {
   const t1 = probe.getHighResolutionTimer();
   const d1 = Date.now();
   const t2 = probe.getHighResolutionTimer();
   const d2 = Date.now();
 
-  t.ok(typeof t1 === 'number', 'returns number');
-  t.ok(t2 >= t1, 'timer is monotonic in this context');
-  t.ok(Math.abs(t2 - t1 - (d2 - d1)) < 5, 'getHighResolutionTimer is reporting time');
-  t.end();
+  expect(typeof t1, 'returns number').toBe('number');
+  expect(t2, 'timer is monotonic in this context').toBeGreaterThanOrEqual(t1);
+  expect(Math.abs(t2 - t1 - (d2 - d1)), 'getHighResolutionTimer is reporting time').toBeLessThan(5);
 });
 
-test('Probe#getMemoryUsageMB', (t) => {
+test('Probe#getMemoryUsageMB', () => {
   const MEMORY_BYTES = 7_340_032;
-  if (
-    !withPerformanceMemory(MEMORY_BYTES, () => {
-      t.equal(probe.getMemoryUsageMB(), 7, 'returns integer megabytes');
-    })
-  ) {
-    t.skip('performance.memory could not be mocked in this environment');
+  let memoryUsage: number | null = null;
+  const canSet = withPerformanceMemory(MEMORY_BYTES, () => {
+    memoryUsage = probe.getMemoryUsageMB();
+  });
+  if (canSet) {
+    expect(memoryUsage, 'returns integer megabytes').toBe(7);
   }
-  t.end();
 });
 
-test('Probe#getMemoryUsageMB (memory unavailable)', (t) => {
-  if (
-    !withPerformanceMemory(undefined, () => {
-      t.equal(
-        probe.getMemoryUsageMB(),
-        null,
-        'returns null when performance.memory is unavailable'
-      );
-    })
-  ) {
-    t.skip('performance.memory could not be mocked in this environment');
+test('Probe#getMemoryUsageMB (memory unavailable)', () => {
+  let memoryUsage: number | null = 0;
+  const canSet = withPerformanceMemory(undefined, () => {
+    memoryUsage = probe.getMemoryUsageMB();
+  });
+  if (canSet) {
+    expect(memoryUsage, 'returns null when performance.memory is unavailable').toBeNull();
   }
-  t.end();
 });
 
-test('Log#probe includes memory usage when available', (t) => {
+test('Log#probe includes memory usage when available', () => {
   const originalLog = console.log;
-  const calls = [];
+  const calls: unknown[][] = [];
   console.log = (...args) => {
     calls.push(args);
   };
 
-  if (
-    !withPerformanceMemory(2 * 1024 * 1024 + 123, () => {
+  try {
+    const canSet = withPerformanceMemory(2 * 1024 * 1024 + 123, () => {
       const log = new Log({id: 'probe-memory-test'});
       log.probe(1, 'message')();
-    })
-  ) {
+    });
+    if (canSet) {
+      expect(calls, 'logs exactly once').toHaveLength(1);
+      expect(calls[0][0], 'adds integer MB prefix').toMatch(/2MB message/);
+    }
+  } finally {
     console.log = originalLog;
-    t.skip('performance.memory could not be mocked in this environment');
-    t.end();
-    return;
   }
-
-  t.equal(calls.length, 1, 'logs exactly once');
-  t.match(calls[0][0], /2MB message/, 'adds integer MB prefix');
-
-  console.log = originalLog;
-  t.end();
 });
 
-test('Log#probe does not include memory usage when unavailable', (t) => {
+test('Log#probe does not include memory usage when unavailable', () => {
   const originalLog = console.log;
-  const calls = [];
+  const calls: unknown[][] = [];
   console.log = (...args) => {
     calls.push(args);
   };
 
-  if (
-    !withPerformanceMemory(undefined, () => {
+  try {
+    const canSet = withPerformanceMemory(undefined, () => {
       const log = new Log({id: 'probe-memory-test-no-memory'});
       log.probe(1, 'message')();
-    })
-  ) {
+    });
+    if (canSet) {
+      expect(calls, 'logs exactly once').toHaveLength(1);
+      expect(calls[0][0], 'does not include MB prefix').not.toMatch(/\b\d+MB message/);
+    }
+  } finally {
     console.log = originalLog;
-    t.skip('performance.memory could not be mocked in this environment');
-    t.end();
-    return;
   }
-
-  t.equal(calls.length, 1, 'logs exactly once');
-  t.notMatch(calls[0][0], /\b\d+MB message/, 'does not include MB prefix');
-
-  console.log = originalLog;
-  t.end();
 });

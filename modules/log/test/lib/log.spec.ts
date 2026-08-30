@@ -7,7 +7,6 @@ test('Log#import', () => {
   expect(typeof Probe, 'default (Probe) imported OK').toBe('object');
   expect(
     Probe.VERSION.match(/\d+\.\d+\.\d+/) || Probe.VERSION === 'untranspiled source',
->>>>>>> origin/master:modules/log/test/lib/log.spec.js
     'Probe.VERSION imported OK'
   ).toBeTruthy();
   expect(Log === ProbeLog, 'Log export is an alias for ProbeLog').toBeTruthy();
