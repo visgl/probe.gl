@@ -7,11 +7,6 @@ import {mean, cv} from './stat-utils';
 import {logResultsAsMarkdownTable, logResultsAsTree} from './bench-loggers';
 
 declare global {
-  // eslint-disable-next-line no-var
-  var probe: {
-    priority?: number;
-    markdown?: boolean;
-  };
   // Flag used by tests to disable warmup and heavy iterations
   // eslint-disable-next-line no-var
   var __PROBE_BENCH_IS_TEST__: boolean | undefined;
