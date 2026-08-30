@@ -1,5 +1,7 @@
 import {JSDOM} from 'jsdom';
 
+globalThis.__PROBE_BENCH_IS_TEST__ = true;
+
 const dom = new JSDOM('<!DOCTYPE html>');
 globalThis.window = dom.window;
 globalThis.document = dom.window.document;

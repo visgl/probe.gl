@@ -1,6 +1,8 @@
 import {Bench} from '@probe.gl/bench';
 
-const LENGTH = 1000000;
+// Keep the unit-test benchmark representative without creating a million
+// promises in browser CI.
+const LENGTH = 1000;
 
 const ARRAY = new Array(LENGTH).fill(0).map((_, i) => i);
 

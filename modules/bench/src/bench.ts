@@ -12,6 +12,9 @@ declare global {
     priority?: number;
     markdown?: boolean;
   };
+  // Flag used by tests to disable warmup and heavy iterations
+  // eslint-disable-next-line no-var
+  var __PROBE_BENCH_IS_TEST__: boolean | undefined;
 }
 
 const noop = () => {};
@@ -24,10 +27,14 @@ export type BenchProps = {
   log?: LogFunction;
   /** Minimum number of milliseconds to iterate each bench test */
   time?: number;
+  /** Maximum number of milliseconds to spend on a single test case */
+  maxTimeMs?: number;
   /** milliseconds of idle time, or "cooldown" between tests */
   delay?: number;
   /** Increase if OK to let slow benchmarks take long time, potentially produces more stable results */
   minIterations?: number;
+  /** Number of iterations to run for each benchmark test */
+  iterations?: number;
 };
 
 export type BenchTestFunction = (testArgs?: any) => unknown | Promise<unknown>;
@@ -45,10 +52,14 @@ export type BenchTestCaseProps = {
 
   /** Minimum number of milliseconds to iterate each bench test */
   time?: number;
+  /** Maximum number of milliseconds to spend on a single test case */
+  maxTimeMs?: number;
   /** milliseconds of idle time, or "cooldown" between tests */
   delay?: number;
   /** Increase if OK to let slow benchmarks take long time, potentially produces more stable results */
   minIterations?: number;
+  /** Number of iterations to run for each benchmark test */
+  iterations?: number;
   multiplier?: number;
   unit?: string;
   _throughput?: number;
@@ -95,10 +106,14 @@ type BenchTestCase = {
 
   /** Minimum number of milliseconds to iterate each bench test */
   time: number;
+  /** Maximum number of milliseconds to spend on a single test case */
+  maxTimeMs: number;
   /** milliseconds of idle time, or "cooldown" between tests */
   delay: number;
   /** Increase if OK to let slow benchmarks take long time, potentially produces more stable results */
   minIterations: number;
+  /** Number of iterations to run for each benchmark test */
+  iterations: number;
   multiplier: number;
   unit: string;
   _throughput: number;
@@ -111,8 +126,10 @@ const DEFAULT_BENCH_OPTIONS: Required<BenchProps> = {
   id: '',
   log: undefined!,
   time: 80,
+  maxTimeMs: 1000,
   delay: 5,
-  minIterations: 3
+  minIterations: 1,
+  iterations: 1
 };
 
 const DEFAULT_BENCH_TEST_CASE: BenchTestCase = {
@@ -125,7 +142,9 @@ const DEFAULT_BENCH_TEST_CASE: BenchTestCase = {
   async: false,
   once: false,
   time: 0,
+  maxTimeMs: 1000,
   minIterations: 1,
+  iterations: 1,
   multiplier: 1, // multiplier per test case
   unit: '',
   delay: 0,
@@ -147,7 +166,7 @@ export class Bench {
 
   constructor(props: BenchProps = {}) {
     this.props = {...DEFAULT_BENCH_OPTIONS, ...props};
-    const {id, time, delay, minIterations} = this.props;
+    const {id, time, maxTimeMs, delay, minIterations, iterations} = this.props;
 
     let log = this.props.log;
     if (!log) {
@@ -156,7 +175,7 @@ export class Bench {
     }
 
     this.id = id;
-    this.props = {id, log, time, delay, minIterations};
+    this.props = {id, log, time, maxTimeMs, delay, minIterations, iterations};
     autobind(this);
     Object.seal(this);
   }
@@ -309,8 +328,10 @@ async function runTests({
   onBenchmarkComplete?: Function;
 }) {
   // Run default warm up and calibration testCases
-  // @ts-expect-error
-  runCalibrationTests({testCases, onBenchmarkComplete});
+  if (!globalThis.__PROBE_BENCH_IS_TEST__) {
+    // @ts-expect-error
+    runCalibrationTests({testCases, onBenchmarkComplete});
+  }
 
   // Run the suite testCases
   for (const testCase of Object.values(testCases)) {
@@ -374,9 +395,16 @@ async function runBenchTestCaseAsync(testCase: BenchTestCase) {
   let totalTime = 0;
   let totalIterations = 0;
 
-  const minIterations: number = testCase.minIterations || 1;
+  const iterationCount: number = testCase.iterations ?? testCase.minIterations ?? 1;
+  const useExplicitIterationCount = testCase.iterations !== undefined;
+  const maxTimeMs = testCase.maxTimeMs || DEFAULT_BENCH_OPTIONS.maxTimeMs;
+  const startTime = getHiResTimestamp();
 
-  for (let i = 0; i < minIterations; i++) {
+  for (let i = 0; i < iterationCount; i++) {
+    if (i > 0 && getHiResTimestamp() - startTime > maxTimeMs) {
+      break;
+    }
+
     let time;
     let iterations;
     // Runs "testCase._throughput" parallel testCase cases
@@ -385,10 +413,13 @@ async function runBenchTestCaseAsync(testCase: BenchTestCase) {
         testCase,
         testCase._throughput
       ));
+    } else if (useExplicitIterationCount) {
+      ({time, iterations} = await runBenchTestCaseFixedIterationsAsync(testCase, 1));
     } else {
       ({time, iterations} = await runBenchTestCaseForMinimumTimeAsync(
         testCase,
-        testCase.time || 0
+        testCase.time || 0,
+        maxTimeMs
       ));
     }
 
@@ -413,18 +444,23 @@ async function runBenchTestCaseAsync(testCase: BenchTestCase) {
 // Run a test func for an increasing amount of iterations until time threshold exceeded
 async function runBenchTestCaseForMinimumTimeAsync(
   testCase: BenchTestCase,
-  minTime: number
+  minTime: number,
+  maxTimeMs: number
 ): Promise<{time: number; iterations: number}> {
   let iterations = 1;
   let elapsedMillis = 0;
 
   // Run increasing amount of interations until we reach time threshold, default at least 100ms
-  while (elapsedMillis < minTime) {
+  while (elapsedMillis < minTime && elapsedMillis < maxTimeMs) {
     let multiplier = 10;
     if (elapsedMillis > 10) {
       multiplier = ((testCase.time || 0) / elapsedMillis) * 1.25;
     }
     iterations *= multiplier;
+    // Guard against runaway iteration growth on extremely fast loops
+    if (iterations > 1e9) {
+      break;
+    }
     const timeStart = getHiResTimestamp();
     if (testCase.async) {
       await runBenchTestCaseIterationsAsync(testCase, iterations);
@@ -435,6 +471,27 @@ async function runBenchTestCaseForMinimumTimeAsync(
   }
 
   const time = elapsedMillis / 1000;
+
+  return {
+    time,
+    iterations
+  };
+}
+
+// Run a test func for a specific amount of iterations (and measure time)
+async function runBenchTestCaseFixedIterationsAsync(
+  testCase: BenchTestCase,
+  iterations: number
+): Promise<{time: number; iterations: number}> {
+  const timeStart = getHiResTimestamp();
+
+  if (testCase.async) {
+    await runBenchTestCaseIterationsAsync(testCase, iterations);
+  } else {
+    runBenchTestCaseIterations(testCase, iterations);
+  }
+
+  const time = (getHiResTimestamp() - timeStart) / 1000;
 
   return {
     time,
