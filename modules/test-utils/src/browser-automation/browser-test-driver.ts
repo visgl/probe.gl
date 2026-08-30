@@ -235,7 +235,10 @@ export default class BrowserTestDriver extends BrowserDriver {
       if (!image) {
         throw new Error('screenshot failed');
       }
-      const result = await diffImages(image, opts.goldenImage, opts);
+      // Puppeteer 25 returns a Uint8Array for binary screenshots; normalize it
+      // to a Buffer for the image comparison helpers and filesystem APIs.
+      const imageBuffer = Buffer.from(image);
+      const result = await diffImages(imageBuffer, opts.goldenImage, opts);
       if (!result.success && opts.saveOnFail && result.source1) {
         let filename = opts.saveAs || '[name]-failed.png';
         filename = filename.replace('[name]', opts.goldenImage.replace(/\.\w+$/, ''));
