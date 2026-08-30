@@ -1,43 +1,50 @@
-# Introduction
+# probe.gl
 
-A collection of JavaScript front-end debugging tools provided as a set of separately installable modules:
+probe.gl is a collection of JavaScript debugging, logging, instrumentation, benchmarking, and testing utilities for browser and Node.js applications. The packages are published independently, so install only the modules your application needs.
 
 | probe.gl module | Description |
 | --- | --- |
-| **`@probe.gl/log`**    | A JavaScript logging library focused on facilitating debugging and performance instrumentation of front-end applications. |
-| **`@probe.gl/env`**    | Basic environment detection (Browser, Node, Electron etc). | 
-| **`@probe.gl/stats`**  | A minimal bag of performance-related stats that applications or frameworks can populate. |
-| **`@probe.gl/stats-widget`** | An HTML widget that helps applications display the contents of `@probe.gl/stats` objects. |
-| **`@probe.gl/bench`**  | A benchmark rig to help measure and track regressions of critical functions. |
-| **`@probe.gl/react-bench`**  | A React component that displays the output of `@probe.gl/bench`. |
-| **`@probe.gl/test-utils`**   | Test "Drivers" for running automated browser testing from Node via `puppeteer`. |
+| **`@probe.gl/log`** | Configurable console logging and performance instrumentation. |
+| **`@probe.gl/env`** | Browser, Node.js, Electron, and device detection. |
+| **`@probe.gl/stats`** | Counters and timing statistics for applications and frameworks. |
+| **`@probe.gl/stats-widget`** | A DOM widget for displaying `@probe.gl/stats` objects. |
+| **`@probe.gl/bench`** | Benchmark suites for measuring performance and tracking regressions. |
+| **`@probe.gl/react-bench`** | React components for displaying `@probe.gl/bench` results. |
+| **`@probe.gl/test-utils`** | Browser automation and testing utilities built around Puppeteer. |
+
+The old unscoped `probe.gl` package was removed in v4. Replace it with the scoped package or packages that provide the functionality you use.
+
+## Install
+
+```bash
+npm install @probe.gl/log
+```
 
 ## Comparison with other Logging Solutions
 
-probe.gl's focus on debugging and performance instrumentation of front-end applications has led to different design choices and priorities compared with logging libraries that are designed for facilitating logging of production code in back-end services. Those libraries are often focused on integrating with various logging backends (log to file, log to server, etc.) and not on integrating with the browser console and the front-end debugging workflow.
+probe.gl focuses on local debugging and performance instrumentation rather than production log shipping. Its APIs are designed to work with browser consoles and Node.js while adding minimal overhead when instrumentation is disabled.
 
 
 ## Features
 
-* **Off by default** - probe.gl makes efforts to have a minimal performance footprint when not enabled, to let you consider leaving your probes switched off in production code.
+* **Configurable** - `ProbeLog` can be disabled or filtered by log level, and configuration is persisted in browser storage.
 * **Lightweight** - probe.gl is designed to have a small impact on application bundle size and to avoid dependencies on other modules.
 
 
 ### Logging Support
 
-* **Log levels** - Your logs will only be displayed when the user has enabled probe.gl and the specified priority level has been set.
+* **Log levels** - Messages are emitted only when the logger is enabled and its current level is at least the message's level.
 * **Defeats log cascades** - Caches messages to ensure only one of each warning is emitted to avoid flooding the console.
 * **Source Code Links** - Clicking probe.gl log messages in the browser console takes you to the source code line where the probe function was called, even though you are not calling `console` methods directly.
-* **Image Logging** - Images can be logged to console (Chrome only)
 
 
 ### Profiling Support
 
 Instrument your applications by adding probes to get timings in browser console or in node. The probes then collect data about your application when you run it.
 
-* **High-Resolution Timers** - probe.gl uses the best available timers on the platform, such as `window.performance.now()` and `hrtime` to get better than millisecond timings.
+* **High-Resolution Timers** - probe.gl uses the best available timer APIs on the platform, such as `window.performance.now()` and Node.js `hrtime`.
 * **Multiple Timers** - Your "probes" automatically log both time since operation start and delta time since last probe.
-* **External Timers** - Timing metrics received e.g. from a server can be presented as part of client side timings.
+* **External Timers** - Timing metrics received from another source, such as a server, can be presented alongside client-side timings.
 
 
 ### Persistent Configuration
@@ -45,24 +52,19 @@ Instrument your applications by adding probes to get timings in browser console 
 probe.gl offers a basic persistent configuration system:
 
 * **Persistent Configuration** - probe.gl persists its configuration in local storage, so you can restart your app without having to change settings, speeding up debugging.
-* **Extensible Configuration** - flags and values in probe.gl's configuration are available to your app. Built-in options include enabling probe, setting log level, help etc.
+* **Persistent Configuration** - `ProbeLog` persists its enabled state and log level in browser storage so settings survive reloads.
 
 
-### Cross platform support
+### Cross-platform support
 
 * **Supports Node and Browser** - Use with confidence in code that runs in both environments (e.g. test suites or isomorphic React apps).
 * **Auto-detects platform APIs** - Uses the best available versions of platform-dependent facilities like high resolution timers, console methods etc.
-* **Limited impact on global state** - Other than some light polyfills for `console` and a global reference to the probe library, the lib doesn't modify global state.
-
-
-### Debug Features
-
-Debug-related facilities, such as console log interception and access to a global context in the debugger.
+* **Limited impact on global state** - The library does not install a global reference or modify application state.
 
 
 ### Benchmarking Support
 
-In addition to in-app profiling, probe also supports a simple benchmarking rig
+In addition to in-app profiling, probe.gl provides a simple benchmarking rig:
 
 * **Benchmark Suite** - Functions to run a suite of benchmarks and collect data.
 * **Persist and Compare Benchmarks** - Persist results and compare runs to track regressions.
@@ -70,8 +72,6 @@ In addition to in-app profiling, probe also supports a simple benchmarking rig
 
 ## History
 
-probe.gl serves as the common instrumentation and logging library for frameworks in the Uber Visualization Suite.
+probe.gl is maintained by the vis.gl community and is used by visualization frameworks in the vis.gl ecosystem.
 
-The 'probe' part of the name relates to the concept of instrumenting your application by injecting "probes" (i.e. information collection checkpoints) into its source code. The suffix '.gl' is added to hint that this library is associated with the suite, rather than to signal any dependency on WebGL.
-
-
+The “probe” part of the name refers to instrumenting an application with information-collection checkpoints. The `.gl` suffix identifies the library as part of the vis.gl ecosystem; probe.gl does not depend on WebGL.

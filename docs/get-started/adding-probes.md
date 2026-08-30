@@ -1,93 +1,77 @@
-# Usage
+# Add logging and instrumentation
 
-## Configure instrumentation level using URL parameters.
+The `@probe.gl/log` package exports a full-featured `ProbeLog` class, also
+available as `Log`, plus a default logger instance. Logging methods return a
+function that should be called immediately. This extra call lets probe.gl
+avoid formatting messages when they are filtered out and preserves useful
+source locations in browser developer tools.
 
-Probe can be enabled in code or in the Chrome console at runtime. Because Probe
-stores its state in a cookie, enabling or disabling Probe or specific options
-persists across browser sessions.
+## Install
 
-Enable Probe logging and features:
-```
-Probe.enable();
-```
-
-Set levels:
-```
-Probe.setLevel(2);
+```bash
+npm install @probe.gl/log
 ```
 
-Most Probe config methods are chainable:
-```
-Probe.enable().setLevel(2).configure({isPrintEnabled: false});
-```
+## Create a logger
 
-### Read configuration to enable/disable features in development
+Use the default logger for simple applications:
 
-In your code:
-```
-import Probe from `probe.gl`;
+```js
+import log from '@probe.gl/log';
 
-if (Probe.getOption('myFeature')) {
-  enableFeature();
-}
+log.info(0, 'Application started')();
+log.probe(1, 'Loaded data')();
 ```
 
-In the console, for development testing:
-```
-Probe.configure({mySnazzyFeature: true});
-```
+For an application-specific logger, create a `Log` instance with an id. The
+id is also used as the key for persisted browser configuration:
 
-### Probe and production code
+```js
+import {Log} from '@probe.gl/log';
 
-Probe is designed so that you have the option of keeping your instrumentation
-in production code. Unless you enable Probe, all Probe methods effectively
-become no-ops.
+const log = new Log({id: 'my-app'});
+log.enable();
+log.setLevel(2);
 
-### Access to Probe in the debugger
-
-Probe does not attach itself to the `window` context by default. You may want to
-do this when your app is initialized:
-
-```
-import Probe from `probe.gl`;
-window.Probe = Probe;
+log.log(1, 'A debug message')();
+log.warn('A warning')();
 ```
 
-### Access to your own functions in the debugger
+The logger is enabled by default. Set a higher level to allow messages with
+higher levels, or disable the logger entirely:
 
-If you want to access your functions in the browser console, simply attach
-them to the Probe scope and they will be available on the `Probe` global
-variable.
-
-```
-import AppStore from './store';
-Probe.getAppState() {
-  console.log(JSON.stringify(AppStore.getState(), null, '  '));
-}
+```js
+log.setLevel(2);
+log.enable(false);
 ```
 
-### Profiling Support
+Levels are inclusive: a logger at level `2` emits messages at levels `0`, `1`,
+and `2`. Warnings and errors use level `0` and are emitted whenever the logger
+is enabled.
 
-Profiling is primary purpose of the probe library. It has a complement of
-methods (i.e. "probes") that you can add to your application to log
-timings. Each method comes in several variants, which correspond to three
-different log levels, allowing you to control the amount of log detail
-by setting the probe level.
+## Defer expensive messages
 
+Pass a function when building the message is expensive. The function is only
+called if the message will be emitted:
 
-#### Cross-Module Profiling
+```js
+log.log(2, () => `Loaded ${items.length} items`)();
+```
 
-Probe uses global data to ensure that you are working
-against the same clocks even if you happen to load multiple instances
-or versions of the probe module in different modules.
+## Configure from the browser console
 
+`ProbeLog` persists its `enabled` and `level` settings in browser storage, so
+they survive page reloads. Expose an application logger yourself when useful
+for interactive debugging:
 
-### Warning and Error Handlers
+```js
+window.appLog = log;
+```
 
-Probe contains a number of optional console intercepts that can be
-enabled to:
-* Treat warnings as hard errors (i.e exceptions that can trigger breakpoints)
-* Break on warnings and errors (Probe can trigger the debugger directly)
-* Detect rejected promise errors - optionally
-  calling window.onerror with the error or calling the proposed
-  rejected promise handler.
+You can then inspect or change it from the developer console:
+
+```js
+appLog.getLevel();
+appLog.setLevel(3);
+appLog.enable(false);
+```

@@ -5,12 +5,12 @@
   <img src="https://img.shields.io/badge/Chrome-v64+-blue.svg?style=flat-square" alt="Node" />
 </p>
 
-A Chrome Browser test automation driver class (based on the [Chrome `DevTools` protocol](https://chromedevtools.github.io/devtools-protocol/) via the [`puppeteer`](https://github.com/GoogleChrome/puppeteer) module. The `BrowserDriver` class is primarily intended for automating browser based applications from shell scripts.
+A Chrome browser test automation driver based on the [Chrome DevTools protocol](https://chromedevtools.github.io/devtools-protocol/) via [`puppeteer`](https://pptr.dev/). The `BrowserDriver` class is primarily intended for automating browser-based applications from Node.js scripts.
 
 A `BrowserDriver` is typically used to do the following:
 * Launch/close a Chromium browser instance
 * Start/stop a local web service.
-* Opens a browser page with a URL in the browser.
+* Opens a browser page at a specified URL.
 
 To use this class, [puppeteer](https://www.npmjs.com/package/puppeteer) must be installed as a dev dependency.
 
@@ -40,7 +40,7 @@ Parameters:
 
 Launch a new browser instance.
 
-`options` are directly passed to [puppeteer.launch](https://github.com/GoogleChrome/puppeteer/blob/v1.11.0/docs/api.md#puppeteerlaunchoptions).
+`options` are passed directly to [`puppeteer.launch`](https://pptr.dev/api/puppeteer.puppeteernode.launch).
 
 Returns a `Promise` that resolves when the browser has started.
 
@@ -49,13 +49,14 @@ Returns a `Promise` that resolves when the browser has started.
 Open a new tab in the browser. Only works after a browser instance is started:
 
 ```js
-browserDriver.startBrowser().openPage({url: 'http://localhost'});
+await browserDriver.startBrowser();
+await browserDriver.openPage({url: 'http://localhost'});
 ```
 
 Parameters:
 
 * `url` (String) - If provided, the url to load in the page.
-* `exposeFunctions` (Object) - keys are function names to be added to the page's `window` object, and the values are callback functions to execute in Node.js. See [exposeFunction](https://github.com/GoogleChrome/puppeteer/blob/v1.11.0/docs/api.md#pageexposefunctionname-puppeteerfunction) for details.
+* `exposeFunctions` (Object) - keys are function names to be added to the page's `window` object, and the values are callback functions to execute in Node.js. See [`page.exposeFunction`](https://pptr.dev/api/puppeteer.page.exposefunction) for details.
 * `onLoad` (Function) - callback when the page is loaded
 * `onConsole` (Function) - callback when the page logs to console
 * `onError` (Function) - callback if the puppeteer page crashes
@@ -86,7 +87,7 @@ Parameters:
 
 * `command` (string) - the command to run, default `'webpack-dev-server'`.
 * `arguments` (string[]) - a list of string arguments.
-* `options` (Object) - options for the new process. Default `{maxBuffer: 5000 * 1024}`. See [child_process.spawn](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options) for details.
+* `options` (Object) - options for the new process. See [`child_process.spawn`](https://nodejs.org/api/child_process.html#child_processspawn) for details.
 * `port` (`'auto'`|`false`) - `startServer` can attempt to bind the service to an available port if `port` is set to `'auto'`. In this case, the command receives additional arguments `--port <port>`. Default `'auto'`.
 * `wait` (Number) - time in milliseconds to wait after executing the command. If any error is generated from the child process during this period, the `Promise` will reject. Otherwise, the service is considered available. Default `2000`.
 
