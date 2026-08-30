@@ -4,9 +4,9 @@ probe.gl offers a `Bench` facility that makes it easy to create "micro-benchmark
 
 ## Goals
 
-* Fast benchmarking - Assumes benchmarks are run frequently and need to run fast. Sacrifice some precision for fast results (configurable)
-* Reporting - Want to copy your benchmarks into reports? You can provide custom formatters, or use exiting formatters like the markdown formatter.
-* Priority - As with everything in probe.gl, you can assign a priority to each bench case, e.g. enabling a quick run of top level test cases, or a drill down run that benches multiple variations.
+* Fast benchmarking - Benchmarks are intended to run frequently, with a configurable tradeoff between speed and precision.
+* Reporting - Provide custom formatters, or use built-in formatters such as the Markdown formatter.
+* Priority - Assign a priority to each bench case to enable a quick run of top-level test cases or a more detailed run with multiple variations.
 * Regression - Automatically stores values from previous runs and compares the current run against them.
 * Browser and Node - As always, probe.gl makes sure that your benchmarks will run under Node.js as well as in the browser (be aware that performance can differ quite a bit between the two).
 
@@ -18,5 +18,11 @@ A micro benchmark is simply a function you supply, that will be run for a number
 
 ## Structure of a Benchmark Suite
 
-Instantiate the `Bench` class to create a benchmark suite. use `bench.group` to group bench cases and add headers. Use `bench.add` to register individual benchmarks.
+Instantiate the `Bench` class to create a benchmark suite. Use `bench.group` to add headers and group cases, and `bench.add` to register individual benchmarks.
 
+Each test case runs until it reaches the suite's `time` target (80 milliseconds
+by default), and the suite repeats each case `minIterations` times (3 by
+default) to make the result more stable. These options can be set on the
+`Bench` constructor or overridden for an individual test case. Increasing
+`minIterations` improves the stability of the aggregate result at the cost of
+longer total execution time.

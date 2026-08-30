@@ -86,7 +86,7 @@ Timing of the last completed set of samples.
 `new Stat(name, type)`
 
 * `name` (`String`) - the name of the stat.
-* `type` (`String`) - the type of the stat.
+* `type` (`String`, optional) - the type used by widgets to select a formatter.
 
 Supported options:
 - `count`
@@ -153,9 +153,11 @@ Increase `time` by `value` and increment `count` by `1`.
 
 ### getHz
 
-Calculate the average number of timing events per second (i.e. `samples / (time * 1000)`.
+Calculate the average number of timing events per second (i.e. `samples / (time / 1000)`).
 
 `stat.getHz()`
+
+The result is the number of timing samples per second (`samples / (time / 1000)`).
 
 
 ### getAverageTime
@@ -172,7 +174,7 @@ Calculate the average count per sampling (i.e. `count / samples`).
 
 ### getSampleHz
 
-Calculate the average number of timing events per second (i.e. `samples / (time * 1000)` for the last completed set of samples.
+Calculate the average number of timing events per second (i.e. `samples / (time / 1000)` for the last completed set of samples).
 
 `stat.getHz()`
 
@@ -189,7 +191,5 @@ Calculate the average amount of time take per timing event in milliseconds (i.e.
 Calculate the average count per sampling (i.e. `count / samples`) for the last completed set of samples.
 
 `stat.getAverageTime()`
-
-
 
 

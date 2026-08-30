@@ -1,16 +1,15 @@
 # Log
 
-A simple console wrapper with a host of features
+A console wrapper with configurable log levels, instrumentation, and browser-friendly output.
 * Safely exposes advanced features of Chrome and Firefox console APIs, as well as Node.js color logging, by providing fallbacks for missing methods in other environments.
-* Conditional logging - includes a log levels system (aka priorities) that can be controller in the browser console, and settings persist through browser reloads.
-* Defeats log cascades - Caches warnings to ensure only one instance of each warning is emitted
-* Links to log calls in browser console - Clicking on a log message shows the code that called the log function.
-* Image logging - In Chrome console, it is possible log images
-* Improved `assert` messages - Reformats errors from `assert` to show actual error string
+* Conditional logging - includes a log-level system that can be controlled in code, and settings persist through browser reloads.
+* Defeats log cascades - caches warnings to ensure only one instance of each warning is emitted.
+* Links to log calls in browser console - clicking on a log message shows the code that called the log function.
+* Improved `assert` messages - reformats errors from `assert` to show the actual error string.
 
 ## Logger implementations
 
-`@probe.gl/log` exports a few logger classes:
+`@probe.gl/log` exports several logger classes:
 
 - `ProbeLog` is the full-featured logger with log levels, persistence, and formatting controls. It is exported as `Log` and provided as the default instance export. (It was previously named `ConsoleLog`.)
 - `ConsoleLog` is a minimal wrapper around the runtime `console`, intended for situations where you want the `Logger` interface without configuration or persistence.
@@ -30,7 +29,7 @@ Create a new Log
 ```js
 import {Log} from '@probe.gl/log';
 const log = new Log({id: 'my-app'});
-log.log('Hello world')();  // <<< Note: double function call, is necessary
+log.log(0, 'Hello world')();  // The second call emits the message.
 ```
 
 Add color (only affects output in Node.js)
@@ -40,7 +39,9 @@ import {Log, COLOR} from '@probe.gl/log';
 log.log({message: 'Hello world', color: COLOR.GREEN});
 ```
 
-Log using a message generating function, rather than string (avoid creating message when not needed)
+Log using a message-generating function. The function is evaluated when the
+logging method is called, before level filtering, so avoid expensive work and
+side effects in it.
 ```js
 log.log(2, () => `${expensiveFunction()}`)();
 ```
@@ -62,9 +63,9 @@ When using named parameters (passing an object as first parameter), the followin
 
 | Option       | Type          | Description |
 | ---          | ---           | ---         |
-| `logLevel`   | `Number`      | This probe will only "fire" if the log's current logLevel is greater than or equal to this value.defaults to `0`, which means that the probe is executed / printed regardless of log level. |
+| `logLevel`   | `Number`      | This probe fires when the logger's current level is greater than or equal to this value. Defaults to `0`. |
 | `time`       | `Boolean`     | Add a timer since page load (default for `Log.probe`) |
-| `once`       | `Boolean`     | Logs this message only once (default for `Log.warn`, `Log.once` |
+| `once`       | `Boolean`     | Logs this message only once (the default for `Log.warn` and `Log.once`). |
 | `tag`        | `String`      | Optional tag |
 | `color`      | `enum|String` | Node.js only: Basic colors like `green`, `blue` and `red` are supported, currently only for console logging. For safe to use constants, use the COLOR enumeration, see below. |
 | `background` | `enum|String` | Node.js only: Colors the background of the character. |
@@ -198,13 +199,6 @@ Logs a table (using `console.table` if available).
 Returns: a function closure that should be called immediately.
 
 
-### image
-
-Logs an image (under Chrome)
-
-`log.image({logLevel, image, message = '', scale = 1})`
-
-
 ### settings
 
 Logs the current settings as a table
@@ -215,13 +209,13 @@ Logs the current settings as a table
 
 Returns the current value of setting
 
-`log.get('logLevel')`
+`log.get('level')`
 
 ### set(setting, value)
 
 Updates the value of setting
 
-`log.set('logLevel', 3)`
+`log.set('level', 3)`
 
 ### time
 

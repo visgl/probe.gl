@@ -15,7 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  test-matrix:
+    name: test (${{ matrix.node-version }})
     runs-on: ubuntu-22.04
     timeout-minutes: 15
     strategy:
@@ -62,3 +63,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           file: coverage/lcov.info
+
+  # Keep a stable required check name while the test matrix expands over
+  # multiple Node.js versions.
+  test:
+    if: ${{ always() }}
+    needs: test-matrix
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Fail if any matrix job failed
+        if: ${{ needs.test-matrix.result != 'success' }}
+        run: exit 1
+      - name: All test matrix jobs passed
+        run: echo "All test matrix jobs passed"

@@ -7,7 +7,7 @@ The example consists of two parts:
 * `start.js` - launcher of the browser test, executed under Node
 * `index.js` - entry point of the tests executed in Browser
 
-See [BrowserTestDriver API](/docs/api-reference/test-utils/browser-test-driver.md) for documentation.
+See the [BrowserTestDriver API](/docs/modules/test-utils/browser-test-driver) for documentation.
 
 ## Run example
 
@@ -18,4 +18,3 @@ yarn test
 # run test in browser for debugging (result logged to Chrome console)
 yarn test-browser
 ```
-
