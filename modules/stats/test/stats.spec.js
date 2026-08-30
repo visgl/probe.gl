@@ -1,91 +1,85 @@
 /* eslint-disable max-statements */
 import {Stats, Stat} from '@probe.gl/stats';
-import test from 'tape-promise/tape';
+import {expect, test} from 'vitest';
 
-test('Stats#import', (t) => {
-  t.equals(typeof Stats, 'function', 'Stats import OK');
-  t.end();
+test('Stats#import', () => {
+  expect(typeof Stats, 'Stats import OK').toBe('function');
 });
 
-test('Stats#counting', (t) => {
+test('Stats#counting', () => {
   const stats = new Stats({id: 'test'});
   const counter = stats.get('test');
-  t.doesNotThrow(() => counter.incrementCount(), 'stat.incrementCount works');
-  t.doesNotThrow(() => counter.incrementCount(), 'stat.incrementCount works');
-  t.doesNotThrow(() => counter.incrementCount(), 'stat.incrementCount works');
-  t.equals(counter.count, 3, 'stat accumulates');
-  t.doesNotThrow(() => counter.addCount(3), 'stat.add works');
-  t.equals(counter.count, 6, 'stat accumulates');
-  t.end();
+  expect(() => counter.incrementCount(), 'stat.incrementCount works').not.toThrow();
+  expect(() => counter.incrementCount(), 'stat.incrementCount works').not.toThrow();
+  expect(() => counter.incrementCount(), 'stat.incrementCount works').not.toThrow();
+  expect(counter.count, 'stat accumulates').toBe(3);
+  expect(() => counter.addCount(3), 'stat.add works').not.toThrow();
+  expect(counter.count, 'stat accumulates').toBe(6);
 });
 
-test('Stats#timer()', (t) => {
+test('Stats#timer()', () => {
   const stats = new Stats({id: 'test'});
   const timer = stats.get('test');
-  t.doesNotThrow(() => timer.timeStart(), 'timer.timeStart works');
-  t.doesNotThrow(() => timer.timeEnd(), 'timer.timeEnd works');
-  t.doesNotThrow(() => timer.addTime(10), 'timer.addTime works');
-  t.doesNotThrow(() => timer.getAverageTime(), 'timer.getAverageTime works');
-  t.doesNotThrow(() => timer.getHz(), 'timer.getHz works');
-  t.equals(timer.samples, 2, 'timer udpates samples');
-  t.ok(timer.time > 0, 'timer times');
-  t.ok(timer.getAverageTime() > 0, 'timer averages');
-  t.ok(timer.getHz() > 0, 'timer calculates hz');
-  t.end();
+  expect(() => timer.timeStart(), 'timer.timeStart works').not.toThrow();
+  expect(() => timer.timeEnd(), 'timer.timeEnd works').not.toThrow();
+  expect(() => timer.addTime(10), 'timer.addTime works').not.toThrow();
+  expect(() => timer.getAverageTime(), 'timer.getAverageTime works').not.toThrow();
+  expect(() => timer.getHz(), 'timer.getHz works').not.toThrow();
+  expect(timer.samples, 'timer udpates samples').toBe(2);
+  expect(timer.time, 'timer times').toBeGreaterThan(0);
+  expect(timer.getAverageTime(), 'timer averages').toBeGreaterThan(0);
+  expect(timer.getHz(), 'timer calculates hz').toBeGreaterThan(0);
 });
 
-test('Stats#reset()', (t) => {
+test('Stats#reset()', () => {
   const stats = new Stats({id: 'test'});
   const stat = stats.get('test');
   stat.incrementCount();
   stat.addTime(1);
-  t.equals(stat.count, 1, 'stat setup OK');
-  t.equals(stat.time, 1, 'stat setup OK');
-  t.equals(stat.lastTiming, 1, 'stat setup OK');
+  expect(stat.count, 'stat setup OK').toBe(1);
+  expect(stat.time, 'stat setup OK').toBe(1);
+  expect(stat.lastTiming, 'stat setup OK').toBe(1);
   stats.reset();
-  t.equals(stat.count, 0, 'stat reset OK');
-  t.equals(stat.time, 0, 'stat reset OK');
-  t.equals(stat.lastTiming, 0, 'stat setup OK');
-  t.end();
+  expect(stat.count, 'stat reset OK').toBe(0);
+  expect(stat.time, 'stat reset OK').toBe(0);
+  expect(stat.lastTiming, 'stat setup OK').toBe(0);
 });
 
-test('Stats#timing sampleSize', (t) => {
+test('Stats#timing sampleSize', () => {
   const stats = new Stats({id: 'test'});
   const stat = stats.get('test').setSampleSize(3);
   stat.addTime(0);
   stat.addTime(2);
-  t.equals(stat.time, 0, "don't update time before sampling done");
-  t.equals(stat.lastTiming, 2, 'always update lastTiming');
+  expect(stat.time, "don't update time before sampling done").toBe(0);
+  expect(stat.lastTiming, 'always update lastTiming').toBe(2);
   stat.addTime(1);
-  t.equals(stat.time, 3, 'update time after sampling done');
-  t.equals(stat.lastTiming, 1, 'always aupdate lastTiming');
+  expect(stat.time, 'update time after sampling done').toBe(3);
+  expect(stat.lastTiming, 'always aupdate lastTiming').toBe(1);
   stat.addTime(1);
   stat.addTime(0);
   stat.addTime(2);
 
-  t.equals(stat.lastSampleTime, 3, 'lastSampleTime only tracks last sampling');
-  t.equals(stat.time, 6, 'time tracks entire history');
-  t.equals(stat.lastTiming, 2, 'always aupdate lastTiming');
-  t.end();
+  expect(stat.lastSampleTime, 'lastSampleTime only tracks last sampling').toBe(3);
+  expect(stat.time, 'time tracks entire history').toBe(6);
+  expect(stat.lastTiming, 'always aupdate lastTiming').toBe(2);
 });
 
-test('Stats#timing sampleSize', (t) => {
+test('Stats#timing sampleSize', () => {
   const stats = new Stats({id: 'test'});
   const stat = stats.get('test').setSampleSize(3);
   stat.incrementCount();
   stat.incrementCount();
-  t.equals(stat.count, 0, "don't update count before sampling done");
+  expect(stat.count, "don't update count before sampling done").toBe(0);
   stat.incrementCount();
-  t.equals(stat.count, 3, 'update count after sampling done');
+  expect(stat.count, 'update count after sampling done').toBe(3);
   stat.incrementCount();
   stat.incrementCount();
   stat.incrementCount();
-  t.equals(stat.lastSampleCount, 3, 'lastSampleCount only tracks last sampling');
-  t.equals(stat.count, 6, 'count tracks entire history');
-  t.end();
+  expect(stat.lastSampleCount, 'lastSampleCount only tracks last sampling').toBe(3);
+  expect(stat.count, 'count tracks entire history').toBe(6);
 });
 
-test('Stats#constructore with stats', (t) => {
+test('Stats#constructore with stats', () => {
   const statsContent = new Stats({
     id: 'test',
     stats: [
@@ -103,14 +97,12 @@ test('Stats#constructore with stats', (t) => {
 
   const stats = new Stats({id: 'test', stats: statsContent});
 
-  t.equals(stats.size, 2, 'Should dedupe and ignore stat without name.');
+  expect(stats.size, 'Should dedupe and ignore stat without name.').toBe(2);
 
   let stat = stats.get('stat-1');
-  t.equals(stat.name, 'stat-1', 'Should correctly set stat-1 name.');
+  expect(stat.name, 'Should correctly set stat-1 name.').toBe('stat-1');
 
   stat = stats.get('stat-2');
-  t.equals(stat.name, 'stat-2', 'Should correctly set stat-2 name.');
-  t.equals(stat.type, 'memory', 'Should correctly set stat-2 type.');
-
-  t.end();
+  expect(stat.name, 'Should correctly set stat-2 name.').toBe('stat-2');
+  expect(stat.type, 'Should correctly set stat-2 type.').toBe('memory');
 });

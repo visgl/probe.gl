@@ -248,34 +248,38 @@ export default class BrowserTestDriver extends BrowserDriver {
       screenshotOptions.fullPage = true;
     }
 
-    return this.page?.screenshot(screenshotOptions);
-  }
-
-  _getFailureScreenshotFilename(opts: DiffImagesOpts): string {
-    const filenameTemplate = opts.saveAs || '[name]-failed.png';
-    return filenameTemplate.replace('[name]', opts.goldenImage.replace(/\.\w+$/, ''));
-  }
-
-  _getDiffImageResult(result): DiffImageResult {
-    return {
-      headless: this.headless,
-      match: result.match || 0,
-      matchPercentage: result.matchPercentage || 'N/A',
-      success: result.success,
-      // @ts-expect-error
-      diffImage: result.diffImage || null,
-      error: result.error || null
-    };
-  }
-
-  _getDiffError(error: unknown): DiffImageResult {
-    return {
-      headless: this.headless,
-      match: 0,
-      matchPercentage: 'N/A',
-      success: false,
-      error: (error as Error).message
-    };
+    try {
+      const image = await this.page?.screenshot(screenshotOptions);
+      if (!image) {
+        throw new Error('screenshot failed');
+      }
+      // Puppeteer 25 returns a Uint8Array for binary screenshots; normalize it
+      // to a Buffer for the image comparison helpers and filesystem APIs.
+      const imageBuffer = Buffer.from(image);
+      const result = await diffImages(imageBuffer, opts.goldenImage, opts);
+      if (!result.success && opts.saveOnFail && result.source1) {
+        let filename = opts.saveAs || '[name]-failed.png';
+        filename = filename.replace('[name]', opts.goldenImage.replace(/\.\w+$/, ''));
+        this._saveScreenshot(filename, result.source1);
+      }
+      return {
+        headless: this.headless,
+        match: result.match || 0,
+        matchPercentage: result.matchPercentage || 'N/A',
+        success: result.success,
+        // @ts-expect-error
+        diffImage: result.diffImage || null,
+        error: result.error || null
+      };
+    } catch (error: unknown) {
+      return {
+        headless: this.headless,
+        match: 0,
+        matchPercentage: 'N/A',
+        success: false,
+        error: (error as Error).message
+      };
+    }
   }
 
   _saveScreenshot(filename, data) {

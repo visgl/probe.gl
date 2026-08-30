@@ -22,30 +22,36 @@
     "jsdom": false
   },
   "scripts": {
-    "bootstrap": "yarn && ocular-bootstrap && npm run build",
+    "bootstrap": "yarn && ocular-bootstrap && yarn build",
     "build": "ocular-clean && npx lerna run build && ocular-build",
     "lint": "ocular-lint",
     "publish-prod": "ocular-publish version-only-prod",
     "publish-beta": "ocular-publish version-only-beta",
-    "test": "ocular-test",
+    "cover": "ocular-test headless --coverage",
+    "playwright:install": "playwright install chromium",
+    "test": "ocular-test node headless",
+    "test-browser": "ocular-test browser",
+    "test-headless": "ocular-test headless",
+    "test-node": "ocular-test node",
     "test-fast": "ocular-lint && ocular-test node"
   },
   "devDependencies": {
-    "@types/tape-promise": "^4.0.1",
-    "@vis.gl/dev-tools": "1.0.0-alpha.19",
-    "@vis.gl/ts-plugins": "1.0.0-alpha.19",
-    "jsdoc-to-markdown": "^3.0.0",
-    "jsdom": "^16.5.0",
-    "pre-commit": "^1.2.2",
-    "puppeteer": "^22.0.0",
-    "react-dom": "^16.13.1",
-    "url-loader": "^1.0.1"
+    "@types/node": "^22.20.1",
+    "@vis.gl/dev-tools": "^2.0.0-alpha.6",
+    "@vis.gl/ts-plugins": "^2.0.0-alpha.6",
+    "@vitest/coverage-v8": "4.1.10",
+    "jsdoc-to-markdown": "^9.1.3",
+    "jsdom": "^30.0.1",
+    "playwright": "^1.62.1",
+    "pre-commit": "^2.0.0",
+    "puppeteer": "^25.9.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.2.0",
+    "vite-plugin-node-polyfills": "^0.28.0",
+    "vitest": "4.1.10"
   },
   "pre-commit": [
     "test-fast"
   ],
-  "volta": {
-    "node": "20.15.1",
-    "yarn": "4.4.0"
-  }
+  "packageManager": "yarn@4.18.0+sha512.fcb8716fe7cd0eece141ffc18b92193a9df9204c1ba83189c288835223fc0bbe64af473bab0d5e9927a7daeb5caf2bb07eb2787cc9338ca040ea125f2a1f2f7e"
 }

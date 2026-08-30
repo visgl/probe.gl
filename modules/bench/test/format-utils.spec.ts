@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import test from 'tape-promise/tape';
+import {expect, test} from 'vitest';
 import {formatSI} from '@probe.gl/bench/format-utils';
 
 const FORMAT_SI_TESTS = [
@@ -11,10 +11,9 @@ const FORMAT_SI_TESTS = [
   {value: 0.0001234, result: '123µ'}
 ];
 
-test('formatters#formatSI', (t) => {
+test('formatters#formatSI', () => {
   for (const tc of FORMAT_SI_TESTS) {
     const result = formatSI(tc.value);
-    t.equal(result, tc.result, `formatSI(${tc.value}) should be ${tc.result}`);
+    expect(result, `formatSI(${tc.value}) should be ${tc.result}`).toBe(tc.result);
   }
-  t.end();
 });
