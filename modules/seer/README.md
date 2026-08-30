@@ -32,19 +32,19 @@ complete data flow:
 <dd><p>Ready check for Seer initialization</p>
 </dd>
 <dt><a href="#throttle">throttle(key, delay)</a> ⇒ <code>Boolean</code></dt>
-<dd><p>Utility method allowing to throttle a user action based on a key and a minimun delay.</p>
+    <dd><p>Utility method allowing you to throttle a user action based on a key and a minimum delay.</p>
 </dd>
 <dt><a href="#send">send(type, payload)</a></dt>
 <dd><p>Low-level api leveraging window.postMessage</p>
 </dd>
 <dt><a href="#init">init()</a></dt>
-<dd><p>Initilize window listener. There will be only one for the whole process
+<dd><p>Initialize the window listener. There will be only one for the whole process
 to prevent too many registrations.</p>
 <p>This method will be called automatically if you use the <code>listenFor</code> method.</p>
 </dd>
 <dt><a href="#clean">clean()</a></dt>
 <dd><p>Clean listener. Can be useful in case you want to unregister upcoming events
-or liberate memory.</p>
+or release memory.</p>
 </dd>
 <dt><a href="#listenFor">listenFor(key, cb)</a></dt>
 <dd><p>Create a listener that will be called upon events of the given key.</p>
@@ -70,7 +70,7 @@ multiple update of the same item without having to send multiple messages.</p>
 <dd><p>Remove a specific item in a specific tab.</p>
 </dd>
 <dt><a href="#addLog">addLog(key, itemKey, msg)</a></dt>
-<dd><p>Will create a log message to an item, that will be displayde with the current time.</p>
+<dd><p>Creates a log message for an item, displayed with the current time.</p>
 </dd>
 </dl>
 
@@ -83,7 +83,7 @@ Ready check for Seer initialization
 <a name="throttle"></a>
 
 ### throttle(key, delay) ⇒ <code>Boolean</code>
-Utility method allowing to throttle a user action based on a key and a minimun delay.
+Utility method allowing you to throttle a user action based on a key and a minimum delay.
 
 **Kind**: global function  
 
@@ -107,7 +107,7 @@ Low-level api leveraging window.postMessage
 <a name="init"></a>
 
 ### init()
-Initilize window listener. There will be only one for the whole process
+Initialize the window listener. There will be only one for the whole process
 to prevent too many registrations.
 
 This method will be called automatically if you use the `listenFor` method.
@@ -117,7 +117,7 @@ This method will be called automatically if you use the `listenFor` method.
 
 ### clean()
 Clean listener. Can be useful in case you want to unregister upcoming events
-or liberate memory.
+or release memory.
 
 **Kind**: global function  
 <a name="listenFor"></a>
@@ -214,7 +214,7 @@ Remove a specific item in a specific tab.
 <a name="addLog"></a>
 
 ### addLog(key, itemKey, msg)
-Will create a log message to an item, that will be displayde with the current time.
+Creates a log message for an item, displayed with the current time.
 
 **Kind**: global function  
 
@@ -223,4 +223,3 @@ Will create a log message to an item, that will be displayde with the current ti
 | key | <code>String</code> | The key of the tab |
 | itemKey | <code>String</code> | The key of the item |
 | msg | <code>String</code> | The message to display |
-

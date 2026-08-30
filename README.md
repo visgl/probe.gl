@@ -1,24 +1,31 @@
 <p align="right">
-  <a href="https://npmjs.org/package/probe.gl">
-    <img src="https://img.shields.io/npm/v/probe.gl.svg?style=flat-square" alt="version" />
+  <a href="https://www.npmjs.com/package/@probe.gl/log">
+    <img src="https://img.shields.io/npm/v/%40probe.gl%2Flog.svg?style=flat-square" alt="version" />
   </a>
-  <a href="https://github.com/uber-web/probe.gl/actions?query=workflow%3Atest+branch%3Amaster">
-    <img src="https://github.com/uber-web/probe.gl/workflows/test/badge.svg?branch=master" alt="build" />
+  <a href="https://github.com/visgl/probe.gl/actions/workflows/test.yml?query=branch%3Amaster">
+    <img src="https://github.com/visgl/probe.gl/actions/workflows/test.yml/badge.svg?branch=master" alt="build" />
   </a>
-  <a href="https://npmjs.org/package/probe.gl">
-    <img src="https://img.shields.io/npm/dm/probe.gl.svg?style=flat-square" alt="downloads" />
-  </a>
-  <a href='https://coveralls.io/github/uber-web/probe.gl?branch=master'>
-    <img src='https://img.shields.io/coveralls/uber-web/probe.gl.svg?style=flat-square' alt='Coverage Status' />
+  <a href="https://www.npmjs.com/package/@probe.gl/log">
+    <img src="https://img.shields.io/npm/dm/%40probe.gl%2Flog.svg?style=flat-square" alt="downloads" />
   </a>
 </p>
 
-<h1 align="center">probe.gl | <a href="https://uber-web.github.io/probe.gl/#/documentation/overview">Docs</a></h1>
+<h1 align="center">probe.gl | <a href="https://visgl.github.io/probe.gl/docs/">Docs</a></h1>
 
-probe.gl lets you instrument your JavaScript applications to get timings in browser console or in node, and much more.
+probe.gl is a collection of JavaScript debugging, logging, instrumentation, benchmarking, and testing utilities for browser and Node.js applications.
 
-Please refer to the <a href="https://uber-web.github.io/probe.gl">docs</a> website.
+The library is published as separately installable `@probe.gl/*` packages. See the [documentation](https://visgl.github.io/probe.gl/docs/) for module guides and API references.
 
+```bash
+npm install @probe.gl/log
 ```
-npm install probe.gl
-```
+
+The main packages are:
+
+- `@probe.gl/log` — configurable console logging and instrumentation
+- `@probe.gl/env` — browser, Node.js, Electron, and device detection
+- `@probe.gl/stats` — counters and timing statistics
+- `@probe.gl/stats-widget` — a DOM widget for displaying statistics
+- `@probe.gl/bench` — benchmark suites and regression comparisons
+- `@probe.gl/react-bench` — React components for benchmark results
+- `@probe.gl/test-utils` — browser automation and testing helpers
