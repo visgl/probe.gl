@@ -14,7 +14,7 @@ declare global {
   };
   // Flag used by tests to disable warmup and heavy iterations
   // eslint-disable-next-line no-var
-  var __PROBE_BENCH_IS_TEST__?: boolean;
+  var __PROBE_BENCH_IS_TEST__: boolean | undefined;
 }
 
 const noop = () => {};
