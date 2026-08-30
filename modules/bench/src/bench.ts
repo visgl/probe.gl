@@ -7,16 +7,10 @@ import {mean, cv} from './stat-utils';
 import {logResultsAsMarkdownTable, logResultsAsTree} from './bench-loggers';
 
 declare global {
-  // eslint-disable-next-line no-var
-  var probe: {
-    priority?: number;
-    markdown?: boolean;
-  };
   // Flag used by tests to disable warmup and heavy iterations
   // eslint-disable-next-line no-var
   var __PROBE_BENCH_IS_TEST__: boolean | undefined;
 }
-
 const noop = () => {};
 
 /** Properties for benchmark suite */
@@ -170,7 +164,11 @@ export class Bench {
 
     let log = this.props.log;
     if (!log) {
-      const markdown = globalThis.probe && globalThis.probe.markdown;
+      const markdown = (
+        globalThis as typeof globalThis & {
+          probe?: {markdown?: boolean};
+        }
+      ).probe?.markdown;
       log = markdown ? logResultsAsMarkdownTable : logResultsAsTree;
     }
 
@@ -311,7 +309,8 @@ function runCalibrationTests({testCases}: {testCases: Record<string, BenchTestCa
 }
 
 function logEntry(logFunction: LogFunction, testCase: BenchTestCase | null, entry: LogEntry): void {
-  const priority = globalThis.probe.priority || 10;
+  const priority =
+    (globalThis as typeof globalThis & {probe?: {priority?: number}}).probe?.priority || 10;
   if ((testCase?.priority || 0) <= priority) {
     logFunction({...entry});
   }

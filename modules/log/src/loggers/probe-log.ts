@@ -11,7 +11,7 @@ import {formatTime, leftPad} from '../utils/formatters';
 import {addColor} from '../utils/color';
 import {autobind} from '../utils/autobind';
 import assert from '../utils/assert';
-import {getHiResTimestamp} from '../utils/hi-res-timestamp';
+import {probe} from '../probe';
 
 /** "Global" log configuration settings */
 type ProbeLogConfiguration = {
@@ -43,8 +43,8 @@ export class ProbeLog extends BaseLog {
 
   id: string;
   VERSION: string = VERSION;
-  _startTs: number = getHiResTimestamp();
-  _deltaTs: number = getHiResTimestamp();
+  _startTs: number = probe.getHighResolutionTimer();
+  _deltaTs: number = probe.getHighResolutionTimer();
   _storage: LocalStorage<Record<string, ProbeLogConfiguration>>;
   override userData = {};
 
@@ -76,12 +76,12 @@ export class ProbeLog extends BaseLog {
 
   /** @return milliseconds, with fractions */
   getTotal(): number {
-    return Number((getHiResTimestamp() - this._startTs).toPrecision(10));
+    return Number((probe.getHighResolutionTimer() - this._startTs).toPrecision(10));
   }
 
   /** @return milliseconds, with fractions */
   getDelta(): number {
-    return Number((getHiResTimestamp() - this._deltaTs).toPrecision(10));
+    return Number((probe.getHighResolutionTimer() - this._deltaTs).toPrecision(10));
   }
 
   /** @deprecated use logLevel */
@@ -171,6 +171,15 @@ in a later version. Use \`${newUsage}\` instead`);
   /** Log to a group */
   probe(logLevel, message?, ...args: unknown[]): LogFunction;
   probe(logLevel, message?, ...args: unknown[]): LogFunction {
+    const memoryUsageMB = probe.getMemoryUsageMB();
+    if (memoryUsageMB !== null) {
+      const memoryUsagePrefix = `${memoryUsageMB}MB `;
+      if (typeof message === 'function') {
+        message = () => `${memoryUsagePrefix}${message()}`;
+      } else if (typeof message === 'string') {
+        message = `${memoryUsagePrefix}${message}`;
+      }
+    }
     return this._log('log', logLevel, message, args, {
       method: originalConsole.log,
       time: true,
@@ -274,7 +283,7 @@ in a later version. Use \`${newUsage}\` instead`);
     normalized.total = this.getTotal();
     normalized.delta = this.getDelta();
     // reset delta timer
-    this._deltaTs = getHiResTimestamp();
+    this._deltaTs = probe.getHighResolutionTimer();
 
     const message = decorateMessage(this.id, normalized.message, normalized);
 
