@@ -50,7 +50,7 @@ function setPerformanceMemory(
     }
 
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -84,10 +84,9 @@ test('getHiResTimestamp', () => {
   expect(typeof getHiResTimestamp(), 'getHiResTimestamp returning time').toBe('number');
   const t2hr = getHiResTimestamp();
   const t2d = Date.now();
-  expect(
-    Math.abs(t2hr - t1hr - (t2d - t1d)),
-    'getHiResTimestamp is reporting time'
-  ).toBeLessThan(2);
+  expect(Math.abs(t2hr - t1hr - (t2d - t1d)), 'getHiResTimestamp is reporting time').toBeLessThan(
+    2
+  );
 });
 
 test('Probe#getHighResolutionTimer', () => {
@@ -98,10 +97,7 @@ test('Probe#getHighResolutionTimer', () => {
 
   expect(typeof t1, 'returns number').toBe('number');
   expect(t2, 'timer is monotonic in this context').toBeGreaterThanOrEqual(t1);
-  expect(
-    Math.abs(t2 - t1 - (d2 - d1)),
-    'getHighResolutionTimer is reporting time'
-  ).toBeLessThan(5);
+  expect(Math.abs(t2 - t1 - (d2 - d1)), 'getHighResolutionTimer is reporting time').toBeLessThan(5);
 });
 
 test('Probe#getMemoryUsageMB', () => {

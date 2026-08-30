@@ -164,9 +164,11 @@ export class Bench {
 
     let log = this.props.log;
     if (!log) {
-      const markdown = (globalThis as typeof globalThis & {
-        probe?: {markdown?: boolean};
-      }).probe?.markdown;
+      const markdown = (
+        globalThis as typeof globalThis & {
+          probe?: {markdown?: boolean};
+        }
+      ).probe?.markdown;
       log = markdown ? logResultsAsMarkdownTable : logResultsAsTree;
     }
 
