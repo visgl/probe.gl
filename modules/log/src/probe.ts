@@ -1,10 +1,6 @@
 import {isBrowser, process, window} from '@probe.gl/env';
 
 declare global {
-  type ProbeConstructor = new () => Probe;
-
-  // eslint-disable-next-line no-var
-  var Probe: ProbeConstructor;
   // eslint-disable-next-line no-var
   var probe: Probe;
 }
@@ -43,5 +39,5 @@ export class Probe {
 
 export const probe = new Probe();
 
-globalThis.Probe = Probe;
+(globalThis as typeof globalThis & {Probe: typeof Probe}).Probe = Probe;
 globalThis.probe = probe;
