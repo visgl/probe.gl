@@ -6,20 +6,16 @@ import parseColorBench from './parse-color.bench';
 
 (globalThis as any).__PROBE_BENCH_IS_TEST__ = true;
 
-// Benchmark scheduler tests are deterministic in Node. Browser coverage adds
-// timer and worker behavior that can stall on performance benchmark cases.
-const nodeTest = test.runIf(Boolean((globalThis as any).__JSDOM__));
-
-nodeTest('Bench#import', () => {
+test('Bench#import', () => {
   expect(typeof Bench, 'Expected row logged').toBe('function');
 });
 
-nodeTest('Bench#constructor', () => {
+test('Bench#constructor', () => {
   const suite = new Bench({id: 'test'});
   expect(suite instanceof Bench, 'suite created successfully').toBeTruthy();
 });
 
-nodeTest('Bench#run', async () => {
+test('Bench#run', async () => {
   const suite = new Bench({
     id: 'test',
     log: vi.fn()
@@ -32,14 +28,19 @@ nodeTest('Bench#run', async () => {
     }
   });
 
-  iteratorBench(suite);
+  // Iterator benchmarks are performance cases rather than browser behavior tests.
+  // They can stall the browser worker, so keep the scheduler test cross-platform
+  // while limiting this workload to the Node test environment.
+  if ((globalThis as any).__JSDOM__) {
+    iteratorBench(suite);
+  }
   parseColorBench(suite);
 
   expect(suite instanceof Bench, 'suite created successfully').toBeTruthy();
   await suite.run();
 });
 
-nodeTest('Bench#iterations option', async () => {
+test('Bench#iterations option', async () => {
   const suite = new Bench({
     id: 'iteration-control',
     iterations: 2,
@@ -58,7 +59,7 @@ nodeTest('Bench#iterations option', async () => {
   expect(callCount, 'runs configured number of iterations').toBe(2);
 });
 
-nodeTest('Bench#iterations runs fixed passes', async () => {
+test('Bench#iterations runs fixed passes', async () => {
   const suite = new Bench({
     id: 'fixed-iteration-count',
     iterations: 1,
@@ -80,7 +81,7 @@ nodeTest('Bench#iterations runs fixed passes', async () => {
   expect(callCount, 'runs exactly one pass even if time threshold is high').toBe(1);
 });
 
-nodeTest('Bench#maxTimeMs caps total case time', async () => {
+test('Bench#maxTimeMs caps total case time', async () => {
   const suite = new Bench({
     id: 'max-time-limit',
     iterations: 50,
