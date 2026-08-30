@@ -1,10 +1,5 @@
 import {isBrowser, process, window} from '@probe.gl/env';
 
-declare global {
-  // biome-ignore lint/correctness/noUnusedVariables lint/suspicious/noRedeclare: expose the singleton on globalThis
-  var probe: Probe;
-}
-
 export class Probe {
   markdown?: boolean;
   priority?: number;
@@ -40,4 +35,4 @@ export class Probe {
 export const probe = new Probe();
 
 (globalThis as typeof globalThis & {Probe: typeof Probe}).Probe = Probe;
-globalThis.probe = probe;
+(globalThis as typeof globalThis & {probe: typeof probe}).probe = probe;
