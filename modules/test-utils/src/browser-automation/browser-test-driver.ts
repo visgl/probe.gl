@@ -224,6 +224,7 @@ export default class BrowserTestDriver extends BrowserDriver {
       omitBackground: true,
       encoding: 'binary'
     };
+
     if (opts.region) {
       screenshotOptions.clip = opts.region;
     } else {

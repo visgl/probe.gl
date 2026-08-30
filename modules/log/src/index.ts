@@ -1,5 +1,8 @@
 import {ProbeLog} from './loggers/probe-log';
 
+// Probe instance
+export {probe} from './probe';
+
 // DEFAULT EXPORT IS A LOG INSTANCE
 export default new ProbeLog({id: '@probe.gl/log'});
 
@@ -17,6 +20,8 @@ export {addColor} from './utils/color';
 export {leftPad, rightPad} from './utils/formatters';
 export {autobind} from './utils/autobind';
 export {LocalStorage} from './utils/local-storage';
-export {getHiResTimestamp} from './utils/hi-res-timestamp';
+
+// DEPRECATED EXPORTS
+export {getHiResTimestamp} from './deprecated/hi-res-timestamp';
 
 import './init';

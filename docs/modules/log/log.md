@@ -45,6 +45,26 @@ Log using a message generating function, rather than string (avoid creating mess
 log.log(2, () => `${expensiveFunction()}`)();
 ```
 
+## Probe API
+
+`@probe.gl/log` exports the `Probe` class and a singleton `probe` instance.
+
+### Probe
+
+`new Probe()`
+
+### getHighResolutionTimer
+
+`probe.getHighResolutionTimer()`
+
+Returns a timestamp value in milliseconds using the best available high-resolution timer.
+
+### getMemoryUsageMB
+
+`probe.getMemoryUsageMB()`
+
+Returns current JS heap usage in integer megabytes (`number`) or `null` when `performance.memory` is unavailable.
+
 ## Types and Parameters
 
 ### Log Function Parameters

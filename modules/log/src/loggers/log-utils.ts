@@ -62,6 +62,7 @@ export function normalizeArguments(opts: {
   // TODO - remove when/if IE support is dropped
   const args: any[] = opts.args ? Array.from(opts.args) : [];
   // args should only contain arguments that appear after `message`
+  // args should only contain arguments that appear after `message`
   // eslint-disable-next-line no-empty
   while (args.length && args.shift() !== message) {}
 
