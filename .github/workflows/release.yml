@@ -22,9 +22,9 @@ jobs:
         id: permitted
         run: |
           result=
-          if git branch -a --contains $GITHUB_SHA | grep -q 'remotes/origin/master$'; then
+          if git branch -a --contains "$GITHUB_SHA" | grep -q 'remotes/origin/master$'; then
             result=true
-          elif git branch -a --contains $GITHUB_SHA | grep -q 'remotes/origin/.*-release$'; then
+          elif git branch -a --contains "$GITHUB_SHA" | grep -Eq 'remotes/origin/[0-9]+\.[0-9]+-release$'; then
             result=true
           fi
           echo "result=${result}" >> "$GITHUB_OUTPUT"
@@ -63,8 +63,8 @@ jobs:
       - name: Build packages
         run: npm run build
       
-      - name: Run tests from transpiled code
-        run: npx ocular-test dist
+      - name: Run Node tests
+        run: yarn test-node
 
       - name: Publish to NPM
         run: npx ocular-publish from-git
