@@ -63,8 +63,8 @@ jobs:
       - name: Build packages
         run: npm run build
       
-      - name: Run tests from transpiled code
-        run: npx ocular-test dist
+      - name: Run Node tests
+        run: yarn test-node
 
       - name: Publish to NPM
         run: npx ocular-publish from-git
