@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v4.1.2
+
+- feat(log): Add probe singleton object and memory logging (#34)
+
 ## v4.1.1
 
 - feat(log): Add MemoryLog class (#11)
