@@ -34,18 +34,23 @@ jobs:
     needs: check_branch
     permissions:
       contents: write
+      id-token: write
 
     if: ${{ github.repository_owner == 'visgl' && needs.check_branch.outputs.should_build }}
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NPM_ACCESS_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
 
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      - name: Update npm
+        run: npm install --global npm@^11.15.0
 
       - name: Enable Corepack
         run: |
@@ -60,9 +65,6 @@ jobs:
       
       - name: Run tests from transpiled code
         run: npx ocular-test dist
-
-      - name: Login to NPM
-        run: npm config set "//registry.npmjs.org/:_authToken=${NPM_ACCESS_TOKEN}"
 
       - name: Publish to NPM
         run: npx ocular-publish from-git
