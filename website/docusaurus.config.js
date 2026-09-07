@@ -23,4 +23,11 @@ const config = getDocusaurusConfig({
   }
 });
 
+// Opt into all currently documented Docusaurus v4 behavior while v4 is in development.
+config.future = {
+  ...config.future,
+  v4: true,
+  faster: true
+};
+
 module.exports = config;
