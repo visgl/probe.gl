@@ -20,7 +20,7 @@ A console wrapper with configurable log levels, instrumentation, and browser-fri
 ## Installing
 
 ```
-yarn add @probe.gl/log
+npm install @probe.gl/log
 ```
 
 ## Usage
@@ -35,24 +35,20 @@ log.log(0, 'Hello world')();  // The second call emits the message.
 Add color (only affects output in Node.js)
 ```js
 import {Log, COLOR} from '@probe.gl/log';
-...
-log.log({message: 'Hello world', color: COLOR.GREEN});
+const log = new Log({id: 'my-app'});
+log.log({message: 'Hello world', color: COLOR.GREEN})();
 ```
 
 Log using a message-generating function. The function is evaluated when the
 logging method is called, before level filtering, so avoid expensive work and
 side effects in it.
 ```js
-log.log(2, () => `${expensiveFunction()}`)();
+log.log(2, () => `Loaded ${items.length} items`)();
 ```
 
 ## Probe API
 
-`@probe.gl/log` exports the `Probe` class and a singleton `probe` instance.
-
-### Probe
-
-`new Probe()`
+`@probe.gl/log` exports a singleton `probe` instance. Its constructor is installed as `globalThis.Probe`; it is not a named package export. See the [timing helper reference](./probe.md).
 
 ### getHighResolutionTimer
 
@@ -239,27 +235,27 @@ Updates the value of setting
 
 ### time
 
-`log.time(logLevel, label)`
+`log.time(logLevel, label)()`
 
 
 ### timeEnd
 
-`log.timeEnd(logLevel, label)`
+`log.timeEnd(logLevel, label)()`
 
 
 ### group
 
-`log.group(logLevel, label)`
+`log.group(logLevel, label)()`
 
 
 ### groupCollapsed
 
-`log.group(logLevel, label)`
+`log.groupCollapsed(logLevel, label)()`
 
 
 ### groupEnd
 
-`log.groupEnd(logLevel)`
+`log.groupEnd(logLevel)()`
 
 
 ## Experimental APIs

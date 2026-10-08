@@ -10,12 +10,16 @@ padding: 64px 112px;
 font-size: 16px;
 
 h2 {
-  font: bold 32px/48px;
+  font-family: var(--ifm-heading-font-family);
+  font-size: 32px;
+  line-height: 1.2;
   margin: 24px 0 16px;
   position: relative;
 }
 h3 {
-  font: bold 16px/24px;
+  font-family: var(--ifm-heading-font-family);
+  font-size: 18px;
+  line-height: 1.4;
   margin: 0;
   position: relative;
 }
@@ -41,8 +45,12 @@ hr {
 @media screen and (max-width: 768px) {
   max-width: 100%;
   width: 100%;
-  padding: 48px 48px 48px 80px;
+  padding: 32px 24px;
 }
+`;
+
+const HomeHero = styled.div`
+  h1 { color: #f5f8fc; }
 `;
 
 const HeroBackground = styled.div`
@@ -59,7 +67,7 @@ function HeroExample() {
     <HeroBackground
       aria-hidden="true"
       style={{
-        backgroundImage: `linear-gradient(90deg, rgba(247, 250, 252, 0.98) 0%, rgba(247, 250, 252, 0.9) 34%, rgba(247, 250, 252, 0.42) 70%, rgba(9, 16, 38, 0.18) 100%), url(${baseUrl}images/probe-hero.webp)`
+        backgroundImage: `linear-gradient(90deg, rgba(8, 17, 31, 0.94) 0%, rgba(8, 17, 31, 0.84) 34%, rgba(8, 17, 31, 0.36) 70%, rgba(8, 17, 31, 0.12) 100%), url(${baseUrl}images/probe-hero.webp)`
       }}
     />
   );
@@ -71,7 +79,9 @@ export default function IndexPage() {
   return (
     <Layout title="Home" description="probe.gl">
       <>
-        <Home HeroExample={HeroExample} getStartedLink="./docs/get-started" />
+        <HomeHero>
+          <Home theme="dark" HeroExample={HeroExample} getStartedLink="./docs/get-started" />
+        </HomeHero>
         <TextContainer>
           <h2>
           JavaScript Console Logging, Instrumentation, Benchmarking and Test Utilities.
@@ -79,23 +89,23 @@ export default function IndexPage() {
           <hr className="short" />
 
           <div>
-            <img src={`${baseUrl}images/icon-console.svg`} />
+            <img alt="" src={`${baseUrl}images/icon-console.svg`} />
             <div>
               <h3>Console-Focused Logging</h3>
-              <p>probe.gl optimizes in-browser logging.</p>
+              <p>Control console output with log levels and persistent browser settings.</p>
             </div>
           </div>
 
           <div>
-            <img src={`${baseUrl}images/icon-high-precision.svg`} />
+            <img alt="" src={`${baseUrl}images/icon-high-precision.svg`} />
             <div>
               <h3>Benchmarking and Regression Testing Support</h3>
-              <p>Creation benchmarking suites, and compare performance of test across runs.</p>
+              <p>Create benchmark suites and compare performance across runs.</p>
             </div>
           </div>
           
           <div>
-            <img src={`${baseUrl}images/icon-debug.svg`} />
+            <img alt="" src={`${baseUrl}images/icon-debug.svg`} />
             <div>
               <h3>Optimized Chrome Debugging Experience</h3>
               <p>Uses advanced console APIs when available to create rich logs. </p>
@@ -103,10 +113,10 @@ export default function IndexPage() {
           </div>
 
           <div>
-            <img src={`${baseUrl}images/icon-react.svg`} />
+            <img alt="" src={`${baseUrl}images/icon-react.svg`} />
             <div>
               <h3>Size Conscious</h3>
-              <p>An instrumentation library should be small.</p>
+              <p>Install logging, statistics, and testing packages independently.</p>
             </div>
           </div>
 

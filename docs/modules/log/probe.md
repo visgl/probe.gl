@@ -6,7 +6,7 @@ The `Probe` can be accessed through
 
 - The singleton `probe` instance which is exported from `@probe.gl/log`.
 - The singleton `probe` instance is also available on `globalThis.probe`
-- A `Probe` class export.
+- Its constructor on `globalThis.Probe` (not a named package export).
 
 ## Usage
 
@@ -40,4 +40,4 @@ Returns a high-resolution timer value in milliseconds.
 
 Returns the current JS heap usage in integer megabytes, or `null` when not available.
 
-## Example
+The timestamp has a runtime-specific origin. Compare values from the same runtime to measure elapsed time; do not treat it as a wall-clock date.

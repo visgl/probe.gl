@@ -35,7 +35,15 @@
         "type": "category",
         "label": "@probe.gl/log",
         "items": [
-          "modules/log/log"
+          "modules/log/log",
+          "modules/log/probe"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "@probe.gl/env",
+        "items": [
+          "modules/env"
         ]
       },
       {
@@ -68,6 +76,13 @@
           "modules/test-utils/browser-test-driver",
           "modules/test-utils/make-spy",
           "modules/test-utils/log-to-dom"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "@probe.gl/react-bench",
+        "items": [
+          "modules/react-bench"
         ]
       }
     ]

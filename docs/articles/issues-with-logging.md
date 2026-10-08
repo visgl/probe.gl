@@ -1,33 +1,14 @@
-# Problems with Console Logging
+# Console source locations
 
-Whether to use a library like probe.gl to improve on the browser's built-in console logging tends to be a personal preference, and people tend to have strong opinions on the matter. The question is obvious: the browser already provides a logging facility, why spend effort and code bloat wrapping it?
+A wrapper that calls `console.log()` internally usually makes developer tools link to the wrapper instead of the application call site.
 
-To illustrate some of the problems probe.gl is attempting to solve, let's consider how one would write a simple logging wrapper for an app that had started logging using the "raw" console API.
-
-```js
-function app() {
-  console.debug('hello world')
-}
-```
-
-Let's say we want a function that logs conditionally (only if a `priority` has been set), and only issues a warning once to avoid flooding the console. A first attempt could look like this
+probe.gl returns a bound console function. Calling it immediately keeps the console invocation in application code:
 
 ```js
-function log(priority, message) {
-  if (priority <= logPriority)
-  	if (!cache[message]) {
-  	  console.debug(message);
-  	}
-  }
-}
-...
-app() {
-  log(1, 'hello world');
-}
+import {Log} from '@probe.gl/log';
+
+const log = new Log({id: 'my-app'});
+log.log(1, 'Data loaded')();
 ```
 
-Some issues with this:
-* Now the log message in Chrome console no longer let's you click back to the application. Instead it links back to the log function.
-
-In addition:
-* console.debug is not available in Node.js and certain browsers.
+This pattern also supports level filtering and repeated-message suppression. See [console logging](./about-logging.md) for the calling convention and its performance implications.

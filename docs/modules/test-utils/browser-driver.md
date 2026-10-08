@@ -1,9 +1,6 @@
 # BrowserDriver
 
-<p class="badges">
-  <img src="https://img.shields.io/badge/Node.js-v8.0+-blue.svg?style=flat-square" alt="Node" />
-  <img src="https://img.shields.io/badge/Chrome-v64+-blue.svg?style=flat-square" alt="Node" />
-</p>
+
 
 A Chrome browser test automation driver based on the [Chrome DevTools protocol](https://chromedevtools.github.io/devtools-protocol/) via [`puppeteer`](https://pptr.dev/). The `BrowserDriver` class is primarily intended for automating browser-based applications from Node.js scripts.
 
@@ -17,7 +14,7 @@ To use this class, [puppeteer](https://www.npmjs.com/package/puppeteer) must be 
 ## Usage
 
 ```js
-const {BrowserDriver} = require('@probe.gl/test-utils');
+import {BrowserDriver} from '@probe.gl/test-utils';
 new BrowserDriver({id: 'browser-test'});
 ```
 

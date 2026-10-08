@@ -3,7 +3,7 @@
 ## v4.2 (Not yet released)
 
 **@probe.gl/log**
-- [`Probe` class](./modules/log/probe.md) - New class offering portable high-resolution timing and integer-megabyte heap usage methods.
+- [`probe` timing helper](./modules/log/probe.md) - New helper offering portable high-resolution timing and integer-megabyte heap usage methods.
 - `log.probe()` now also logs current JS heap usage (in integer MB) when `performance.memory.usedJSHeapSize` is available.
 
 ## v4.1

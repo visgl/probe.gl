@@ -1,6 +1,6 @@
 # StatsWidget
 
-A widget that displays the state of a probe.gl `Stats` object to screen.
+A DOM widget that displays counters and timings from a probe.gl `Stats` object.
 
 ## Usage
 
@@ -8,41 +8,21 @@ Create a `StatsWidget` HTML element to display tracked `Stats`. Each `Stat` can
 be associated with a `formatter` that indicates how it should be displayed.
 
 ```js
-import React, {Component} from 'react';
 import {Stats} from '@probe.gl/stats';
 import StatsWidget from '@probe.gl/stats-widget';
 
-class App extends Component {
-  componentDidMount() {
-    this._stats = new Stats({
-      id: 'My Stats'
-    });
+const stats = new Stats({id: 'My stats'});
+const frames = stats.get('Frames');
+const widget = new StatsWidget(stats, {container: document.body});
 
-    this._statsWidget = new StatsWidget(this._stats, {
-      container: this._containerRef
-    });
+frames.incrementCount();
+widget.update();
 
-    this.setState({intervalId: setInterval(this._update, 300)});
-  }
-
-  componentWillUnmount() {
-    // use intervalId from the state to clear the interval
-    clearInterval(this.state.intervalId);
-  }
-
-  _update() {
-    // create a stat with name and type
-    const counter = this._stats.get('Counter', 'count');
-    counter.incrementCount();
-    this._statsWidget.update();
-  }
-
-  render() {
-    return (<div ref={_ => this._containerRef = _}/>);
-  }
-}
-
+// When the view is disposed:
+widget.remove();
 ```
+
+Create the widget in a browser after its container exists. Call `update()` from your application's render loop or interval; the widget does not schedule updates itself.
 
 ## Methods
 
@@ -53,9 +33,9 @@ class App extends Component {
 * `stats` (`Stats`) - a probe.gl `Stats` instance.
 * `options`: (`Object`)
   - `title` (`String`) - header text for the widget. Defaults to the `id` of the `Stats` object.
-  - `framesPerUpdate` (`Number`) - number of times `update` must be called before the widget is re-rendered. Allows the application
+  - `framesPerUpdate` (`Number`) - update cadence in calls (default `1`). The first call renders immediately. Allows the application
    to call `update` each frame with re-renders occurring at a slower rate.
-  - `container` (DOMElement) - DOM element to use as container for the widget. Will be created internally if not provided.
+  - `container` (DOMElement) - DOM element to use as container for the widget. Defaults to `document.body`; the widget appends its own child element.
   - `css` (`Object`) - css properties to apply to the container `div` of the widget. Two special keys can be used to modify the
    style of nested elements:
     + `header` (`Object`) - css properties to apply to the header `div` of the widget.
@@ -78,18 +58,20 @@ Parameters:
 * `stats` (`Stats`) - [`Stats`](/docs/modules/stats) object.
 
 
-### setFormatter
-
-Set the formatter associated with a given stat.
-
-`statsWidget.setFormatter(name, formatter)`
-
-* `name` (`String`, required) - the name of the stat to associate with a formatter.
-* `formatter` (`Function`, required) - function that takes a `Stat` object and returns a string.
-
-
 ### update
 
 `statsWidget.update()`
 
-Rerender the widget.
+Refresh displayed values, subject to `framesPerUpdate` (default `1`). Stats configured with `resetOnUpdate` are reset after their values are displayed.
+
+### setCollapsed
+
+`statsWidget.setCollapsed(true)`
+
+Show or hide the stat rows. The header also toggles this state when clicked.
+
+### remove
+
+`statsWidget.remove()`
+
+Remove the widget from its container. It cannot be reused after removal. Stop any application interval or render-loop callback that updates it.
