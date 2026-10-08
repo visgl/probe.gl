@@ -1,5 +1,6 @@
 const {getDocusaurusConfig} = require('@vis.gl/docusaurus-website');
 const {resolve} = require('path');
+const {themes} = require('prism-react-renderer');
 
 const config = getDocusaurusConfig({
   projectName: 'probe.gl',
@@ -13,6 +14,11 @@ const config = getDocusaurusConfig({
   // exampleTableOfContents: require('./src/examples/table-of-contents.json'),
 
   search: 'local',
+  customCss: [resolve(__dirname, 'src/styles.css')],
+  themeConfig: {
+    colorMode: {defaultMode: 'dark', disableSwitch: false, respectPrefersColorScheme: false},
+    prism: {theme: themes.github, darkTheme: themes.dracula}
+  },
 
   webpackConfig: {
     resolve: {

@@ -1,19 +1,5 @@
 # Roadmap
 
-We are still iterating on probe.gl. Here are some of the ideas, in very rough form...
+Use [GitHub issues](https://github.com/visgl/probe.gl/issues) to follow proposed changes or suggest improvements. This page does not define a release schedule.
 
-- **In-memory log:** Instead of, or in addition to, logging to the console, `Probe.probe` can save to an internal array of log messages. This allows you to turn console output off and do post-facto reporting or visualization.
-
-- **Persistent settings and saved logs** - Local storage configuration now allows for persistent configuration (including enable/disable) across browser sessions, and makes it easier to have Probe disabled (or enabled, for developers) in production. This also makes it easy to set additional development flags like `isNewFeatureEnabled`. Usage via the JS console:
-```
-Probe.enable().configure({level: 2, useMyDevFeature: true});
-```
-
-- **Better console groups** - `Probe.groups` allows independent timing of parallel activities, using console groups to organize the output.
-
-- **Duration:** Including `start` and `end` in the metadata object allows Probe to calculate duration between calls using the same `name`:
-```
-Probe.probe('long_process', {start: true});
-doLongProcess();
-Probe.probe('long_process', {end: true});
-```
+Existing APIs include persistent logger settings, in-memory logging through `MemoryLog`, console groups, and timing statistics. See the [overview](./README.md) for the supported modules.

@@ -63,7 +63,7 @@ Name of the stat.
 
 ### count : Number
 
-Accumulated count or number of timings.
+Accumulated counter value. Timing methods update `samples`, not `count`.
 
 
 ### time : Number
@@ -136,19 +136,18 @@ Start a timer.
 
 ### timeEnd
 
-End a timer. Time elapsed since the last `timeStart` is
-added to `time` and `count` is incremented by `1`.
+End a pending timer and record the elapsed milliseconds since `timeStart`. Each timing contributes one sample. When the window completes, its elapsed time is added to `time` and all pending samples are added to `samples`. For example, three timings with `sampleSize = 3` increase `samples` from `0` to `3` at once. If no timer is pending, this method does nothing.
 
 `stat.timeEnd()`
 
 
 ### addTime
 
-Increase `time` by `value` and increment `count` by `1`.
+Add a timing in milliseconds. Each call adds one sample; totals update when the sample window completes.
 
 `stat.addTime(value)`
 
-* `value` (`Number`, required) - time in millisecons to add to `time`.
+* `value` (`Number`, required) - time in milliseconds to add to `time`.
 
 
 ### getHz
@@ -162,7 +161,7 @@ The result is the number of timing samples per second (`samples / (time / 1000)`
 
 ### getAverageTime
 
-Calculate the average amount of time take per timing event in milliseconds (i.e. `time / samples`).
+Calculate the average amount of time taken per timing event in milliseconds (i.e. `time / samples`).
 
 `stat.getAverageTime()`
 
@@ -174,22 +173,42 @@ Calculate the average count per sampling (i.e. `count / samples`).
 
 ### getSampleHz
 
-Calculate the average number of timing events per second (i.e. `samples / (time / 1000)` for the last completed set of samples).
+Calculate timing events per second for the last completed window: `sampleSize / (lastSampleTime / 1000)`.
 
-`stat.getHz()`
+`stat.getSampleHz()`
 
 
 ### getSampleAverageTime
 
-Calculate the average amount of time take per timing event in milliseconds (i.e. `time / samples`) for the last completed set of samples.
+Calculate average milliseconds per timing event for the last completed window: `lastSampleTime / sampleSize`.
 
-`stat.getAverageTime()`
+`stat.getSampleAverageTime()`
 
 
 ### getSampleAverageCount
 
-Calculate the average count per sampling (i.e. `count / samples`) for the last completed set of samples.
+Calculate average count per sample for the last completed window: `lastSampleCount / sampleSize`.
 
-`stat.getAverageTime()`
+`stat.getSampleAverageCount()`
 
 
+
+### setSampleSize
+
+`stat.setSampleSize(samples)`
+
+Set a positive integer sample window before recording measurements. Totals update after that many counter or timing calls. Defaults to `1`.
+
+### reset
+
+`stat.reset()`
+
+Clear totals, sample data, and any pending timer. Preserve the name, type, and sample size. Mutating methods return the `Stat` instance for chaining.
+
+## Sampling properties
+
+- `samples`: total samples in completed windows.
+- `sampleSize`: number of measurements per window.
+- `lastSampleCount`: counter total for the last completed window.
+
+Average and frequency methods return `0` when there is no data to divide by.

@@ -4,7 +4,7 @@ A collection of statistics for tracking time or magnitude metrics.
 
 ## Usage
 
-Just create Stat objects (see `Stat` documentation) for various metrics.
+Use `get()` to create or retrieve a named [Stat](./stat.md).
 
 ```js
 import {Stats} from '@probe.gl/stats';
@@ -24,7 +24,7 @@ executionTime.timeEnd();
 `new Stats({id, stats})`
 
 * `id` (`String`) - the id of the `Stats` object.
-* `stats` (`Stat[] || Object[]`, optional) - the initial list of stats. Each element can be a `Stat` object or `{name, type}` (type is optional and defaults to `count`).
+* `stats` (`Stats | Stat[] | Object[]`, optional) - the initial list of stats. Each element can be a `Stat` object or `{name, type}` (type is optional and defaults to `count`).
 
 
 ### get
@@ -38,7 +38,7 @@ Retrieve a stat tracker. Create it if it doesn't already exist.
 
 Supported types are described in [Stat](/docs/modules/stats/stat)
 
-Returns the `Stat` object identified by `name`.
+Returns the `Stat` object identified by `name`. If it already exists, `type` does not change its formatter hint.
 
 
 ### reset
@@ -61,3 +61,9 @@ Iterate over all stats.
 Return stats in a format suitable for `console.table`
 
 `stats.getTable()`
+
+## Properties
+
+- `id`: collection identifier.
+- `stats`: dictionary of trackers keyed by name.
+- `size`: number of trackers.

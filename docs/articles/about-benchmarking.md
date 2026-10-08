@@ -1,28 +1,24 @@
-# About Benchmarking
+# Benchmarking
 
-probe.gl offers a `Bench` facility that makes it easy to create "micro-benchmarks" for optimization and regression testing purposes.
+A micro-benchmark measures a small function in isolation. Use `Bench` to group cases, measure throughput, and report results in browsers or Node.js.
 
-## Goals
+```js
+import {Bench} from '@probe.gl/bench';
 
-* Fast benchmarking - Benchmarks are intended to run frequently, with a configurable tradeoff between speed and precision.
-* Reporting - Provide custom formatters, or use built-in formatters such as the Markdown formatter.
-* Priority - Assign a priority to each bench case to enable a quick run of top-level test cases or a more detailed run with multiple variations.
-* Regression - Automatically stores values from previous runs and compares the current run against them.
-* Browser and Node - As always, probe.gl makes sure that your benchmarks will run under Node.js as well as in the browser (be aware that performance can differ quite a bit between the two).
+const bench = new Bench({
+  id: 'math',
+  iterations: undefined,
+  minIterations: 3,
+  time: 80
+});
+bench.group('Math').add('Math.sqrt', () => Math.sqrt(100));
+await bench.run();
+```
 
+The current default is one fixed measured call per case. Set `iterations: undefined` to use adaptive timing: batches grow until they reach the `time` target, and `minIterations` controls repeated batches. Increasing the target and repetitions can improve stability at the cost of longer runs.
 
-## What is a "Micro Benchmark"
+Use `addAsync()` for functions returning promises. Initialization and warmup can call your function before measurement, so cases should tolerate repeated execution.
 
-A micro benchmark is simply a function you supply, that will be run for a number of times with a timer to determine how many times per second it can be executed.
+Results depend on the runtime, JIT optimization, and other system activity. Compare repeated runs under similar conditions. Browser runs save results under the suite id and compare with prior maxima; this storage is not available in Node.js.
 
-
-## Structure of a Benchmark Suite
-
-Instantiate the `Bench` class to create a benchmark suite. Use `bench.group` to add headers and group cases, and `bench.add` to register individual benchmarks.
-
-Each test case runs until it reaches the suite's `time` target (80 milliseconds
-by default), and the suite repeats each case `minIterations` times (3 by
-default) to make the result more stable. These options can be set on the
-`Bench` constructor or overridden for an individual test case. Increasing
-`minIterations` improves the stability of the aggregate result at the cost of
-longer total execution time.
+See the [Bench reference](../modules/bench/bench.md) for options and custom reporting.

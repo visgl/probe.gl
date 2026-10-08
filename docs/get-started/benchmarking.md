@@ -10,7 +10,7 @@ npm install @probe.gl/bench
 ```js
 import {Bench} from '@probe.gl/bench';
 
-const bench = new Bench({id: 'math'});
+const bench = new Bench({id: 'math', iterations: undefined, minIterations: 3});
 bench
   .group('Math')
   .add('Math.sqrt', () => Math.sqrt(100));

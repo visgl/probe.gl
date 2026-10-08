@@ -1,15 +1,12 @@
 # BrowserTestDriver
 
-<p class="badges">
-  <img src="https://img.shields.io/badge/Node.js-v8.0-blue.svg?style=flat-square" alt="Node" />
-  <img src="https://img.shields.io/badge/Chrome-v64+-blue.svg?style=flat-square" alt="Node" />
-</p>
+
 
 A higher-level helper class that inherits [`BrowserDriver`](/docs/modules/test-utils/browser-driver). It is intended for automating browser tests from Node.js scripts.
 
 A `BrowserTestDriver` starts a Chromium browser instance and a server and opens a page with a URL that loads a script from the server. The script that runs in the browser is expected to report test results back using predefined global functions.
 
-To use this class, [puppeteer](https://www.npmjs.com/package/puppeteer) and [pixelmatch](https://www.npmjs.com/package/pixelmatch) must be installed as dev dependencies.
+To use this class, [puppeteer](https://www.npmjs.com/package/puppeteer) must be installed as a dev dependency. `pixelmatch` is included by `@probe.gl/test-utils`.
 
 ## Usage
 
@@ -17,7 +14,7 @@ In your node.js start script:
 
 ```js
 // This is the script that runs in Node.js and starts the browser
-const {BrowserTestDriver} = require('@probe.gl/test-utils');
+import {BrowserTestDriver} from '@probe.gl/test-utils';
 new BrowserTestDriver().run({
   server: {
     command: 'webpack-dev-server',
@@ -30,8 +27,6 @@ new BrowserTestDriver().run({
 In your script that is run on the browser:
 
 ```js
-// Polyfill so that the bundle can execute in browsers not controlled by puppeteer
-require('@probe.gl/test-utils/polyfill');
 // Run test cases
 ...
 // App is done running, terminate the browser instance
@@ -76,9 +71,9 @@ Parameters:
 * `exposeFunctions` (Object) - keys are function names to be added to the page's `window` object, and the values are callback functions to execute in Node.js. See [`page.exposeFunction`](https://pptr.dev/api/puppeteer.page.exposefunction) for details.
 * `url` (String) - if supplied, will be used instead of the URL returned by the dev server.
 * `maxConsoleMessageLength` (Number) - used in `headless: true` mode to crop log messages that are piped to the console. Default `500`.
-* `onStart` (Function) - callback when the page is ready and before the test starts running. Receives the following arguments:
+* `onStart` (Function) - callback when the page is ready and before the test starts running. Receives an object with the following fields:
   - `page` ([Puppeteer.Page](https://pptr.dev/api/puppeteer.page)) - the browser page instance
-* `onFinish` (Function) - callback when the test finishes running and the browser is about to close. Receives the following arguments:
+* `onFinish` (Function) - callback when the test finishes running and the browser is about to close. Receives an object with the following fields:
   - `page` ([Puppeteer.Page](https://pptr.dev/api/puppeteer.page)) - the browser page instance
   - `isSuccessful` (Boolean) - if all tests passed.
 
