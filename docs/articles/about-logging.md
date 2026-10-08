@@ -52,6 +52,6 @@ Additional arguments are passed to the console method, so objects remain inspect
 
 ## Timings and structured output
 
-`log.probe()` includes elapsed and delta timings. It also includes heap usage when the runtime exposes `performance.memory`. Use `time()` and `timeEnd()` for named console timers, `group()` and `groupEnd()` for related messages, and `table()` for tabular data. These methods also return functions that must be called.
+`log.probe()` includes elapsed time since the logger was created. It also includes heap usage when the runtime exposes `performance.memory`. Use `time()` and `timeEnd()` for named console timers, `group()` and `groupEnd()` for related messages, and `table()` for tabular data. These methods also return functions that must be called.
 
 See the [Log reference](../modules/log/log.md) for signatures and configuration.

@@ -136,8 +136,7 @@ Start a timer.
 
 ### timeEnd
 
-End a timer. Time elapsed since the last `timeStart` is
-added to `time` and `samples` is incremented by `1` when the sample window completes. If no timer is pending, this method does nothing.
+End a pending timer and record the elapsed milliseconds since `timeStart`. Each timing contributes one sample. When the window completes, its elapsed time is added to `time` and all pending samples are added to `samples`. For example, three timings with `sampleSize = 3` increase `samples` from `0` to `3` at once. If no timer is pending, this method does nothing.
 
 `stat.timeEnd()`
 
@@ -174,21 +173,21 @@ Calculate the average count per sampling (i.e. `count / samples`).
 
 ### getSampleHz
 
-Calculate the average number of timing events per second (i.e. `samples / (time / 1000)` for the last completed set of samples).
+Calculate timing events per second for the last completed window: `sampleSize / (lastSampleTime / 1000)`.
 
 `stat.getSampleHz()`
 
 
 ### getSampleAverageTime
 
-Calculate the average amount of time taken per timing event in milliseconds (i.e. `time / samples`) for the last completed set of samples.
+Calculate average milliseconds per timing event for the last completed window: `lastSampleTime / sampleSize`.
 
 `stat.getSampleAverageTime()`
 
 
 ### getSampleAverageCount
 
-Calculate the average count per sampling (i.e. `count / samples`) for the last completed set of samples.
+Calculate average count per sample for the last completed window: `lastSampleCount / sampleSize`.
 
 `stat.getSampleAverageCount()`
 
