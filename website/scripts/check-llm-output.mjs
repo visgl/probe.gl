@@ -1,6 +1,8 @@
 import {existsSync, readdirSync, readFileSync, statSync} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {unified} from 'unified';
+import remarkParse from 'remark-parse';
 
 const websiteDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const buildDirectory = path.join(websiteDirectory, 'build');
@@ -53,12 +55,20 @@ function findFiles(directory, extension) {
   return filePaths;
 }
 
+const markdownParser = unified().use(remarkParse);
+
 function extractMarkdownLinks(markdown) {
   const links = [];
-  const markdownLinkPattern = /!?\[[^\]]*\]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g;
-  for (const match of markdown.matchAll(markdownLinkPattern)) {
-    links.push(match[1].replace(/^<|>$/g, ''));
+  function visit(node) {
+    // Definitions supply destinations for full, collapsed, and shortcut references.
+    if (['link', 'image', 'definition'].includes(node.type)) {
+      links.push(node.url);
+    }
+    for (const child of node.children || []) {
+      visit(child);
+    }
   }
+  visit(markdownParser.parse(markdown));
   return links;
 }
 
@@ -115,19 +125,24 @@ if (llmsTxt.includes('/examples/')) {
   fail('llms.txt contains a standalone example page');
 }
 
-const requiredIndexLinks = [
-  'docs.md',
-  'docs/get-started.md',
-  'docs/articles/working-with-ai.md',
-  'docs/modules/log.md',
-  'docs/modules/stats.md',
-  'docs/modules/bench.md'
-].map((relativePath) => new URL(relativePath, websiteUrl).href);
-for (const link of requiredIndexLinks) {
-  if (!llmsTxt.includes(link)) {
-    fail(`llms.txt is missing ${link}`);
+// Use Docusaurus metadata rather than the generated Markdown as the coverage source.
+// Permalinks account for frontmatter slugs and the website's route normalization.
+const docsMetadataDirectory = path.join(
+  websiteDirectory, '.docusaurus/docusaurus-plugin-content-docs/default'
+);
+const currentDocs = findFiles(docsMetadataDirectory, '.json')
+  .map((filePath) => JSON.parse(readFileSync(filePath, 'utf8')))
+  .filter((doc) => doc.version === 'current' && doc.permalink && !doc.draft);
+if (currentDocs.length === 0) {
+  fail('missing current documentation route metadata');
+}
+for (const doc of currentDocs) {
+  const pathname = new URL(doc.permalink, websiteUrl).pathname.replace(/\/$/, '') + '.md';
+  const pageUrl = new URL(pathname, websiteUrl).href;
+  if (!llmsTxt.includes(pageUrl)) {
+    fail(`llms.txt is missing ${pageUrl}`);
   }
-  requireFile(stripWebsiteBasePath(new URL(link).pathname).replace(/^\/+/, ''));
+  requireFile(stripWebsiteBasePath(pathname).replace(/^\/+/, ''));
 }
 
 const markdownFiles = findFiles(buildDirectory, '.md');

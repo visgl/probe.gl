@@ -11,7 +11,8 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-heading-ids": "ocular-doc-headers ../docs",
-    "deploy": "docusaurus deploy"
+    "deploy": "docusaurus deploy",
+    "test:llm-output": "node --test scripts/check-llm-output.test.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.2",
@@ -26,7 +27,9 @@
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
-    "@types/react": "^19.2.18"
+    "@types/react": "^19.2.18",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5"
   },
   "browserslist": [
     ">0.2% and supports async-functions",
