@@ -6,7 +6,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "docusaurus build && node ./scripts/normalize-llm-output.mjs && node ./scripts/check-llm-output.mjs",
     "swizzle": "docusaurus swizzle",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
@@ -19,6 +19,7 @@
     "@fontsource-variable/space-grotesk": "^5.2.7",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@mdx-js/react": "^3.1.1",
+    "@signalwire/docusaurus-plugin-llms-txt": "^1.2.2",
     "@vis.gl/docusaurus-website": "2.0.0-alpha.6",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.8",

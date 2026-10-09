@@ -36,4 +36,35 @@ config.future = {
   faster: true
 };
 
+const websiteRoutePrefix = config.baseUrl.replace(/\/$/, '');
+config.plugins = [
+  ...(config.plugins || []),
+  [
+    '@signalwire/docusaurus-plugin-llms-txt',
+    {
+      siteTitle: 'probe.gl',
+      siteDescription:
+        'TypeScript logging, instrumentation, benchmarking and test utilities for browsers and Node.js.',
+      // Include the base path and nested module API routes in the index hierarchy.
+      depth: 5,
+      enableDescriptions: true,
+      includeOrder: ['/docs', '/docs/get-started/**', '/docs/articles/**', '/docs/modules/**'].map(
+        (route) => `${websiteRoutePrefix}${route}`
+      ),
+      onRouteError: 'throw',
+      content: {
+        enableMarkdownFiles: true,
+        enableLlmsFullTxt: false,
+        relativePaths: false,
+        includeBlog: false,
+        includePages: false,
+        includeDocs: true,
+        includeVersionedDocs: false,
+        includeGeneratedIndex: true,
+        excludeRoutes: [`${websiteRoutePrefix}/examples/**`]
+      }
+    }
+  ]
+];
+
 module.exports = config;
