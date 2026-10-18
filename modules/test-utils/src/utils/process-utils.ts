@@ -2,6 +2,7 @@ import ChildProcess from 'child_process';
 
 // Get an available port
 // Works on Unix systems
+/** @deprecated Use your test runner's server management instead. */
 export function getAvailablePort(defaultPort: number = 3000): Promise<number> {
   return new Promise((resolve) => {
     // Get a list of all ports in use

@@ -1,4 +1,4 @@
-import {isBrowser} from '@probe.gl/env';
+import {isBrowser} from 'probe.gl/env';
 
 export enum COLOR {
   BLACK = 30,

@@ -8,8 +8,8 @@ Create a `StatsWidget` HTML element to display tracked `Stats`. Each `Stat` can
 be associated with a `formatter` that indicates how it should be displayed.
 
 ```js
-import {Stats} from '@probe.gl/stats';
-import StatsWidget from '@probe.gl/stats-widget';
+import {Stats} from 'probe.gl/stats';
+import StatsWidget from 'probe.gl/stats-widget';
 
 const stats = new Stats({id: 'My stats'});
 const frames = stats.get('Frames');

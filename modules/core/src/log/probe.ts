@@ -1,4 +1,4 @@
-import {isBrowser, process, window} from '@probe.gl/env';
+import {isBrowser, process, window} from 'probe.gl/env';
 
 export class Probe {
   markdown?: boolean;

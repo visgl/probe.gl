@@ -11,7 +11,7 @@ Each test must be registered with a unique `id` which allows `Bench` to compare 
 ## Usage
 
 ```js
-import {Bench} from '@probe.gl/bench';
+import {Bench} from 'probe.gl/bench';
 
 const bench = new Bench()
   .group('Utility tests')

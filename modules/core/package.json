@@ -1,0 +1,55 @@
+{
+  "name": "probe.gl",
+  "version": "4.0.9",
+  "description": "Logging, instrumentation, statistics and benchmarking for browser and Node.js",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/visgl/probe.gl.git"
+  },
+  "types": "dist/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./log": {
+      "types": "./dist/log/index.d.ts",
+      "import": "./dist/log/index.js",
+      "require": "./dist/log/index.cjs"
+    },
+    "./env": {
+      "types": "./dist/env/index.d.ts",
+      "import": "./dist/env/index.js",
+      "require": "./dist/env/index.cjs"
+    },
+    "./stats": {
+      "types": "./dist/stats/index.d.ts",
+      "import": "./dist/stats/index.js",
+      "require": "./dist/stats/index.cjs"
+    },
+    "./stats-widget": {
+      "types": "./dist/stats-widget/index.d.ts",
+      "import": "./dist/stats-widget/index.js",
+      "require": "./dist/stats-widget/index.cjs"
+    },
+    "./bench": {
+      "types": "./dist/bench/index.d.ts",
+      "import": "./dist/bench/index.js",
+      "require": "./dist/bench/index.cjs"
+    },
+    "./bench-widget": {
+      "types": "./dist/bench-widget.d.ts",
+      "import": "./dist/bench-widget.js",
+      "require": "./dist/bench-widget.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ]
+}

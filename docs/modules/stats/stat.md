@@ -8,7 +8,7 @@ Create a `Stat` instance using `Stats.get`. There are two basic usage patterns, 
 `Timer` usage involves the methods `timeStart`, `timeEnd`, `addTime`, `getHz`, and `getAverageTime`:
 
 ```js
-import {Stats} from '@probe.gl/stats';
+import {Stats} from 'probe.gl/stats';
 
 const stats = new Stats({id: 'my-stats'});
 const executionTime = stats.get('Time');

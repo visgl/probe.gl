@@ -1,137 +1,55 @@
-/* eslint-disable react/prop-types, import/no-unresolved */
-import React, {Component, FC, PropsWithChildren} from 'react';
+import React, {Component, createRef} from 'react';
+import {BenchResultsWidget} from 'probe.gl/bench-widget';
+import type {BenchResult} from 'probe.gl/bench-widget';
 
-import ReactTable from 'react-table';
-// import '../react-table.css';
-
-function getPercent(score: number): number {
-  // Log scale between 100K - 100M, 0-3
-  const logScore = Math.min(Math.max(Math.log10(score) - 5, 0), 5);
-  const percent = Math.min(Math.max(logScore * 33.3333333, 5), 100);
-  return percent;
-}
-
-const GREEN = '#85cc00';
-const ORANGE = '#ffbf00';
-const RED = '#ff2e00';
-
-function Star() {
-  return <span style={{fontSize: '100%', color: 'yellow'}}>★</span>;
-}
-
-type BarCellProps = {color: string; percent: number; stars?: number};
-
-const BarCell: FC<PropsWithChildren<BarCellProps>> = ({color, percent, stars = 0, children}) => {
-  return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#dadada',
-        borderRadius: '2px'
-      }}
-    >
-      <div
-        style={{
-          width: `${percent}%`, // ` workaround chrome devtools formatting issue
-          height: '100%',
-          backgroundColor: color,
-          borderRadius: '2px',
-          transition: 'all .2s ease-out'
-        }}
-      >
-        {new Array(stars).fill(null).map((_, i) => (
-          <Star key={`${i}`} />
-        ))}
-        {children}
-      </div>
-    </div>
-  );
+/** Legacy records supported during migration to Bench log entries. */
+export type LegacyBenchResult = {
+  id: string;
+  value?: number;
+  formattedValue?: string;
+  formattedError?: string;
 };
 
-// eslint-disable-next-line react/prop-types
-function PerformanceBarCell({row}: {row: {score: number}}) {
-  // eslint-disable-next-line react/prop-types
-  const {score} = row;
-  const percent = getPercent(score);
-  // 1 star per 100M
-  const stars = Math.floor((score || 0) / 5e7);
-
-  let color = GREEN;
-  if (percent < getPercent(1e7)) {
-    color = ORANGE;
-  }
-  if (percent < getPercent(1e6)) {
-    color = RED;
-  }
-
-  return percent ? <BarCell color={color} percent={percent} stars={stars} /> : null;
-}
-
-type BenchResultsProps = {
-  log: any;
+export type BenchResultsProps = {
+  log: readonly LegacyBenchResult[];
 };
 
+/** @deprecated Use BenchResultsWidget from probe.gl/bench-widget. */
 export class BenchResults extends Component<BenchResultsProps> {
-  _renderTable() {
-    // eslint-disable-next-line react/prop-types
-    const {log} = this.props;
-    return (
-      <div>
-        <div style={{display: 'flex', height: 22}}>
-          <BarCell color={RED} percent={100}>
-            {' '}
-            &lt; 1M iterations/s
-          </BarCell>
-          <div style={{width: 20}} />
-          <BarCell color={ORANGE} percent={100}>
-            1M - 10M iterations/s
-          </BarCell>
-          <div style={{width: 20}} />
-          <BarCell color={GREEN} percent={100}>
-            &gt; 10M iterations/s
-          </BarCell>
-          <div style={{width: 20}} />
-          <BarCell color={GREEN} percent={100}>
-            <Star />
-            50M iterations/s
-          </BarCell>
-        </div>
-        <ReactTable
-          data={log}
-          columns={[
-            {
-              Header: 'Id',
-              accessor: 'id',
-              Cell: ({row}) =>
-                row.formattedValue ? (
-                  row.id
-                ) : (
-                  <h3>{row.id.replace(/@math\.gl\/[a-zA-Z]*: /, '')}</h3>
-                )
-            },
-            {
-              Header: 'iter/s',
-              accessor: 'formattedValue',
-              maxWidth: 85
-            },
-            {
-              Header: 'Score',
-              accessor: 'value',
-              id: 'score',
-              Cell: PerformanceBarCell,
-              maxWidth: 300
-            }
-          ]}
-          showPagination={false}
-          manual
-          className="-striped -highlight"
-        />
-      </div>
+  private container = createRef<HTMLDivElement>();
+  private widget: BenchResultsWidget | null = null;
+
+  override componentDidMount(): void {
+    if (this.container.current) {
+      this.widget = new BenchResultsWidget({container: this.container.current});
+      this.componentDidUpdate();
+    }
+  }
+
+  override componentDidUpdate(): void {
+    const records: BenchResult[] = this.props.log.map((record) =>
+      record.formattedValue === undefined
+        ? {type: 'group', id: record.id, message: record.id}
+        : {
+            type: 'test',
+            id: record.id,
+            message: record.id,
+            iterationsPerSecond: record.value ?? 0,
+            itersPerSecond: record.formattedValue,
+            unit: 'iterations',
+            error: parseFloat(record.formattedError || '0') / 100,
+            time: 0
+          }
     );
+    this.widget?.setProps({records});
+  }
+
+  override componentWillUnmount(): void {
+    this.widget?.destroy();
+    this.widget = null;
   }
 
   override render() {
-    return <div>{this._renderTable()}</div>;
+    return <div ref={this.container} />;
   }
 }

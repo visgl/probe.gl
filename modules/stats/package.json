@@ -1,6 +1,6 @@
 {
   "name": "@probe.gl/stats",
-  "description": "Stats object for reporting performance statistics",
+  "description": "Stats object for reporting performance statistics (compatibility package for probe.gl)",
   "license": "MIT",
   "type": "module",
   "version": "4.0.9",
@@ -30,5 +30,8 @@
     "dist",
     "src"
   ],
-  "gitHead": "95541d68783bfd50cbaf9b2a15b3cb41f1ff8284"
+  "gitHead": "95541d68783bfd50cbaf9b2a15b3cb41f1ff8284",
+  "dependencies": {
+    "probe.gl": "4.0.9"
+  }
 }

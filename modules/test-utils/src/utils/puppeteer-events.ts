@@ -37,6 +37,7 @@ async function functionKeysUp(page: Page, {shiftKey, ctrlKey, metaKey}) {
    }
  * keys:
  * https://github.com/GoogleChrome/puppeteer/blob/master/lib/USKeyboardLayout.js
+ * @deprecated Use Playwright or Puppeteer's input APIs directly instead.
  */
 export async function keypress(page: Page, event) {
   await functionKeysDown(page, event);
@@ -55,6 +56,7 @@ export async function keypress(page: Page, event) {
      ctrlKey: false,
      metaKey: false
    }
+ * @deprecated Use Playwright or Puppeteer's input APIs directly instead.
  */
 export async function click(page: Page, event) {
   await functionKeysDown(page, event);
@@ -72,6 +74,7 @@ export async function click(page: Page, event) {
      y: <number>,
      steps: 1
    }
+ * @deprecated Use Playwright or Puppeteer's input APIs directly instead.
  */
 export async function mousemove(page: Page, event) {
   await page.mouse.move(event.x, event.y, {
@@ -92,6 +95,7 @@ export async function mousemove(page: Page, event) {
      ctrlKey: false,
      metaKey: false
    }
+ * @deprecated Use Playwright or Puppeteer's input APIs directly instead.
  */
 export async function drag(page: Page, event) {
   await functionKeysDown(page, event);

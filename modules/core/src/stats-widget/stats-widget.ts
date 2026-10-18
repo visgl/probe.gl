@@ -1,7 +1,7 @@
 // Built on https://github.com/Erkaman/regl-stats-widget (MIT license)
 // widget styling constants.
 import {formatMemory, formatTime} from './format-utils';
-import {Stats, Stat} from '@probe.gl/stats';
+import {Stats, Stat} from 'probe.gl/stats';
 
 const RIGHT_ARROW = '\u25b6';
 const DOWN_ARROW = '\u2b07';

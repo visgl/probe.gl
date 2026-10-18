@@ -1,7 +1,5 @@
 # @probe.gl/react-bench
 
-A React component to run and visualize `@probe.gl/bench` benchmark suites.
+Deprecated compatibility adapter for the plain DOM `BenchResultsWidget` exported by `probe.gl/bench-widget`.
 
-[probe.gl](https://visgl.github.io/probe.gl/docs/) is a collection of JavaScript debugging, logging, instrumentation, benchmarking, and testing utilities.
-
-For documentation, visit the [probe.gl website](https://visgl.github.io/probe.gl/docs/).
+Existing `<BenchResults log={records} />` usage remains supported. New applications can embed the widget using a container ref and mount/update/unmount lifecycle methods, without installing this package. See the [widget and React integration guide](https://visgl.github.io/probe.gl/docs/modules/react-bench).

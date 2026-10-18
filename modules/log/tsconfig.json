@@ -1,7 +1,11 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"],
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "compilerOptions": {
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
@@ -11,6 +15,8 @@
     "outDir": "dist"
   },
   "references": [
-    {"path": "../env"}
+    {
+      "path": "../core"
+    }
   ]
 }

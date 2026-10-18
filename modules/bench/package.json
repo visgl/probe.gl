@@ -1,6 +1,6 @@
 {
   "name": "@probe.gl/bench",
-  "description": "JavaScript benchmarking utility",
+  "description": "JavaScript benchmarking utility (compatibility package for probe.gl)",
   "license": "MIT",
   "type": "module",
   "version": "4.0.9",
@@ -21,6 +21,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./widget": {
+      "types": "./dist/widget.d.ts",
+      "import": "./dist/widget.js",
+      "require": "./dist/widget.cjs"
     }
   },
   "files": [
@@ -28,7 +33,7 @@
     "src"
   ],
   "dependencies": {
-    "@probe.gl/log": "4.0.9"
+    "probe.gl": "4.0.9"
   },
   "gitHead": "95541d68783bfd50cbaf9b2a15b3cb41f1ff8284"
 }

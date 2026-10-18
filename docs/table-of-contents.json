@@ -34,7 +34,7 @@
     "items": [
       {
         "type": "category",
-        "label": "@probe.gl/log",
+        "label": "probe.gl/log",
         "items": [
           "modules/log/log",
           "modules/log/probe"
@@ -42,14 +42,14 @@
       },
       {
         "type": "category",
-        "label": "@probe.gl/env",
+        "label": "probe.gl/env",
         "items": [
           "modules/env"
         ]
       },
       {
         "type": "category",
-        "label": "@probe.gl/stats",
+        "label": "probe.gl/stats",
         "items": [
           "modules/stats/stat",
           "modules/stats/stats"
@@ -57,14 +57,14 @@
       },
       {
         "type": "category",
-        "label": "@probe.gl/stats-widget",
+        "label": "probe.gl/stats-widget",
         "items": [
           "modules/stats-widget/stats-widget"
         ]
       },
       {
         "type": "category",
-        "label": "@probe.gl/bench",
+        "label": "probe.gl/bench",
         "items": [
           "modules/bench/bench"
         ]
@@ -81,7 +81,7 @@
       },
       {
         "type": "category",
-        "label": "@probe.gl/react-bench",
+        "label": "BenchResultsWidget",
         "items": [
           "modules/react-bench"
         ]

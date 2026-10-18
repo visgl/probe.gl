@@ -1,6 +1,6 @@
 # Add logging and instrumentation
 
-The `@probe.gl/log` package exports a full-featured `ProbeLog` class, also
+The `probe.gl/log` package exports a full-featured `ProbeLog` class, also
 available as `Log`, plus a default logger instance. Logging methods return a
 function that should be called immediately. This extra call lets probe.gl
 avoid formatting messages when they are filtered out and preserves useful
@@ -9,7 +9,7 @@ source locations in browser developer tools.
 ## Install
 
 ```bash
-npm install @probe.gl/log
+npm install probe.gl
 ```
 
 ## Create a logger
@@ -17,7 +17,7 @@ npm install @probe.gl/log
 Use the default logger for simple applications:
 
 ```js
-import log from '@probe.gl/log';
+import log from 'probe.gl/log';
 
 log.info(0, 'Application started')();
 log.probe(1, 'Loaded data')();
@@ -27,7 +27,7 @@ For an application-specific logger, create a `Log` instance with an id. The
 id is also used as the key for persisted browser configuration:
 
 ```js
-import {Log} from '@probe.gl/log';
+import {Log} from 'probe.gl/log';
 
 const log = new Log({id: 'my-app'});
 log.enable();

@@ -7,7 +7,7 @@ A collection of statistics for tracking time or magnitude metrics.
 Use `get()` to create or retrieve a named [Stat](./stat.md).
 
 ```js
-import {Stats} from '@probe.gl/stats';
+import {Stats} from 'probe.gl/stats';
 
 const stats = new Stats({id: 'my-stats'});
 const memoryUsage = stats.get('Mem');

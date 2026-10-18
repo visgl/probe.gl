@@ -1,32 +1,68 @@
-# BenchResults
+# BenchResultsWidget
 
-`@probe.gl/react-bench` exports a React component for displaying benchmark records in a table with throughput bars.
+`probe.gl/bench-widget` displays benchmark results using plain DOM APIs. It has no React or table-library dependencies. Importing it is safe in Node and server-rendered applications; construct it only after a DOM container exists.
 
-```bash
-npm install @probe.gl/react-bench
+```ts
+import {Bench, type LogEntry} from 'probe.gl/bench';
+import {BenchResultsWidget} from 'probe.gl/bench-widget';
+
+const records: LogEntry[] = [];
+const widget = new BenchResultsWidget({container: document.body});
+const bench = new Bench({
+  log(entry) {
+    records.push(entry);
+    widget.setProps({records});
+  }
+});
+bench.add('square root', () => Math.sqrt(42));
+await bench.run();
+// When removing the view:
+widget.destroy();
 ```
 
-```jsx
-import {BenchResults} from '@probe.gl/react-bench';
+## API and records
 
-const records = [
-  {id: 'Math', value: 0},
-  {id: 'Math.sqrt', value: 1500000, formattedValue: '1.5M'}
-];
+- `new BenchResultsWidget({container, records?})` appends a widget to the supplied element.
+- `setProps({records})` replaces the displayed records. Call it after modifying an existing array too.
+- `destroy()` removes only the widget's elements. Repeated calls are safe; updates after destruction are ignored.
 
-export function Results() {
-  return <BenchResults log={records} />;
+`BenchResult`, exported from `/bench-widget`, is the benchmark runner's `LogEntry` union. Group records become headings, test records become result rows, and completion records are ignored. Test records include numeric `iterationsPerSecond` for bar sizing, formatted `itersPerSecond` for display, `unit`, fractional `error`, elapsed `time`, `id`, and `message`. No parsing of SI-formatted strings is needed.
+
+The table includes textual throughput and uncertainty in each value's tooltip. Decorative bars use a logarithmic scale; stars indicate 50M units/s each, capped at five. Styles inherit the application's font. Customize colors using `--probe-bench-color`, `--probe-bench-group-background`, `--probe-bench-track`, `--probe-bench-low`, `--probe-bench-medium`, and `--probe-bench-high` on the container.
+
+## React integration
+
+For React versions supporting hooks, an application-local wrapper is sufficient:
+
+```tsx
+import {useEffect, useRef} from 'react';
+import {BenchResultsWidget, type BenchResult} from 'probe.gl/bench-widget';
+
+export function BenchResults({records}: {records: readonly BenchResult[]}) {
+  const container = useRef<HTMLDivElement>(null);
+  const widget = useRef<BenchResultsWidget | null>(null);
+
+  useEffect(() => {
+    const instance = new BenchResultsWidget({container: container.current!});
+    widget.current = instance;
+    return () => {
+      instance.destroy();
+      widget.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    widget.current?.setProps({records});
+  }, [records]);
+
+  return <div ref={container} />;
 }
 ```
 
-## Props
+Supply a new records array when updating React state. React owns the empty container; the widget owns its children. Cleanup supports development remounts. Server rendering produces an empty container and the widget appears after mounting. In frameworks with server components, put this wrapper in a client component.
 
-`log` is an array of records:
+The runnable `examples/benchmarks` application demonstrates the equivalent class lifecycle integration, compatible with its existing React 16.3 dependency.
 
-| Field | Description |
-| --- | --- |
-| `id` | Row label. |
-| `value` | Numeric throughput in iterations per second, used by the bar. |
-| `formattedValue` | Display text for throughput. Omit it for a group heading. |
+## Migration from react-bench
 
-The component displays supplied data; it does not run benchmarks. `Bench` log callbacks emit a different record shape (`type`, `itersPerSecond`, and other fields). Convert those records to the fields above before passing them to this component.
+`@probe.gl/react-bench` remains a deprecated compatibility adapter for `<BenchResults log={legacyRecords} />`. It now delegates rendering to this widget and no longer depends on `react-table` or CSS loaders. New applications should import `/bench-widget` directly; React is not a dependency of `probe.gl/bench`.

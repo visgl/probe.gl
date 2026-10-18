@@ -1,5 +1,8 @@
 # @probe.gl/env
 
+Compatibility package. New applications should install `probe.gl` and import `probe.gl/env`.
+
+
 JavaScript environment detection for browser and Node
 
 [probe.gl](https://visgl.github.io/probe.gl/docs/) is a collection of JavaScript debugging, logging, instrumentation, benchmarking, and testing utilities.

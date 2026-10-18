@@ -8,6 +8,7 @@ import ChildProcess from 'child_process';
 import {COLOR, Log} from '@probe.gl/log';
 import {getAvailablePort} from '../utils/process-utils';
 
+/** @deprecated Use Playwright or your test runner's browser support instead. */
 export type BrowserDriverProps = {
   id?: string;
 };
@@ -17,6 +18,7 @@ type ServerInstance = {
   stop: () => void;
 };
 
+/** @deprecated Use Playwright or your test runner's browser support instead. */
 export type ServerConfiguration = {
   command?: string;
   arguments?: string[];
@@ -33,6 +35,7 @@ type PuppeteerLaunchOptions = Parameters<typeof puppeteer.launch>[0];
 
 function noop() {} // eslint-disable-line @typescript-eslint/no-empty-function
 
+/** @deprecated Use Playwright or your test runner's browser support instead. */
 export default class BrowserDriver {
   readonly id: string;
   logger: Log;

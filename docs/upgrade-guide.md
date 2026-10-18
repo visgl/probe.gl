@@ -1,5 +1,23 @@
 # Upgrade Guide
 
+## Consolidated package (unreleased)
+
+Install `probe.gl` and replace scoped imports with the corresponding flat export path:
+
+| Previous import | New import |
+| --- | --- |
+| `@probe.gl/log` | `probe.gl/log` (also exported from `probe.gl`) |
+| `@probe.gl/env` | `probe.gl/env` |
+| `@probe.gl/stats` | `probe.gl/stats` (also exported from `probe.gl`) |
+| `@probe.gl/stats-widget` | `probe.gl/stats-widget` |
+| `@probe.gl/bench` | `probe.gl/bench` |
+| `@probe.gl/bench/widget` | `probe.gl/bench-widget` |
+
+The scoped packages remain compatibility re-exports, so old and new imports share implementations within each module format. The root exports logging and statistics only. Benchmarking and widgets require explicit subpath imports. There are no React or other external runtime dependencies in `probe.gl`.
+
+`@probe.gl/react-bench` remains a separate legacy React adapter, and `@probe.gl/test-utils` remains a separate testing package. The following sections describe earlier releases.
+
+
 ## Upgrading to v4.0
 
 

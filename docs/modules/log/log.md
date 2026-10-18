@@ -9,7 +9,7 @@ A console wrapper with configurable log levels, instrumentation, and browser-fri
 
 ## Logger implementations
 
-`@probe.gl/log` exports several logger classes:
+`probe.gl/log` exports several logger classes:
 
 - `ProbeLog` is the full-featured logger with log levels, persistence, and formatting controls. It is exported as `Log` and provided as the default instance export. (It was previously named `ConsoleLog`.)
 - `ConsoleLog` is a minimal wrapper around the runtime `console`, intended for situations where you want the `Logger` interface without configuration or persistence.
@@ -20,21 +20,21 @@ A console wrapper with configurable log levels, instrumentation, and browser-fri
 ## Installing
 
 ```
-npm install @probe.gl/log
+npm install probe.gl
 ```
 
 ## Usage
 
 Create a new Log
 ```js
-import {Log} from '@probe.gl/log';
+import {Log} from 'probe.gl/log';
 const log = new Log({id: 'my-app'});
 log.log(0, 'Hello world')();  // The second call emits the message.
 ```
 
 Add color (only affects output in Node.js)
 ```js
-import {Log, COLOR} from '@probe.gl/log';
+import {Log, COLOR} from 'probe.gl/log';
 const log = new Log({id: 'my-app'});
 log.log({message: 'Hello world', color: COLOR.GREEN})();
 ```
@@ -48,7 +48,7 @@ log.log(2, () => `Loaded ${items.length} items`)();
 
 ## Probe API
 
-`@probe.gl/log` exports a singleton `probe` instance. Its constructor is installed as `globalThis.Probe`; it is not a named package export. See the [timing helper reference](./probe.md).
+`probe.gl/log` exports a singleton `probe` instance. Its constructor is installed as `globalThis.Probe`; it is not a named package export. See the [timing helper reference](./probe.md).
 
 ### getHighResolutionTimer
 
@@ -95,7 +95,7 @@ The `message` argument can be a string or a function returning a string.
 ### Colors
 
 To get access to color definitions:
-`import {COLOR} from '@probe.gl/log'`
+`import {COLOR} from 'probe.gl/log'`
 
 Available colors:
 * `COLOR.BLACK`, `COLOR.RED`, `COLOR.GREEN`, `COLOR.YELLOW`, `COLOR.BLUE`, `COLOR.MAGENTA`, `COLOR.CYAN`, `COLOR.WHITE`

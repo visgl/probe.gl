@@ -29,6 +29,7 @@ type BrowserTestDriverProps = {
   onFinish?: (params: {page: Page; isSuccessful: boolean}) => void | Promise<void>;
 };
 
+/** @deprecated Use Playwright or your test runner's browser support instead. */
 export type DiffImagesOpts = DiffImagesOptions & {
   goldenImage: string;
   region?: any;
@@ -36,7 +37,10 @@ export type DiffImagesOpts = DiffImagesOptions & {
   saveAs?: string;
 };
 
-/** @todo this seems like just a light repackaging of the underlying result type. Reuse or better separation of types? */
+/**
+ * @todo this seems like just a light repackaging of the underlying result type. Reuse or better separation of types?
+ * @deprecated Use Playwright or your test runner's browser support instead.
+ */
 export type DiffImageResult = {
   headless: boolean;
   match: string | number;
@@ -45,7 +49,10 @@ export type DiffImageResult = {
   error: Error | string | null;
 };
 
-/** A test driver that starts a browser instance and runs tests inside it */
+/**
+ * A test driver that starts a browser instance and runs tests inside it
+ * @deprecated Use Playwright or your test runner's browser support instead.
+ */
 export default class BrowserTestDriver extends BrowserDriver {
   title: string = '';
   headless: boolean = false;

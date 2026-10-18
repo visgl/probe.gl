@@ -17,6 +17,7 @@ interface Spy {
  * - `reset()` - reset call count
  * - `callCount` - number of calls
  * - `called` - whether spy was called
+ * @deprecated Use your test framework's spy utilities instead.
  */
 export function makeSpy(obj, func): Spy {
   let methodName;
