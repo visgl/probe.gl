@@ -34,7 +34,7 @@
     "test-headless": "ocular-test headless",
     "test-node": "ocular-test node",
     "test-fast": "ocular-lint && ocular-test node",
-    "test-package": "node scripts/test-package-exports.mjs"
+    "test-package": "node scripts/test-package-exports.mjs && node scripts/test-package-types.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",

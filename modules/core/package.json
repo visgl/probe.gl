@@ -51,5 +51,27 @@
   "files": [
     "dist",
     "src"
-  ]
+  ],
+  "typesVersions": {
+    "*": {
+      "log": [
+        "dist/log/index.d.ts"
+      ],
+      "env": [
+        "dist/env/index.d.ts"
+      ],
+      "stats": [
+        "dist/stats/index.d.ts"
+      ],
+      "stats-widget": [
+        "dist/stats-widget/index.d.ts"
+      ],
+      "bench": [
+        "dist/bench/index.d.ts"
+      ],
+      "bench-widget": [
+        "dist/bench-widget.d.ts"
+      ]
+    }
+  }
 }
