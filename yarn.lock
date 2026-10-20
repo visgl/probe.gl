@@ -2044,7 +2044,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/bench@workspace:modules/bench"
   dependencies:
-    probe.gl: "npm:4.0.9"
+    probe.gl: "npm:5.0.0"
   languageName: unknown
   linkType: soft
 
@@ -2052,15 +2052,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/env@workspace:modules/env"
   dependencies:
-    probe.gl: "npm:4.0.9"
+    probe.gl: "npm:5.0.0"
   languageName: unknown
   linkType: soft
 
-"@probe.gl/log@npm:4.0.9, @probe.gl/log@workspace:modules/log":
+"@probe.gl/log@npm:5.0.0, @probe.gl/log@workspace:modules/log":
   version: 0.0.0-use.local
   resolution: "@probe.gl/log@workspace:modules/log"
   dependencies:
-    probe.gl: "npm:4.0.9"
+    probe.gl: "npm:5.0.0"
   languageName: unknown
   linkType: soft
 
@@ -2070,7 +2070,7 @@ __metadata:
   dependencies:
     "@types/react": "npm:^19.2.7"
   peerDependencies:
-    probe.gl: ^4.0.9
+    probe.gl: ^5.0.0
     react: ^16.3.0
     react-dom: ^16.3.0
   languageName: unknown
@@ -2080,7 +2080,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/stats-widget@workspace:modules/stats-widget"
   dependencies:
-    probe.gl: "npm:4.0.9"
+    probe.gl: "npm:5.0.0"
   languageName: unknown
   linkType: soft
 
@@ -2088,15 +2088,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@probe.gl/stats@workspace:modules/stats"
   dependencies:
-    probe.gl: "npm:4.0.9"
+    probe.gl: "npm:5.0.0"
   languageName: unknown
   linkType: soft
 
-"@probe.gl/test-utils@npm:4.0.9, @probe.gl/test-utils@workspace:modules/test-utils":
+"@probe.gl/test-utils@npm:5.0.0, @probe.gl/test-utils@workspace:modules/test-utils":
   version: 0.0.0-use.local
   resolution: "@probe.gl/test-utils@workspace:modules/test-utils"
   dependencies:
-    "@probe.gl/log": "npm:4.0.9"
+    "@probe.gl/log": "npm:5.0.0"
     "@types/pngjs": "npm:^6.0.1"
     pixelmatch: "npm:^4.0.2"
   peerDependencies:
@@ -3882,7 +3882,7 @@ __metadata:
   dependencies:
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
     "@esbuild-plugins/node-modules-polyfill": "npm:^0.2.2"
-    "@probe.gl/test-utils": "npm:4.0.9"
+    "@probe.gl/test-utils": "npm:5.0.0"
     nyc: "npm:^15.1.0"
     tape: "npm:^4.5.1"
     typescript: "npm:^6.0.3"
@@ -3895,7 +3895,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "browser-test-webpack-example@workspace:examples/browser-test-webpack"
   dependencies:
-    "@probe.gl/test-utils": "npm:4.0.9"
+    "@probe.gl/test-utils": "npm:5.0.0"
     html-webpack-plugin: "npm:^5.6.0"
     path-browserify: "npm:1.0.1"
     process: "npm:0.11.10"
@@ -10154,7 +10154,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "probe.gl-benchmark-example@workspace:examples/benchmarks"
   dependencies:
-    probe.gl: "npm:4.0.9"
+    probe.gl: "npm:5.0.0"
     react: "npm:^16.3.0"
     react-dom: "npm:^16.3.0"
     typescript: "npm:^6.0.3"
@@ -10183,7 +10183,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"probe.gl@npm:4.0.9, probe.gl@workspace:modules/core":
+"probe.gl@npm:5.0.0, probe.gl@workspace:modules/core":
   version: 0.0.0-use.local
   resolution: "probe.gl@workspace:modules/core"
   languageName: unknown
@@ -11628,7 +11628,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "stats-wdiget-example@workspace:examples/stats-widget"
   dependencies:
-    probe.gl: "npm:4.0.9"
+    probe.gl: "npm:5.0.0"
     react: "npm:^16.3.0"
     react-dom: "npm:^16.3.0"
     typescript: "npm:^6.0.3"

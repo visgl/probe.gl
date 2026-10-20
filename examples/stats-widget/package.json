@@ -1,6 +1,6 @@
 {
   "name": "stats-wdiget-example",
-  "version": "4.0.9",
+  "version": "5.0.0",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -9,7 +9,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "probe.gl": "4.0.9",
+    "probe.gl": "5.0.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
   },

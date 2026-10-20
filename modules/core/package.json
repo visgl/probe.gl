@@ -1,6 +1,6 @@
 {
   "name": "probe.gl",
-  "version": "4.0.9",
+  "version": "5.0.0",
   "description": "Logging, instrumentation, statistics and benchmarking for browser and Node.js",
   "license": "MIT",
   "type": "module",

@@ -1,6 +1,6 @@
 # Upgrade Guide
 
-## Consolidated package (unreleased)
+## Upgrading to v5.0
 
 Install `probe.gl` and replace scoped imports with the corresponding flat export path:
 

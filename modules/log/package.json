@@ -3,7 +3,7 @@
   "description": "JavaScript debug logging for browser and Node (compatibility package for probe.gl)",
   "license": "MIT",
   "type": "module",
-  "version": "4.0.9",
+  "version": "5.0.0",
   "keywords": [
     "javascript",
     "profiling",
@@ -30,7 +30,7 @@
   ],
   "browser": {},
   "dependencies": {
-    "probe.gl": "4.0.9"
+    "probe.gl": "5.0.0"
   },
   "gitHead": "95541d68783bfd50cbaf9b2a15b3cb41f1ff8284"
 }
