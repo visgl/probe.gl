@@ -1,5 +1,8 @@
 # enableDOMLogging (experimental)
 
+> **Deprecated:** All `@probe.gl/test-utils` exports are deprecated and retained for compatibility. Use your test framework's spies, browser automation, screenshot assertions, and reporting for new code.
+
+
 A utility that takes console output and display a copy in the dom for easy debugging. Inspired by [tap-browser-color](https://github.com/kirbysayshi/tap-browser-color).
 
 

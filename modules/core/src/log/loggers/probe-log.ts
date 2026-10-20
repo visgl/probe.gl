@@ -3,7 +3,7 @@
 // Copyright (c) vis.gl contributors
 
 /* eslint-disable no-console,prefer-rest-params */
-import {VERSION, isBrowser} from '@probe.gl/env';
+import {VERSION, isBrowser} from 'probe.gl/env';
 import {LogFunction} from './logger';
 import {BaseLog, NormalizedLogArguments, noop} from './base-log';
 import {LocalStorage} from '../utils/local-storage';

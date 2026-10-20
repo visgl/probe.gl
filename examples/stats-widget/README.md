@@ -1,4 +1,4 @@
-This is a standalone web app using `@probe.gl/stats-widget`.
+This is a standalone web app using `probe.gl/stats-widget`.
 
 ### Usage
 

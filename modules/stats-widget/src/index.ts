@@ -1,4 +1,3 @@
-export {default as StatsWidget} from './stats-widget';
-
-// TODO - skip default exports from top-level modules (e.g. esmodules don't support default exports)
-export {default} from './stats-widget';
+// Compatibility entry point. New applications can import probe.gl/stats-widget.
+export * from 'probe.gl/stats-widget';
+export {StatsWidget as default} from 'probe.gl/stats-widget';

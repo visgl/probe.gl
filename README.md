@@ -14,18 +14,28 @@
 
 probe.gl is a collection of JavaScript debugging, logging, instrumentation, benchmarking, and testing utilities for browser and Node.js applications.
 
-The library is published as separately installable `@probe.gl/*` packages. See the [documentation](https://visgl.github.io/probe.gl/docs/) for module guides and API references.
+Install the dependency-free runtime package:
 
 ```bash
-npm install @probe.gl/log
+npm install probe.gl
 ```
 
-The main packages are:
+```ts
+import {Log, Stats} from 'probe.gl';
+import {isBrowser} from 'probe.gl/env';
+import {Bench} from 'probe.gl/bench';
+import {BenchResultsWidget} from 'probe.gl/bench-widget';
+import {StatsWidget} from 'probe.gl/stats-widget';
+```
 
-- `@probe.gl/log` — configurable console logging and instrumentation
-- `@probe.gl/env` — browser, Node.js, Electron, and device detection
-- `@probe.gl/stats` — counters and timing statistics
-- `@probe.gl/stats-widget` — a DOM widget for displaying statistics
-- `@probe.gl/bench` — benchmark suites and regression comparisons
-- `@probe.gl/react-bench` — React components for benchmark results
-- `@probe.gl/test-utils` — browser automation and testing helpers
+The root exports logging and statistics. Focused entry points are `probe.gl/log`,
+`probe.gl/env`, `probe.gl/stats`, `probe.gl/stats-widget`, `probe.gl/bench`, and
+`probe.gl/bench-widget`. Importing the root does not load benchmarks or widgets.
+Widget modules can be imported in Node; create widgets only when a DOM exists.
+
+Existing `@probe.gl/log`, `@probe.gl/env`, `@probe.gl/stats`,
+`@probe.gl/stats-widget`, and `@probe.gl/bench` packages remain compatibility
+re-exports of the same implementations. The legacy React adapter and
+`@probe.gl/test-utils` remain separate packages.
+
+See the [documentation](https://visgl.github.io/probe.gl/docs/) for guides and API references.

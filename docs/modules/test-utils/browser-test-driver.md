@@ -1,5 +1,8 @@
 # BrowserTestDriver
 
+> **Deprecated:** All `@probe.gl/test-utils` exports are deprecated and retained for compatibility. Use your test framework's spies, browser automation, screenshot assertions, and reporting for new code.
+
+
 
 
 A higher-level helper class that inherits [`BrowserDriver`](/docs/modules/test-utils/browser-driver). It is intended for automating browser tests from Node.js scripts.

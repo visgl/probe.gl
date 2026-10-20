@@ -4,7 +4,7 @@
 debugging is useful, expose the logger from your application during startup:
 
 ```js
-import log from '@probe.gl/log';
+import log from 'probe.gl/log';
 
 window.appLog = log;
 ```

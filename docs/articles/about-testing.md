@@ -1,5 +1,8 @@
 # About Testing
 
+> **Deprecated:** All `@probe.gl/test-utils` exports are deprecated and retained for compatibility. Use your test framework's spies, browser automation, screenshot assertions, and reporting for new code.
+
+
 probe.gl provides a set of test utilities intended to facilitate typical testing tasks.
 
 

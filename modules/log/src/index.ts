@@ -1,27 +1,3 @@
-import {ProbeLog} from './loggers/probe-log';
-
-// Probe instance
-export {probe} from './probe';
-
-// DEFAULT EXPORT IS A LOG INSTANCE
-export default new ProbeLog({id: '@probe.gl/log'});
-
-// LOGGING
-export type {Logger} from './loggers/logger';
-export {ProbeLog, ProbeLog as Log} from './loggers/probe-log';
-export {ConsoleLog} from './loggers/console-log';
-export {BaseLog} from './loggers/base-log';
-export type {MemoryLogMessage} from './loggers/memory-log';
-export {MemoryLog} from './loggers/memory-log';
-
-// UTILITIES
-export {COLOR} from './utils/color';
-export {addColor} from './utils/color';
-export {leftPad, rightPad} from './utils/formatters';
-export {autobind} from './utils/autobind';
-export {LocalStorage} from './utils/local-storage';
-
-// DEPRECATED EXPORTS
-export {getHiResTimestamp} from './deprecated/hi-res-timestamp';
-
-import './init';
+// Compatibility entry point. New applications can import probe.gl/log.
+export * from 'probe.gl/log';
+export {log as default} from 'probe.gl/log';

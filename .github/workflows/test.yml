@@ -48,6 +48,9 @@ jobs:
       - name: Install Playwright Chromium
         run: yarn playwright install --with-deps chromium
 
+      - name: Verify published package exports
+        run: yarn test-package
+
       - name: Run Node tests
         run: yarn test-node
 

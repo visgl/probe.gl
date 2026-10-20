@@ -1,5 +1,8 @@
 # BrowserDriver
 
+> **Deprecated:** All `@probe.gl/test-utils` exports are deprecated and retained for compatibility. Use your test framework's spies, browser automation, screenshot assertions, and reporting for new code.
+
+
 
 
 A Chrome browser test automation driver based on the [Chrome DevTools protocol](https://chromedevtools.github.io/devtools-protocol/) via [`puppeteer`](https://pptr.dev/). The `BrowserDriver` class is primarily intended for automating browser-based applications from Node.js scripts.

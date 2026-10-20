@@ -1,13 +1,13 @@
 # Environment utilities
 
-`@probe.gl/env` provides runtime detection and references to globals for shared browser and Node.js code.
+`probe.gl/env` provides runtime detection and references to globals for shared browser and Node.js code.
 
 ```bash
-npm install @probe.gl/env
+npm install probe.gl
 ```
 
 ```js
-import {isBrowser, isElectron, getBrowser} from '@probe.gl/env';
+import {isBrowser, isElectron, getBrowser} from 'probe.gl/env';
 
 if (isBrowser()) {
   console.log(getBrowser());

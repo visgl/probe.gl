@@ -3,6 +3,7 @@ import fs from 'fs';
 import {PNG} from 'pngjs';
 import pixelmatch from 'pixelmatch';
 
+/** @deprecated Use your test runner's screenshot assertions or pixelmatch directly instead. */
 export type DiffImagesOptions = {
   threshold?: number; // 0.99,
   createDiffImage?: boolean; // false,
@@ -11,6 +12,7 @@ export type DiffImagesOptions = {
   includeEmpty?: boolean; // true
 };
 
+/** @deprecated Use your test runner's screenshot assertions or pixelmatch directly instead. */
 export type DiffImagesResult = {
   success: boolean;
   error?: string;
@@ -22,6 +24,7 @@ export type DiffImagesResult = {
   options: unknown;
 };
 
+/** @deprecated Use your test runner's screenshot assertions or pixelmatch directly instead. */
 export default async function diffImages(
   source1: string | Buffer,
   source2: string,

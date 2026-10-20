@@ -1,14 +1,14 @@
 # Benchmarking
 
-Use `@probe.gl/bench` to group related micro-benchmarks and run them as a
+Use `probe.gl/bench` to group related micro-benchmarks and run them as a
 suite:
 
 ```bash
-npm install @probe.gl/bench
+npm install probe.gl
 ```
 
 ```js
-import {Bench} from '@probe.gl/bench';
+import {Bench} from 'probe.gl/bench';
 
 const bench = new Bench({id: 'math', iterations: undefined, minIterations: 3});
 bench

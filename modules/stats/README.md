@@ -1,5 +1,8 @@
 # @probe.gl/stats
 
+Compatibility package. New applications should install `probe.gl` and import `probe.gl/stats`.
+
+
 Counters and timing statistics for JavaScript applications.
 
 [probe.gl](https://visgl.github.io/probe.gl/docs/) is a collection of JavaScript debugging, logging, instrumentation, benchmarking, and testing utilities.

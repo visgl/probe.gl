@@ -5,6 +5,7 @@ let old: typeof console.log | null = null;
 
 // Can log a (not too long) number of messages to a div in the DOM
 // Set options to false to disable
+/** @deprecated Use console logging or your test runner's reporting instead. */
 export function enableDOMLogging(options = {}): void {
   // First time, add a log div
   if (options && !old) {
@@ -43,4 +44,5 @@ function logLineToDOM(options, message: string): void {
   }
 }
 
+/** @deprecated Use console logging or your test runner's reporting instead. */
 export default enableDOMLogging;

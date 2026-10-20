@@ -106,3 +106,16 @@ nodeTest('Bench#maxTimeMs caps total case time', async () => {
   expect(callCount, 'stops iterating once maxTimeMs is reached').toBeLessThan(50);
   expect(duration, 'returns promptly when hitting the max time budget').toBeLessThan(500);
 });
+
+nodeTest('Bench emits numeric throughput alongside display formatting', async () => {
+  const log = vi.fn();
+  const bench = new Bench({log});
+  bench.addAsync('numeric result', async () => {
+    await new Promise((resolve) => setTimeout(resolve, 5));
+  });
+  await bench.run();
+  const entry = log.mock.calls.map(([record]) => record).find((record) => record.type === 'test');
+  expect(entry.iterationsPerSecond).toBeGreaterThan(0);
+  expect(Number.isFinite(entry.iterationsPerSecond)).toBe(true);
+  expect(typeof entry.itersPerSecond).toBe('string');
+});

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import type {LogEntry} from './bench';
-import {rightPad} from '@probe.gl/log';
+import {rightPad} from 'probe.gl/log';
 
 export function logResultsAsMarkdownTable(logEntry: LogEntry): void {
   const COL1 = 50;

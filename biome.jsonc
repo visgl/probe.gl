@@ -55,7 +55,7 @@
   },
   "overrides": [
     {
-      "includes": ["modules/log/src/utils/local-storage.ts"],
+      "includes": ["modules/log/src/utils/local-storage.ts", "modules/core/src/log/utils/local-storage.ts"],
       "linter": {
         "rules": {
           "correctness": {
@@ -75,7 +75,7 @@
       }
     },
     {
-      "includes": ["modules/stats/src/lib/stats.ts", "modules/seer/src/api.ts"],
+      "includes": ["modules/stats/src/lib/stats.ts", "modules/core/src/stats/lib/stats.ts", "modules/seer/src/api.ts"],
       "formatter": {
         "enabled": false
       }

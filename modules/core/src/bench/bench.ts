@@ -1,7 +1,7 @@
 // probe.gl, MIT license
 
 /* eslint-disable no-console */
-import {autobind, LocalStorage, getHiResTimestamp} from '@probe.gl/log';
+import {autobind, LocalStorage, getHiResTimestamp} from 'probe.gl/log';
 import {formatSI} from './format-utils';
 import {mean, cv} from './stat-utils';
 import {logResultsAsMarkdownTable, logResultsAsTree} from './bench-loggers';
@@ -73,6 +73,8 @@ export type TestLogEntry = {
   type: 'test';
   id: string;
   message: string;
+  /** Numeric throughput, before display formatting. */
+  iterationsPerSecond: number;
   itersPerSecond: string;
   unit: string;
   error: number;
@@ -367,6 +369,7 @@ async function runTest({
   if (!silent) {
     logEntry(bench.props.log, testCase, {
       type: 'test',
+      iterationsPerSecond,
       itersPerSecond,
       time,
       error,
