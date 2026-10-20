@@ -1,6 +1,6 @@
 {
   "name": "probe.gl-benchmark-example",
-  "version": "4.0.9",
+  "version": "5.0.0",
   "description": "Plain DOM benchmark widget embedded in React",
   "license": "MIT",
   "private": true,
@@ -10,7 +10,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "probe.gl": "4.0.9",
+    "probe.gl": "5.0.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
   },
