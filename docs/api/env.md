@@ -28,4 +28,4 @@ Browser detection uses runtime markers and user-agent heuristics. Prefer checkin
 
 ## Global references
 
-The package exports `self`, `window`, `global`, `document`, `process`, and `console`. `self`, `window`, and `global` reference `globalThis`; `document` and `process` fall back to empty objects when unavailable. These references do not polyfill DOM or Node.js APIs.
+This entry point exports `self`, `window`, `global`, `document`, `process`, and `console`. `self`, `window`, and `global` reference `globalThis`; `document` and `process` fall back to empty objects when unavailable. These references do not polyfill DOM or Node.js APIs.

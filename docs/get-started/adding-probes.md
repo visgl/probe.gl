@@ -1,6 +1,6 @@
 # Add logging and instrumentation
 
-The `probe.gl/log` package exports a full-featured `ProbeLog` class, also
+The `probe.gl/log` entry point exports a full-featured `ProbeLog` class, also
 available as `Log`, plus a default logger instance. Logging methods return a
 function that should be called immediately. This extra call lets probe.gl
 avoid formatting messages when they are filtered out and preserves useful
