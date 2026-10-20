@@ -6,11 +6,11 @@ sidebar_label: Introduction
 
 probe.gl is a modular TypeScript toolbox for **logging**, **instrumentation**, and **benchmarking** in JavaScript applications. Start with a logger, then add counters, timers, or benchmark suites as needed.
 
-The core utilities run in browsers and Node.js. The stats widget requires a DOM, and browser automation runs from Node.js. probe.gl has no WebGL dependency.
+The core utilities run in browsers and Node.js. The widgets require a DOM when constructed. probe.gl has no WebGL dependency.
 
 ## Modules
 
-Install `probe.gl` and import the entry points your application needs. Testing utilities remain a separate package.
+Install `probe.gl` and import the entry points your application needs. Version 5 no longer includes the former testing utilities.
 
 | Module | Description |
 | --- | --- |
