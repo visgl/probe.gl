@@ -15,7 +15,7 @@ Install `probe.gl` and replace scoped imports with the corresponding flat export
 
 Version 5 publishes only `probe.gl`; scoped compatibility packages are no longer included. The root exports logging and statistics only. Benchmarking and widgets require explicit subpath imports. There are no React or other external runtime dependencies in `probe.gl`.
 
-`@probe.gl/react-bench`, `@probe.gl/test-utils`, and `seer` are removed from the v5 release. Replace the React adapter with the [DOM widget integration](./modules/react-bench.md#react-integration). Use your test framework's spies and browser automation in place of test-utils. Previously published versions remain on npm. The following sections describe earlier releases.
+`@probe.gl/react-bench`, `@probe.gl/test-utils`, and `seer` are removed from the v5 release. Replace the React adapter with the [DOM widget integration](./api/bench-widget.md#react-integration). Use your test framework's spies and browser automation in place of test-utils. Previously published versions remain on npm. The following sections describe earlier releases.
 
 
 ## Upgrading to v4.0

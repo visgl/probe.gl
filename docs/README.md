@@ -8,18 +8,18 @@ probe.gl is a modular TypeScript toolbox for **logging**, **instrumentation**, a
 
 The core utilities run in browsers and Node.js. The widgets require a DOM when constructed. probe.gl has no WebGL dependency.
 
-## Modules
+## Export entry points
 
 Install `probe.gl` and import the entry points your application needs. Version 5 no longer includes the former testing utilities.
 
-| Module | Description |
+| Entry point | Description |
 | --- | --- |
-| [`probe.gl/log`](./modules/log/log.md) | Console logging with levels, persistent settings, and timing output. |
-| [`probe.gl/env`](./modules/env.md) | Runtime detection and portable global references. |
-| [`probe.gl/stats`](./modules/stats/stats.md) | Counters and timing statistics. |
-| [`probe.gl/stats-widget`](./modules/stats-widget/stats-widget.md) | A DOM widget for displaying statistics. |
-| [`probe.gl/bench`](./modules/bench/bench.md) | Benchmark suites and comparisons with saved browser results. |
-| [`probe.gl/bench-widget`](./modules/react-bench.md) | A plain DOM benchmark results table, with React integration. |
+| [`probe.gl/log`](./api/log.md) | Console logging with levels, persistent settings, and timing output. |
+| [`probe.gl/env`](./api/env.md) | Runtime detection and portable global references. |
+| [`probe.gl/stats`](./api/stats.md) | Counters and timing statistics. |
+| [`probe.gl/stats-widget`](./api/stats-widget.md) | A DOM widget for displaying statistics. |
+| [`probe.gl/bench`](./api/bench.md) | Benchmark suites and comparisons with saved browser results. |
+| [`probe.gl/bench-widget`](./api/bench-widget.md) | A plain DOM benchmark results table, with React integration. |
 
 ## Quick start
 

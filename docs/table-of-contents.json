@@ -24,7 +24,6 @@
     "items": [
       "articles/about-logging",
       "articles/about-benchmarking",
-      "articles/about-testing",
       "articles/working-with-ai"
     ]
   },
@@ -32,48 +31,49 @@
     "type": "category",
     "label": "API Reference",
     "items": [
+      "api/index",
       {
         "type": "category",
         "label": "probe.gl/log",
         "items": [
-          "modules/log/log",
-          "modules/log/probe"
+          "api/log",
+          "api/probe"
         ]
       },
       {
         "type": "category",
         "label": "probe.gl/env",
         "items": [
-          "modules/env"
+          "api/env"
         ]
       },
       {
         "type": "category",
         "label": "probe.gl/stats",
         "items": [
-          "modules/stats/stat",
-          "modules/stats/stats"
+          "api/stat",
+          "api/stats"
         ]
       },
       {
         "type": "category",
         "label": "probe.gl/stats-widget",
         "items": [
-          "modules/stats-widget/stats-widget"
+          "api/stats-widget"
         ]
       },
       {
         "type": "category",
         "label": "probe.gl/bench",
         "items": [
-          "modules/bench/bench"
+          "api/bench"
         ]
       },
       {
         "type": "category",
-        "label": "BenchResultsWidget",
+        "label": "probe.gl/bench-widget",
         "items": [
-          "modules/react-bench"
+          "api/bench-widget"
         ]
       }
     ]

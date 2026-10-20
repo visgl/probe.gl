@@ -1,4 +1,4 @@
-# StatsWidget
+# probe.gl/stats-widget
 
 A DOM widget that displays counters and timings from a probe.gl `Stats` object.
 
@@ -55,7 +55,7 @@ Set Stats object rendered by the widget.
 
 Parameters:
 
-* `stats` (`Stats`) - [`Stats`](/docs/modules/stats) object.
+* `stats` (`Stats`) - [`Stats`](/docs/api/stats) object.
 
 
 ### update

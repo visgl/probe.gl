@@ -1,4 +1,4 @@
-# BenchResultsWidget
+# probe.gl/bench-widget
 
 `probe.gl/bench-widget` displays benchmark results using plain DOM APIs. It has no React or table-library dependencies. Importing it is safe in Node and server-rendered applications; construct it only after a DOM container exists.
 

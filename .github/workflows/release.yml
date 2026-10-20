@@ -58,6 +58,10 @@ jobs:
         working-directory: modules/core
         run: npm pack --dry-run
 
+      - name: Select npm distribution tag
+        id: distribution
+        run: node scripts/get-release-tag.mjs >> "$GITHUB_OUTPUT"
+
       - name: Publish probe.gl with npm trusted publishing
         working-directory: modules/core
-        run: npm publish --access public --provenance
+        run: npm publish --access public --provenance --tag "${{ steps.distribution.outputs.tag }}"

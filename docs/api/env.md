@@ -1,4 +1,4 @@
-# Environment utilities
+# probe.gl/env
 
 `probe.gl/env` provides runtime detection and references to globals for shared browser and Node.js code.
 

@@ -1,4 +1,4 @@
-# Stats
+# probe.gl/stats
 
 A collection of statistics for tracking time or magnitude metrics.
 
@@ -36,7 +36,7 @@ Retrieve a stat tracker. Create it if it doesn't already exist.
 * `name` (`String`, required) - the name of the stat tracker.
 * `type` (`String`, optional) - the type of the stat tracker. Default is `count`.
 
-Supported types are described in [Stat](/docs/modules/stats/stat)
+Supported types are described in [Stat](/docs/api/stat)
 
 Returns the `Stat` object identified by `name`. If it already exists, `type` does not change its formatter hint.
 

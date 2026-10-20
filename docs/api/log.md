@@ -1,4 +1,4 @@
-# Log
+# probe.gl/log
 
 A console wrapper with configurable log levels, instrumentation, and browser-friendly output.
 * Safely exposes advanced features of Chrome and Firefox console APIs, as well as Node.js color logging, by providing fallbacks for missing methods in other environments.

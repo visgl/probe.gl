@@ -18,14 +18,14 @@ when migrating older versions. Install `probe.gl` for v5 and use flat entry poin
 - [Logging and instrumentation](../get-started/adding-probes.md) explains log levels
   and configuration. Logging methods return a function: call the second pair of
   parentheses to emit output, for example `log.info('Ready')()`.
-- [Stats](../modules/stats/stats.md) and [Stat](../modules/stats/stat.md) describe
+- [Stats](../api/stats.md) and [Stat](../api/stat.md) describe
   counters, timing, and sample windows. Check the documented units when displaying
   elapsed times or comparing measurements.
 - [Benchmarking](../get-started/benchmarking.md) and
-  [Bench](../modules/bench/bench.md) explain benchmark suites. Compare results under
+  [Bench](../api/bench.md) explain benchmark suites. Compare results under
   the same runtime and workload and account for warmup and measurement variability.
-- [Environment utilities](../modules/env.md) describe portable runtime detection.
-  The [stats widget](../modules/stats-widget/stats-widget.md) requires a DOM when constructed.
+- [Environment utilities](../api/env.md) describe portable runtime detection.
+  The [stats widget](../api/stats-widget.md) requires a DOM when constructed.
 
 ## Verify changes in the repository
 

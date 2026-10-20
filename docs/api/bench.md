@@ -1,4 +1,4 @@
-# Bench
+# probe.gl/bench
 
 Bench is a benchmark harness that allows you to organize a number of
 benchmarks or performance tests into a benchmark suite that can be executed
