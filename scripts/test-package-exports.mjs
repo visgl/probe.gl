@@ -21,19 +21,9 @@ for (const load of [async (name) => require(name), async (name) => import(name)]
   assert.equal(main.Log, log.Log);
   assert.equal(main.default, log.default);
   assert.equal(main.Stats, (await load('probe.gl/stats')).Stats);
-  for (const [oldName, newName] of [
-    ['@probe.gl/env', 'probe.gl/env'],
-    ['@probe.gl/log', 'probe.gl/log'],
-    ['@probe.gl/stats', 'probe.gl/stats'],
-    ['@probe.gl/stats-widget', 'probe.gl/stats-widget'],
-    ['@probe.gl/bench', 'probe.gl/bench'],
-    ['@probe.gl/bench/widget', 'probe.gl/bench-widget']
-  ]) {
-    const legacy = await load(oldName);
-    const current = await load(newName);
-    for (const key of Object.keys(current)) {
-      if (key !== '__esModule') assert.equal(legacy[key], current[key], `${oldName}: ${key}`);
-    }
+  for (const name of ['env', 'stats-widget', 'bench', 'bench-widget']) {
+    const entry = await load(`probe.gl/${name}`);
+    assert.ok(Object.keys(entry).length > 0, `${name} exports are present`);
   }
 }
-console.log('All flat ESM/CommonJS exports load without a DOM; compatibility identities match.');
+console.log('All flat ESM/CommonJS exports load without a DOM; root identities match.');

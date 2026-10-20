@@ -1,3 +1,5 @@
+> **Removed in v5:** This page documents the historical `seer` package, which is no longer included in this repository or release.
+
 # Seer API
 
 This library provides an abstraction around the [Window.postMessage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)

@@ -65,4 +65,4 @@ The runnable `examples/benchmarks` application demonstrates the equivalent class
 
 ## Migration from react-bench
 
-`@probe.gl/react-bench` remains a deprecated compatibility adapter for `<BenchResults log={legacyRecords} />`. It now delegates rendering to this widget and no longer depends on `react-table` or CSS loaders. New applications should import `/bench-widget` directly; React is not a dependency of `probe.gl/bench`.
+`@probe.gl/react-bench` is removed in v5. Replace `<BenchResults log={legacyRecords} />` with an application-local wrapper around `BenchResultsWidget`, as shown above. React is not a dependency of `probe.gl`.

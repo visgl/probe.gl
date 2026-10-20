@@ -71,16 +71,6 @@
       },
       {
         "type": "category",
-        "label": "@probe.gl/test-utils",
-        "items": [
-          "modules/test-utils/browser-driver",
-          "modules/test-utils/browser-test-driver",
-          "modules/test-utils/make-spy",
-          "modules/test-utils/log-to-dom"
-        ]
-      },
-      {
-        "type": "category",
         "label": "BenchResultsWidget",
         "items": [
           "modules/react-bench"

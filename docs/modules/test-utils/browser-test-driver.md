@@ -1,6 +1,6 @@
 # BrowserTestDriver
 
-> **Deprecated:** All `@probe.gl/test-utils` exports are deprecated and retained for compatibility. Use your test framework's spies, browser automation, screenshot assertions, and reporting for new code.
+> **Removed in v5:** This page documents the historical `@probe.gl/test-utils` package. It is no longer included in this repository or release. Use your test framework's spies, browser automation, screenshot assertions, and reporting for new code.
 
 
 

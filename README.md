@@ -1,18 +1,18 @@
 <p align="right">
-  <a href="https://www.npmjs.com/package/@probe.gl/log">
-    <img src="https://img.shields.io/npm/v/%40probe.gl%2Flog.svg?style=flat-square" alt="version" />
+  <a href="https://www.npmjs.com/package/probe.gl">
+    <img src="https://img.shields.io/npm/v/probe.gl.svg?style=flat-square" alt="version" />
   </a>
   <a href="https://github.com/visgl/probe.gl/actions/workflows/test.yml?query=branch%3Amaster">
     <img src="https://github.com/visgl/probe.gl/actions/workflows/test.yml/badge.svg?branch=master" alt="build" />
   </a>
-  <a href="https://www.npmjs.com/package/@probe.gl/log">
-    <img src="https://img.shields.io/npm/dm/%40probe.gl%2Flog.svg?style=flat-square" alt="downloads" />
+  <a href="https://www.npmjs.com/package/probe.gl">
+    <img src="https://img.shields.io/npm/dm/probe.gl.svg?style=flat-square" alt="downloads" />
   </a>
 </p>
 
 <h1 align="center">probe.gl | <a href="https://visgl.github.io/probe.gl/docs/">Docs</a></h1>
 
-probe.gl is a collection of JavaScript debugging, logging, instrumentation, benchmarking, and testing utilities for browser and Node.js applications.
+probe.gl is a collection of JavaScript debugging, logging, instrumentation, and benchmarking utilities for browser and Node.js applications.
 
 Install the dependency-free runtime package:
 
@@ -33,9 +33,8 @@ The root exports logging and statistics. Focused entry points are `probe.gl/log`
 `probe.gl/bench-widget`. Importing the root does not load benchmarks or widgets.
 Widget modules can be imported in Node; create widgets only when a DOM exists.
 
-Existing `@probe.gl/log`, `@probe.gl/env`, `@probe.gl/stats`,
-`@probe.gl/stats-widget`, and `@probe.gl/bench` packages remain compatibility
-re-exports of the same implementations. The legacy React adapter and
-`@probe.gl/test-utils` remain separate packages.
+Version 5 publishes only `probe.gl`. The former scoped packages and `seer` are
+removed from this release. Migrate scoped imports to the flat entry points above;
+use the DOM widget directly for React integration.
 
 See the [documentation](https://visgl.github.io/probe.gl/docs/) for guides and API references.

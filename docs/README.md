@@ -20,7 +20,6 @@ Install `probe.gl` and import the entry points your application needs. Testing u
 | [`probe.gl/stats-widget`](./modules/stats-widget/stats-widget.md) | A DOM widget for displaying statistics. |
 | [`probe.gl/bench`](./modules/bench/bench.md) | Benchmark suites and comparisons with saved browser results. |
 | [`probe.gl/bench-widget`](./modules/react-bench.md) | A plain DOM benchmark results table, with React integration. |
-| [`@probe.gl/test-utils`](./articles/about-testing.md) | Function spies and Puppeteer-based browser automation. |
 
 ## Quick start
 
@@ -45,4 +44,4 @@ See [logging and instrumentation](./get-started/adding-probes.md) for configurat
 
 probe.gl supports local debugging and performance measurement. It does not provide a service for collecting or shipping production logs. Logger settings persist in browser storage; importing `probe.gl/log` also installs the timing helper as `globalThis.probe` and its constructor as `globalThis.Probe`.
 
-The consolidated `probe.gl` package provides the entry points above. Existing scoped packages remain compatibility re-exports; see the [upgrade guide](./upgrade-guide.md) for migration details.
+The consolidated `probe.gl` package provides the entry points above. Version 5 publishes only `probe.gl`; see the [upgrade guide](./upgrade-guide.md) for migration details.

@@ -5,7 +5,7 @@
 ## Emit a message
 
 ```js
-import {Log} from '@probe.gl/log';
+import {Log} from 'probe.gl/log';
 
 const log = new Log({id: 'my-app'});
 log.setLevel(1);

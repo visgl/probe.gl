@@ -1,6 +1,8 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
-  "extends": ["@vis.gl/dev-tools/biome.jsonc"],
+  "extends": [
+    "@vis.gl/dev-tools/biome.jsonc"
+  ],
   "files": {
     "includes": [
       "modules/**/*.js",
@@ -55,7 +57,9 @@
   },
   "overrides": [
     {
-      "includes": ["modules/log/src/utils/local-storage.ts", "modules/core/src/log/utils/local-storage.ts"],
+      "includes": [
+        "modules/core/src/log/utils/local-storage.ts"
+      ],
       "linter": {
         "rules": {
           "correctness": {
@@ -65,17 +69,9 @@
       }
     },
     {
-      "includes": ["modules/react-bench/src/components/bench-results.tsx"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noUnusedImports": "off"
-          }
-        }
-      }
-    },
-    {
-      "includes": ["modules/stats/src/lib/stats.ts", "modules/core/src/stats/lib/stats.ts", "modules/seer/src/api.ts"],
+      "includes": [
+        "modules/core/src/stats/lib/stats.ts"
+      ],
       "formatter": {
         "enabled": false
       }
