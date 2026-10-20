@@ -19,7 +19,7 @@ for (const name of await readdir(new URL('../modules/', import.meta.url))) {
         format: 'cjs',
         target: 'node16',
         packages: 'external',
-        external: ['probe.gl', 'probe.gl/*', '@probe.gl/*'],
+        external: ['probe.gl', 'probe.gl/*'],
         sourcemap: true,
         sourcesContent: false
       });

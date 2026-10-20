@@ -84,7 +84,7 @@ export default function IndexPage() {
         </HomeHero>
         <TextContainer>
           <h2>
-          JavaScript Console Logging, Instrumentation, Benchmarking and Test Utilities.
+          JavaScript Console Logging, Instrumentation, Statistics and Benchmarking.
           </h2>
           <hr className="short" />
 

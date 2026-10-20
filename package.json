@@ -23,10 +23,8 @@
   },
   "scripts": {
     "bootstrap": "yarn && ocular-bootstrap && yarn build",
-    "build": "ocular-clean && npx lerna run build && ocular-build && node scripts/build-cjs-entrypoints.mjs",
+    "build": "ocular-clean && ocular-build && node scripts/build-cjs-entrypoints.mjs",
     "lint": "ocular-lint",
-    "publish-prod": "ocular-publish version-only-prod",
-    "publish-beta": "ocular-publish version-only-beta",
     "cover": "ocular-test headless --coverage",
     "playwright:install": "playwright install chromium",
     "test": "ocular-test node headless",
@@ -34,7 +32,7 @@
     "test-headless": "ocular-test headless",
     "test-node": "ocular-test node",
     "test-fast": "ocular-lint && ocular-test node",
-    "test-package": "node scripts/test-package-exports.mjs && node scripts/test-package-types.mjs"
+    "test-package": "node scripts/check-release-package.mjs && node scripts/test-package-exports.mjs && node scripts/test-package-types.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",
@@ -46,7 +44,6 @@
     "jsdom": "^30.0.1",
     "playwright": "^1.62.1",
     "pre-commit": "^2.0.0",
-    "puppeteer": "^25.9.0",
     "typescript": "^6.0.3",
     "vite": "^8.2.0",
     "vite-plugin-node-polyfills": "^0.28.0",

@@ -10,23 +10,22 @@ to your task. Both are generated from the website sources on each production bui
 Check the application's package manifest, lockfile, and installed declarations before
 using an API. The website describes current documentation; an older installed
 package may expose a different API. See the [upgrade guide](../upgrade-guide.md)
-when migrating older versions. Install scoped packages such as `@probe.gl/log` or
-`@probe.gl/stats`; the legacy unscoped `probe.gl` package was removed in v4.
+when migrating older versions. Install `probe.gl` for v5 and use flat entry points such as `probe.gl/log` and
+`probe.gl/stats`. The scoped packages are no longer part of the release.
 
 ## Choose the relevant documentation
 
 - [Logging and instrumentation](../get-started/adding-probes.md) explains log levels
   and configuration. Logging methods return a function: call the second pair of
   parentheses to emit output, for example `log.info('Ready')()`.
-- [Stats](../modules/stats/stats.md) and [Stat](../modules/stats/stat.md) describe
+- [Stats](../api/stats.md) and [Stat](../api/stat.md) describe
   counters, timing, and sample windows. Check the documented units when displaying
   elapsed times or comparing measurements.
 - [Benchmarking](../get-started/benchmarking.md) and
-  [Bench](../modules/bench/bench.md) explain benchmark suites. Compare results under
+  [Bench](../api/bench.md) explain benchmark suites. Compare results under
   the same runtime and workload and account for warmup and measurement variability.
-- [Environment utilities](../modules/env.md) describe portable runtime detection.
-  The [stats widget](../modules/stats-widget/stats-widget.md) requires a DOM;
-  [browser automation](../modules/test-utils/browser-driver.md) runs from Node.js.
+- [Environment utilities](../api/env.md) describe portable runtime detection.
+  The [stats widget](../api/stats-widget.md) requires a DOM when constructed.
 
 ## Verify changes in the repository
 

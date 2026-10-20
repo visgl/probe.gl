@@ -5,7 +5,7 @@ A wrapper that calls `console.log()` internally usually makes developer tools li
 probe.gl returns a bound console function. Calling it immediately keeps the console invocation in application code:
 
 ```js
-import {Log} from '@probe.gl/log';
+import {Log} from 'probe.gl/log';
 
 const log = new Log({id: 'my-app'});
 log.log(1, 'Data loaded')();

@@ -15,13 +15,8 @@ import {Stats as SubpathStats} from 'probe.gl/stats';
 import {StatsWidget} from 'probe.gl/stats-widget';
 import {Bench} from 'probe.gl/bench';
 import {BenchResultsWidget} from 'probe.gl/bench-widget';
-import oldLog, {Log as OldLog} from '@probe.gl/log';
-import {isBrowser as oldIsBrowser} from '@probe.gl/env';
-import {Stats as OldStats} from '@probe.gl/stats';
-import {StatsWidget as OldStatsWidget} from '@probe.gl/stats-widget';
-import {Bench as OldBench} from '@probe.gl/bench';
 export {log, Log, Stats, Stat, isBrowser, SubpathLog, SubpathStats, StatsWidget,
-  Bench, BenchResultsWidget, oldLog, OldLog, oldIsBrowser, OldStats, OldStatsWidget, OldBench};
+  Bench, BenchResultsWidget};
 `);
   for (const moduleResolution of [ts.ModuleResolutionKind.Node10, ts.ModuleResolutionKind.Bundler]) {
     const program = ts.createProgram([fixture], {
@@ -41,7 +36,7 @@ export {log, Log, Stats, Stat, isBrowser, SubpathLog, SubpathStats, StatsWidget,
       getNewLine: () => '\n'
     }));
   }
-  console.log('Flat and scoped package declarations pass legacy and bundler TypeScript resolution.');
+  console.log('Flat package declarations pass legacy and bundler TypeScript resolution.');
 } finally {
   await rm(directory, {recursive: true, force: true});
 }

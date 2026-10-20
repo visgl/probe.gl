@@ -4,7 +4,7 @@ const {themes} = require('prism-react-renderer');
 
 const config = getDocusaurusConfig({
   projectName: 'probe.gl',
-  tagline: 'JavaScript Console Logging, Instrumentation, Benchmarking and Test Utilities',
+  tagline: 'JavaScript Console Logging, Instrumentation, Statistics and Benchmarking',
   siteUrl: 'https://visgl.github.io/probe.gl',
   repoUrl: 'https://github.com/visgl/probe.gl',
 
@@ -44,11 +44,11 @@ config.plugins = [
     {
       siteTitle: 'probe.gl',
       siteDescription:
-        'TypeScript logging, instrumentation, benchmarking and test utilities for browsers and Node.js.',
-      // Include the base path and nested module API routes in the index hierarchy.
+        'TypeScript logging, instrumentation, statistics and benchmarking for browsers and Node.js.',
+      // Include the base path and subpath API routes in the index hierarchy.
       depth: 5,
       enableDescriptions: true,
-      includeOrder: ['/docs', '/docs/get-started/**', '/docs/articles/**', '/docs/modules/**'].map(
+      includeOrder: ['/docs', '/docs/get-started/**', '/docs/articles/**', '/docs/api/**'].map(
         (route) => `${websiteRoutePrefix}${route}`
       ),
       onRouteError: 'throw',

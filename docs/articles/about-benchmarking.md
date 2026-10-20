@@ -3,7 +3,7 @@
 A micro-benchmark measures a small function in isolation. Use `Bench` to group cases, measure throughput, and report results in browsers or Node.js.
 
 ```js
-import {Bench} from '@probe.gl/bench';
+import {Bench} from 'probe.gl/bench';
 
 const bench = new Bench({
   id: 'math',
@@ -21,4 +21,4 @@ Use `addAsync()` for functions returning promises. Initialization and warmup can
 
 Results depend on the runtime, JIT optimization, and other system activity. Compare repeated runs under similar conditions. Browser runs save results under the suite id and compare with prior maxima; this storage is not available in Node.js.
 
-See the [Bench reference](../modules/bench/bench.md) for options and custom reporting.
+See the [Bench reference](../api/bench.md) for options and custom reporting.

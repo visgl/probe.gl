@@ -1,9 +1,9 @@
 # Install probe.gl
 
-Install the package or packages you need. For example, to add logging:
+Install `probe.gl` once, then import the subpaths your application needs:
 
 ```bash
 npm install probe.gl
 ```
 
-See the [overview](/docs/) for the available modules.
+See the [overview](/docs/) for the available export entry points.

@@ -1,6 +1,6 @@
 // probe.gl, MIT license
 
-import type {Bench} from '@probe.gl/bench';
+import type {Bench} from 'probe.gl/bench';
 
 // TODO - dummy benchmark - should replace with log related benchmark
 const arr = [1, 1, 1, 1];

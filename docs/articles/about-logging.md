@@ -5,7 +5,7 @@
 ## Emit a message
 
 ```js
-import {Log} from '@probe.gl/log';
+import {Log} from 'probe.gl/log';
 
 const log = new Log({id: 'my-app'});
 log.setLevel(1);
@@ -54,4 +54,4 @@ Additional arguments are passed to the console method, so objects remain inspect
 
 `log.probe()` includes elapsed time since the logger was created. It also includes heap usage when the runtime exposes `performance.memory`. Use `time()` and `timeEnd()` for named console timers, `group()` and `groupEnd()` for related messages, and `table()` for tabular data. These methods also return functions that must be called.
 
-See the [Log reference](../modules/log/log.md) for signatures and configuration.
+See the [Log reference](../api/log.md) for signatures and configuration.

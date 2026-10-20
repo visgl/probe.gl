@@ -19,5 +19,5 @@ await bench.run();
 ```
 
 Use `addAsync` for benchmarks that return promises. See the [benchmarking
-guide](/docs/articles/about-benchmarking) and [`Bench` API reference](/docs/modules/bench)
+guide](/docs/articles/about-benchmarking) and [`Bench` API reference](/docs/api/bench)
 for iteration, timing, and reporting options.

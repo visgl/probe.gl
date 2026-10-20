@@ -5,18 +5,18 @@
 **Consolidated package**
 - `probe.gl` now provides logging, environment helpers, statistics, widgets, and benchmarks through the flat `/log`, `/env`, `/stats`, `/stats-widget`, `/bench`, and `/bench-widget` export paths.
 - The root exports logging and statistics. Benchmarking and widgets use explicit subpath imports, and the package has no external runtime dependencies, including React.
-- Existing scoped packages remain compatibility re-exports. See the [v5.0 upgrade guide](./upgrade-guide.md#upgrading-to-v50) for the import mapping.
+- Only `probe.gl` is published in v5; the scoped packages and `seer` have been removed. See the [v5.0 upgrade guide](./upgrade-guide.md#upgrading-to-v50) for the import mapping.
 
 **Benchmark results widget**
 - `BenchResultsWidget` renders typed benchmark results with plain DOM APIs and supports updating records and cleaning up the widget.
-- Benchmark test records include numeric `iterationsPerSecond` alongside formatted throughput. The [widget documentation](./modules/react-bench.md) includes a React integration example.
-- `@probe.gl/react-bench` remains a separate legacy React adapter.
+- Benchmark test records include numeric `iterationsPerSecond` alongside formatted throughput. The [widget documentation](./api/bench-widget.md) includes a React integration example.
+- `@probe.gl/react-bench` is removed; React applications can wrap the DOM widget.
 
 **Test utilities**
-- All public `@probe.gl/test-utils` exports are marked `@deprecated`. The package remains available separately for existing users.
+- `@probe.gl/test-utils` is removed from the v5 release. Use your test framework's spies, browser automation, and screenshot assertions instead.
 
 **Logging**
-- [`probe` timing helper](./modules/log/probe.md) - New helper offering portable high-resolution timing and integer-megabyte heap usage methods.
+- [`probe` timing helper](./api/probe.md) - New helper offering portable high-resolution timing and integer-megabyte heap usage methods.
 - `log.probe()` now also logs current JS heap usage (in integer MB) when `performance.memory.usedJSHeapSize` is available.
 
 ## v4.1
